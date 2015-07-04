@@ -16,9 +16,9 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = "5.0"
   s.osx.deployment_target = "10.7"
-  s.source       = { :git => "https://github.com/zhu410289616/RHSocketKit.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/zhu410289616/RHSocketKit.git", :tag => s.version.to_s }
   s.source_files  = "RHSocketKit/Extend/*.{h,m}", "RHSocketKit/Core/*.{h,m}"
   s.requires_arc = true
-  s.dependency 'CocoaAsyncSocket', '~> 7.4.1' #项目依赖的其他库，如果有多个需要填写多个s.dependency
+  s.dependency 'CocoaAsyncSocket', '~> 7.4.1'
 
 end
