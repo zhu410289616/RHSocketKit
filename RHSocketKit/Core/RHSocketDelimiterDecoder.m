@@ -47,7 +47,7 @@
                 NSInteger frameLen = i - headIndex;
                 NSData *frameData = [_receiveData subdataWithRange:NSMakeRange(headIndex, frameLen)];
                 RHPacketFrame *frame = [[RHPacketFrame alloc] initWithData:frameData];
-                [output didDecode:frame tag:0];
+                [output didDecode:frame tag:tag];
                 headIndex = i + 1;
             }
         }
