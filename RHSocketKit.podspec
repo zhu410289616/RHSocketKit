@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RHSocketKit"
-  s.version      = "1.0.1"
+  s.version      = "1.0.3"
   s.summary      = "RHSocketKit: A socket kit based on CocoaAsyncSocket."
 
   s.description  = <<-DESC
@@ -89,7 +89,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "RHSocketKit/Core/*.{h,m}"
+  s.source_files  = "RHSocketKit/Extend/*.{h,m}", "RHSocketKit/Core/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
