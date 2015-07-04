@@ -150,9 +150,9 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 #pragma mark -
 #pragma mark RHSocketDecoderOutputDelegate method
 
-- (void)didDecode:(id<RHSocketPacketContent>)packet tag:(NSInteger)tag
+- (void)didDecode:(id<RHSocketPacket>)packet tag:(NSInteger)tag
 {
-    NSDictionary *userInfo = @{@"RHSocketPacketBody":packet, @"tag":@(tag)};
+    NSDictionary *userInfo = @{@"RHSocketPacket":packet, @"tag":@(tag)};
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketResponse object:nil userInfo:userInfo];
 }
 

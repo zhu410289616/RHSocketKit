@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><umlet_diagram><help_text>// Uncomment the following line to change the fontsize:
+// fontsize=14
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on UML elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold ⌘ to select multiple elements
+// Use ⌘+mouse to select via lasso
+//
+// Use ± or ⌘+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press ⌘+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>15</zoom_level><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>360</y><w>735</w><h>210</h></coordinates><panel_attributes>RHSocketEncoderProtocol
+--
+@required
+- (void)encodePacket:(id&lt;RHSocketPacketContent&gt;)packet 
+          encoderOutput:(id&lt;RHSocketEncoderOutputDelegate&gt;)output;
+--
+待发送数据的编码协议
+packet：满足数据包协议的待编码对象
+output：满足编码完成后输出协议的输出对象
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>75</x><y>0</y><w>585</w><h>255</h></coordinates><panel_attributes>RHSocketEncoderOutputDelegate
+--
+@required
+- (void)didEncode:(NSData *)data 
+               timeout:(NSTimeInterval)timeout 
+                      tag:(NSInteger)tag;
+--
+待发送数据被编码完成后的输出协议：
+data：编码完成后的二进制数据
+timeout：发送数据设置的超时时间，为－1时没有超时限制
+tag：当前发送的数据流标记tag。默认为0</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>15</x><y>645</y><w>615</w><h>180</h></coordinates><panel_attributes>RHSocketDelimiterEncoder
+--
+@property (nonatomic, assign) NSUInteger maxFrameSize;
+@property (nonatomic, assign) uint8_t delimiter;
+--
+基于分隔符的编码器，实现了RHSocketEncoderProtocol协议
+maxFrameSize：每帧数据包的最大长度，防止数据包过大溢出
+delimiter：每帧数据包的分隔符标记
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>285</x><y>525</y><w>75</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>45;45;45;120</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>285</x><y>210</y><w>75</w><h>180</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>45;45;45;150</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>960</x><y>0</y><w>600</w><h>210</h></coordinates><panel_attributes>RHSocketDecoderOutputDelegate
+--
+@required
+- (void)didDecode:(id&lt;RHSocketPacketContent&gt;)packet 
+                      tag:(NSInteger)tag;
+--
+解码完成后的输出协议，在这里处理数据的分发
+packet：解码完成后的数据包
+tag：当前数据流的标记，默认为0
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>900</x><y>285</y><w>765</w><h>255</h></coordinates><panel_attributes>RHSocketDecoderProtocol
+--
+@required
+- (NSUInteger)decodeData:(NSData *)data 
+                decoderOutput:(id&lt;RHSocketDecoderOutputDelegate&gt;)output 
+                                  tag:(long)tag;
+--
+待解码数据的解码协议，该方法有返回值，返回解码后剩余未解码的字节长度
+data：接收到的待解码的二进制数据
+output：满足解码完成后数据协议的输出对象
+tag：当前数据流的标记，默认为0
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>930</x><y>600</y><w>630</w><h>180</h></coordinates><panel_attributes>RHSocketDelimiterDecoder
+--
+@property (nonatomic, assign) NSUInteger maxFrameSize;
+@property (nonatomic, assign) uint8_t delimiter;
+--
+基于分隔符的解码器，实现了RHSocketDecoderProtocol协议
+maxFrameSize：每帧数据包的最大长度，防止数据包过大溢出
+delimiter：每帧数据包的分隔符标记
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1200</x><y>165</y><w>74</w><h>149</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>45;45;45;120</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1230</x><y>495</y><w>74</w><h>134</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>45;45;45;105</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>30</x><y>1215</y><w>615</w><h>285</h></coordinates><panel_attributes>RHSocketPacket
+--
+@property (nonatomic, assign, readonly) NSInteger tag;
+@property (nonatomic, strong, readonly) NSData *data;
+--
+- (instancetype)initWithData:(NSData *)data;
+- (void)setTag:(NSInteger)tag;
+- (void)setData:(NSData *)data;
+--
+数据包基本协议
+data：二进制数据的读写方法
+tag：数据流标记的读写方法
+initWithData：数据包构造方法
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>1575</y><w>630</w><h>165</h></coordinates><panel_attributes>RHSocketPacketContent
+--
+@property (nonatomic, readonly) NSTimeInterval timeout;
+--
+- (void)setTimeout:(NSTimeInterval)timeout;
+--
+请求数据包协议（带超时设置）
+timeout：超时时间，默认为－1，没有超时限制</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>270</x><y>1455</y><w>74</w><h>149</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-&gt;</panel_attributes><additional_attributes>45;45;45;120</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>930</x><y>1605</y><w>360</w><h>90</h></coordinates><panel_attributes>RHPacketBody
+--
+实现RHSocketPacketContent协议
+用于数据的发送和接收对象</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>585</x><y>1590</y><w>374</w><h>74</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>45;45;345;45</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1860</x><y>585</y><w>855</w><h>405</h></coordinates><panel_attributes>RHSocketConnection
+--
+@property (nonatomic, weak) id&lt;RHSocketConnectionDelegate&gt; delegate;
+--
+- (void)connectWithHost:(NSString *)hostName port:(int)port;
+- (void)disconnect;
+
+- (BOOL)isConnected;
+- (void)readDataWithTimeout:(NSTimeInterval)timeout tag:(long)tag;
+- (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag;
+--
+封装了CocoaAsyncSocket的tcp连接对象
+delegate：可以设置delegate，获取相应回调通知
+connectWithHost：tcp连接
+disconnect：断开tcp
+isConnected：是否已经连接
+readDataWithTimeout：读取某个标记的数据流，为0时读取所有的数据流，默认为0
+writeData：写数据流，tag标记默认为0
+
+
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1740</x><y>195</y><w>645</w><h>240</h></coordinates><panel_attributes>RHSocketConnectionDelegate
+--
+- (void)didDisconnectWithError:(NSError *)error;
+- (void)didConnectToHost:(NSString *)host port:(UInt16)port;
+- (void)didReceiveData:(NSData *)data tag:(long)tag;
+--
+socket连接相关的回调协议
+didDisconnectWithError：连接失败
+didConnectToHost:port：连接成功
+didReceiveData：接收到的tcp数据
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>2055</x><y>390</y><w>284</w><h>224</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-&gt;</panel_attributes><additional_attributes>255;195;45;45</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>855</x><y>930</y><w>885</w><h>420</h></coordinates><panel_attributes>RHSocketService
+--
+@property (nonatomic, copy) NSString *serverHost;
+@property (nonatomic, assign) int serverPort;
+--
+@property (nonatomic, strong) id&lt;RHSocketEncoderProtocol&gt; encoder;
+@property (nonatomic, strong) id&lt;RHSocketDecoderProtocol&gt; decoder;
+--
+@property (assign, readonly) BOOL isRunning;
+--
+- (void)startServiceWithHost:(NSString *)host port:(int)port;
+- (void)stopService;
+--
+- (void)asyncSendPacket:(id&lt;RHSocketPacketContent&gt;)packet;
+--
+该类整合各模块，负责tcp网络[连接]，数据[采集]，[编码]，[发送]，[接收]，[解码]，[分发]
+实现RHSocketEncoderOutputDelegate协议
+实现RHSocketDecoderOutputDelegate协议
+实现RHSocketConnectionDelegate协议
+协调各模块的组合调用，较为复杂
+
+
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1695</x><y>945</y><w>614</w><h>179</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-&gt;</panel_attributes><additional_attributes>45;150;585;45</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1215</x><y>735</y><w>74</w><h>224</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-&gt;</panel_attributes><additional_attributes>45;195;45;45</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>270</x><y>780</y><w>614</w><h>254</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-&gt;</panel_attributes><additional_attributes>585;225;45;45</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1110</x><y>1305</y><w>164</w><h>329</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-&gt;</panel_attributes><additional_attributes>135;45;45;300</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>2490</x><y>240</y><w>585</w><h>105</h></coordinates><panel_attributes>CocoaAsyncSocket
+--
+来源：
+https://github.com/robbiehanson/CocoaAsyncSocket
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>2370</x><y>300</y><w>300</w><h>315</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>270;45;45;285</additional_attributes></element></umlet_diagram>

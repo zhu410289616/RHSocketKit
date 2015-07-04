@@ -1,31 +1,23 @@
 //
-//  RHSocketDelimiterDecoder.m
-//  RHToolkit
+//  RHSocketHttpDecoder.m
+//  RHSocketDemo
 //
-//  Created by zhuruhong on 15/6/30.
+//  Created by zhuruhong on 15/7/2.
 //  Copyright (c) 2015年 zhuruhong. All rights reserved.
 //
 
-#import "RHSocketDelimiterDecoder.h"
-#import "RHPacketFrame.h"
+#import "RHSocketHttpDecoder.h"
+#import "RHSocketConfig.h"
+#import "RHPacketHttpResponse.h"
 
-@interface RHSocketDelimiterDecoder ()
+@interface RHSocketHttpDecoder ()
 {
     NSMutableData *_receiveData;
 }
 
 @end
 
-@implementation RHSocketDelimiterDecoder
-
-- (instancetype)init
-{
-    if (self = [super init]) {
-        _maxFrameSize = 8192;
-        _delimiter = 0xff;
-    }
-    return self;
-}
+@implementation RHSocketHttpDecoder
 
 - (NSUInteger)decodeData:(NSData *)data decoderOutput:(id<RHSocketDecoderOutputDelegate>)output tag:(long)tag
 {
@@ -37,18 +29,22 @@
         }
         
         NSUInteger dataLen = _receiveData.length;
-        NSUInteger headIndex = 0;
+        NSInteger headIndex = 0;
+        int crlfCount = 0;
         
-        for (NSUInteger i=0; i<dataLen; i++) {
-            NSAssert(i < _maxFrameSize, @"Decode data is too long ...");
+        for (NSInteger i=0; i<dataLen; i++) {
             uint8_t byte;
             [_receiveData getBytes:&byte range:NSMakeRange(i, 1)];
-            if (byte == _delimiter) {
-                NSInteger frameLen = i - headIndex;
-                NSData *frameData = [_receiveData subdataWithRange:NSMakeRange(headIndex, frameLen)];
-                RHPacketFrame *frame = [[RHPacketFrame alloc] initWithData:frameData];
-                [output didDecode:frame tag:0];
+            if (byte == 0x0a) {
+                crlfCount++;
+            }
+            if (crlfCount == 2) {
+                NSInteger packetLen = i - headIndex;
+                NSData *packetData = [_receiveData subdataWithRange:NSMakeRange(headIndex, packetLen)];
+                RHPacketHttpResponse *rsp = [[RHPacketHttpResponse alloc] initWithData:packetData];
+                [output didDecode:rsp tag:0];
                 headIndex = i + 1;
+                crlfCount = 0;
             }
         }
         

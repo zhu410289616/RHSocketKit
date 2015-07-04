@@ -1,32 +1,25 @@
 //
-//  RHSocketDelimiterEncoder.m
-//  RHToolkit
+//  RHSocketVariableLengthEncoder.m
+//  RHSocketKitDemo
 //
-//  Created by zhuruhong on 15/6/30.
+//  Created by zhuruhong on 15/7/4.
 //  Copyright (c) 2015年 zhuruhong. All rights reserved.
 //
 
-#import "RHSocketDelimiterEncoder.h"
+#import "RHSocketVariableLengthEncoder.h"
 #import "RHSocketConfig.h"
 
-@implementation RHSocketDelimiterEncoder
-
-- (instancetype)init
-{
-    if (self = [super init]) {
-        _maxFrameSize = 8192;
-        _delimiter = 0xff;
-    }
-    return self;
-}
+@implementation RHSocketVariableLengthEncoder
 
 - (void)encodePacket:(id<RHSocketPacketContent>)packet encoderOutput:(id<RHSocketEncoderOutputDelegate>)output
 {
     NSData *data = [packet data];
-    NSAssert(data.length < _maxFrameSize, @"Encode data is too long ...");
+    NSAssert(data.length > 0 , @"Encode data is too short ...");
     
-    NSMutableData *sendData = [NSMutableData dataWithData:data];
-    [sendData appendBytes:&_delimiter length:1];
+    uint16_t dataLen = data.length;
+    NSMutableData *sendData = [[NSMutableData alloc] init];
+    [sendData appendBytes:&dataLen length:2];
+    [sendData appendData:data];
     NSTimeInterval timeout = [packet timeout];
     NSInteger tag = [packet tag];
     

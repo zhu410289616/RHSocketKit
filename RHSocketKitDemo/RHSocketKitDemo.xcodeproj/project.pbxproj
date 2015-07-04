@@ -1,0 +1,623 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		28E32F341ED1FF4B26496E78 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3525CA8E0947D882E7C2A417 /* libPods.a */; };
+		8338246E1B47D411000DB52A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338246D1B47D411000DB52A /* main.m */; };
+		833824711B47D411000DB52A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824701B47D411000DB52A /* AppDelegate.m */; };
+		833824741B47D411000DB52A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824731B47D411000DB52A /* ViewController.m */; };
+		833824771B47D411000DB52A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 833824751B47D411000DB52A /* Main.storyboard */; };
+		833824791B47D411000DB52A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 833824781B47D411000DB52A /* Images.xcassets */; };
+		8338247C1B47D411000DB52A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8338247A1B47D411000DB52A /* LaunchScreen.xib */; };
+		833824881B47D411000DB52A /* RHSocketKitDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824871B47D411000DB52A /* RHSocketKitDemoTests.m */; };
+		833824CB1B47D691000DB52A /* RHPacketHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824C21B47D691000DB52A /* RHPacketHttpRequest.m */; };
+		833824CC1B47D691000DB52A /* RHPacketHttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824C41B47D691000DB52A /* RHPacketHttpResponse.m */; };
+		833824CD1B47D691000DB52A /* RHSocketHttpDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824C61B47D691000DB52A /* RHSocketHttpDecoder.m */; };
+		833824CE1B47D691000DB52A /* RHSocketHttpEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824C81B47D691000DB52A /* RHSocketHttpEncoder.m */; };
+		833824CF1B47D691000DB52A /* RHSocketHttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824CA1B47D691000DB52A /* RHSocketHttpService.m */; };
+		833824EA1B47D793000DB52A /* RHPacketFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824D31B47D793000DB52A /* RHPacketFrame.m */; };
+		833824EB1B47D793000DB52A /* RHSocketConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824D61B47D793000DB52A /* RHSocketConnection.m */; };
+		833824EC1B47D793000DB52A /* RHSocketDelimiterDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824D91B47D793000DB52A /* RHSocketDelimiterDecoder.m */; };
+		833824ED1B47D793000DB52A /* RHSocketDelimiterEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824DB1B47D793000DB52A /* RHSocketDelimiterEncoder.m */; };
+		833824EE1B47D793000DB52A /* RHSocketService.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824E01B47D793000DB52A /* RHSocketService.m */; };
+		833824EF1B47D793000DB52A /* RHPacketBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824E31B47D793000DB52A /* RHPacketBody.m */; };
+		833824F01B47D793000DB52A /* RHPacketHead.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824E51B47D793000DB52A /* RHPacketHead.m */; };
+		833824F51B47DAC6000DB52A /* RHSocketVariableLengthEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824F41B47DAC6000DB52A /* RHSocketVariableLengthEncoder.m */; };
+		833824F81B47DAE3000DB52A /* RHSocketVariableLengthDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824F71B47DAE3000DB52A /* RHSocketVariableLengthDecoder.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		833824821B47D411000DB52A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833824601B47D411000DB52A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 833824671B47D411000DB52A;
+			remoteInfo = RHSocketKitDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3525CA8E0947D882E7C2A417 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D36A33B2D21FD6666C3B3DD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		833824681B47D411000DB52A /* RHSocketKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RHSocketKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8338246C1B47D411000DB52A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8338246D1B47D411000DB52A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8338246F1B47D411000DB52A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		833824701B47D411000DB52A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		833824721B47D411000DB52A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		833824731B47D411000DB52A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		833824761B47D411000DB52A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		833824781B47D411000DB52A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8338247B1B47D411000DB52A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		833824811B47D411000DB52A /* RHSocketKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RHSocketKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		833824861B47D411000DB52A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		833824871B47D411000DB52A /* RHSocketKitDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHSocketKitDemoTests.m; sourceTree = "<group>"; };
+		833824C11B47D691000DB52A /* RHPacketHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHPacketHttpRequest.h; sourceTree = "<group>"; };
+		833824C21B47D691000DB52A /* RHPacketHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHPacketHttpRequest.m; sourceTree = "<group>"; };
+		833824C31B47D691000DB52A /* RHPacketHttpResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHPacketHttpResponse.h; sourceTree = "<group>"; };
+		833824C41B47D691000DB52A /* RHPacketHttpResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHPacketHttpResponse.m; sourceTree = "<group>"; };
+		833824C51B47D691000DB52A /* RHSocketHttpDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpDecoder.h; sourceTree = "<group>"; };
+		833824C61B47D691000DB52A /* RHSocketHttpDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpDecoder.m; sourceTree = "<group>"; };
+		833824C71B47D691000DB52A /* RHSocketHttpEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpEncoder.h; sourceTree = "<group>"; };
+		833824C81B47D691000DB52A /* RHSocketHttpEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpEncoder.m; sourceTree = "<group>"; };
+		833824C91B47D691000DB52A /* RHSocketHttpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpService.h; sourceTree = "<group>"; };
+		833824CA1B47D691000DB52A /* RHSocketHttpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpService.m; sourceTree = "<group>"; };
+		833824D21B47D793000DB52A /* RHPacketFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHPacketFrame.h; sourceTree = "<group>"; };
+		833824D31B47D793000DB52A /* RHPacketFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHPacketFrame.m; sourceTree = "<group>"; };
+		833824D41B47D793000DB52A /* RHSocketConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConfig.h; sourceTree = "<group>"; };
+		833824D51B47D793000DB52A /* RHSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnection.h; sourceTree = "<group>"; };
+		833824D61B47D793000DB52A /* RHSocketConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketConnection.m; sourceTree = "<group>"; };
+		833824D71B47D793000DB52A /* RHSocketDecoderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDecoderProtocol.h; sourceTree = "<group>"; };
+		833824D81B47D793000DB52A /* RHSocketDelimiterDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterDecoder.h; sourceTree = "<group>"; };
+		833824D91B47D793000DB52A /* RHSocketDelimiterDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterDecoder.m; sourceTree = "<group>"; };
+		833824DA1B47D793000DB52A /* RHSocketDelimiterEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterEncoder.h; sourceTree = "<group>"; };
+		833824DB1B47D793000DB52A /* RHSocketDelimiterEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterEncoder.m; sourceTree = "<group>"; };
+		833824DC1B47D793000DB52A /* RHSocketEncoderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketEncoderProtocol.h; sourceTree = "<group>"; };
+		833824DD1B47D793000DB52A /* RHSocketPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketPacket.h; sourceTree = "<group>"; };
+		833824DE1B47D793000DB52A /* RHSocketPacketContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketPacketContent.h; sourceTree = "<group>"; };
+		833824DF1B47D793000DB52A /* RHSocketService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketService.h; sourceTree = "<group>"; };
+		833824E01B47D793000DB52A /* RHSocketService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketService.m; sourceTree = "<group>"; };
+		833824E21B47D793000DB52A /* RHPacketBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHPacketBody.h; sourceTree = "<group>"; };
+		833824E31B47D793000DB52A /* RHPacketBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHPacketBody.m; sourceTree = "<group>"; };
+		833824E41B47D793000DB52A /* RHPacketHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHPacketHead.h; sourceTree = "<group>"; };
+		833824E51B47D793000DB52A /* RHPacketHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHPacketHead.m; sourceTree = "<group>"; };
+		833824F31B47DAC6000DB52A /* RHSocketVariableLengthEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthEncoder.h; sourceTree = "<group>"; };
+		833824F41B47DAC6000DB52A /* RHSocketVariableLengthEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthEncoder.m; sourceTree = "<group>"; };
+		833824F61B47DAE3000DB52A /* RHSocketVariableLengthDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthDecoder.h; sourceTree = "<group>"; };
+		833824F71B47DAE3000DB52A /* RHSocketVariableLengthDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthDecoder.m; sourceTree = "<group>"; };
+		C8A26197775EDD93AE22E16A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		833824651B47D411000DB52A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28E32F341ED1FF4B26496E78 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338247E1B47D411000DB52A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D42D204DD1C3D9ACE827680 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3525CA8E0947D882E7C2A417 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8338245F1B47D411000DB52A = {
+			isa = PBXGroup;
+			children = (
+				8338246A1B47D411000DB52A /* RHSocketKitDemo */,
+				833824841B47D411000DB52A /* RHSocketKitDemoTests */,
+				833824691B47D411000DB52A /* Products */,
+				9C1552C6FF76D1C5CD3E2DE0 /* Pods */,
+				7D42D204DD1C3D9ACE827680 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		833824691B47D411000DB52A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				833824681B47D411000DB52A /* RHSocketKitDemo.app */,
+				833824811B47D411000DB52A /* RHSocketKitDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8338246A1B47D411000DB52A /* RHSocketKitDemo */ = {
+			isa = PBXGroup;
+			children = (
+				833824D01B47D793000DB52A /* RHSocketKit */,
+				833824C01B47D691000DB52A /* Classes */,
+				8338246F1B47D411000DB52A /* AppDelegate.h */,
+				833824701B47D411000DB52A /* AppDelegate.m */,
+				833824721B47D411000DB52A /* ViewController.h */,
+				833824731B47D411000DB52A /* ViewController.m */,
+				833824751B47D411000DB52A /* Main.storyboard */,
+				833824781B47D411000DB52A /* Images.xcassets */,
+				8338247A1B47D411000DB52A /* LaunchScreen.xib */,
+				8338246B1B47D411000DB52A /* Supporting Files */,
+			);
+			path = RHSocketKitDemo;
+			sourceTree = "<group>";
+		};
+		8338246B1B47D411000DB52A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8338246C1B47D411000DB52A /* Info.plist */,
+				8338246D1B47D411000DB52A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		833824841B47D411000DB52A /* RHSocketKitDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				833824871B47D411000DB52A /* RHSocketKitDemoTests.m */,
+				833824851B47D411000DB52A /* Supporting Files */,
+			);
+			path = RHSocketKitDemoTests;
+			sourceTree = "<group>";
+		};
+		833824851B47D411000DB52A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				833824861B47D411000DB52A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		833824C01B47D691000DB52A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				833824C11B47D691000DB52A /* RHPacketHttpRequest.h */,
+				833824C21B47D691000DB52A /* RHPacketHttpRequest.m */,
+				833824C31B47D691000DB52A /* RHPacketHttpResponse.h */,
+				833824C41B47D691000DB52A /* RHPacketHttpResponse.m */,
+				833824C51B47D691000DB52A /* RHSocketHttpDecoder.h */,
+				833824C61B47D691000DB52A /* RHSocketHttpDecoder.m */,
+				833824C71B47D691000DB52A /* RHSocketHttpEncoder.h */,
+				833824C81B47D691000DB52A /* RHSocketHttpEncoder.m */,
+				833824C91B47D691000DB52A /* RHSocketHttpService.h */,
+				833824CA1B47D691000DB52A /* RHSocketHttpService.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		833824D01B47D793000DB52A /* RHSocketKit */ = {
+			isa = PBXGroup;
+			children = (
+				833824D11B47D793000DB52A /* Core */,
+				833824E11B47D793000DB52A /* Extend */,
+			);
+			name = RHSocketKit;
+			path = ../../RHSocketKit;
+			sourceTree = "<group>";
+		};
+		833824D11B47D793000DB52A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				833824D21B47D793000DB52A /* RHPacketFrame.h */,
+				833824D31B47D793000DB52A /* RHPacketFrame.m */,
+				833824D41B47D793000DB52A /* RHSocketConfig.h */,
+				833824D51B47D793000DB52A /* RHSocketConnection.h */,
+				833824D61B47D793000DB52A /* RHSocketConnection.m */,
+				833824D71B47D793000DB52A /* RHSocketDecoderProtocol.h */,
+				833824D81B47D793000DB52A /* RHSocketDelimiterDecoder.h */,
+				833824D91B47D793000DB52A /* RHSocketDelimiterDecoder.m */,
+				833824DA1B47D793000DB52A /* RHSocketDelimiterEncoder.h */,
+				833824DB1B47D793000DB52A /* RHSocketDelimiterEncoder.m */,
+				833824DC1B47D793000DB52A /* RHSocketEncoderProtocol.h */,
+				833824DD1B47D793000DB52A /* RHSocketPacket.h */,
+				833824DE1B47D793000DB52A /* RHSocketPacketContent.h */,
+				833824DF1B47D793000DB52A /* RHSocketService.h */,
+				833824E01B47D793000DB52A /* RHSocketService.m */,
+				833824F31B47DAC6000DB52A /* RHSocketVariableLengthEncoder.h */,
+				833824F41B47DAC6000DB52A /* RHSocketVariableLengthEncoder.m */,
+				833824F61B47DAE3000DB52A /* RHSocketVariableLengthDecoder.h */,
+				833824F71B47DAE3000DB52A /* RHSocketVariableLengthDecoder.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		833824E11B47D793000DB52A /* Extend */ = {
+			isa = PBXGroup;
+			children = (
+				833824E21B47D793000DB52A /* RHPacketBody.h */,
+				833824E31B47D793000DB52A /* RHPacketBody.m */,
+				833824E41B47D793000DB52A /* RHPacketHead.h */,
+				833824E51B47D793000DB52A /* RHPacketHead.m */,
+			);
+			path = Extend;
+			sourceTree = "<group>";
+		};
+		9C1552C6FF76D1C5CD3E2DE0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6D36A33B2D21FD6666C3B3DD /* Pods.debug.xcconfig */,
+				C8A26197775EDD93AE22E16A /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		833824671B47D411000DB52A /* RHSocketKitDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8338248B1B47D411000DB52A /* Build configuration list for PBXNativeTarget "RHSocketKitDemo" */;
+			buildPhases = (
+				7E017F85D5C373BD3F2DC4DC /* Check Pods Manifest.lock */,
+				833824641B47D411000DB52A /* Sources */,
+				833824651B47D411000DB52A /* Frameworks */,
+				833824661B47D411000DB52A /* Resources */,
+				D144B7BEA97B8D9BFFDC0C17 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RHSocketKitDemo;
+			productName = RHSocketKitDemo;
+			productReference = 833824681B47D411000DB52A /* RHSocketKitDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		833824801B47D411000DB52A /* RHSocketKitDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8338248E1B47D411000DB52A /* Build configuration list for PBXNativeTarget "RHSocketKitDemoTests" */;
+			buildPhases = (
+				8338247D1B47D411000DB52A /* Sources */,
+				8338247E1B47D411000DB52A /* Frameworks */,
+				8338247F1B47D411000DB52A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				833824831B47D411000DB52A /* PBXTargetDependency */,
+			);
+			name = RHSocketKitDemoTests;
+			productName = RHSocketKitDemoTests;
+			productReference = 833824811B47D411000DB52A /* RHSocketKitDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		833824601B47D411000DB52A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = zhuruhong;
+				TargetAttributes = {
+					833824671B47D411000DB52A = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					833824801B47D411000DB52A = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = 833824671B47D411000DB52A;
+					};
+				};
+			};
+			buildConfigurationList = 833824631B47D411000DB52A /* Build configuration list for PBXProject "RHSocketKitDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8338245F1B47D411000DB52A;
+			productRefGroup = 833824691B47D411000DB52A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				833824671B47D411000DB52A /* RHSocketKitDemo */,
+				833824801B47D411000DB52A /* RHSocketKitDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		833824661B47D411000DB52A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				833824771B47D411000DB52A /* Main.storyboard in Resources */,
+				8338247C1B47D411000DB52A /* LaunchScreen.xib in Resources */,
+				833824791B47D411000DB52A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338247F1B47D411000DB52A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7E017F85D5C373BD3F2DC4DC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D144B7BEA97B8D9BFFDC0C17 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		833824641B47D411000DB52A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				833824CD1B47D691000DB52A /* RHSocketHttpDecoder.m in Sources */,
+				833824F51B47DAC6000DB52A /* RHSocketVariableLengthEncoder.m in Sources */,
+				833824CF1B47D691000DB52A /* RHSocketHttpService.m in Sources */,
+				833824F81B47DAE3000DB52A /* RHSocketVariableLengthDecoder.m in Sources */,
+				833824741B47D411000DB52A /* ViewController.m in Sources */,
+				833824F01B47D793000DB52A /* RHPacketHead.m in Sources */,
+				833824ED1B47D793000DB52A /* RHSocketDelimiterEncoder.m in Sources */,
+				833824CE1B47D691000DB52A /* RHSocketHttpEncoder.m in Sources */,
+				833824711B47D411000DB52A /* AppDelegate.m in Sources */,
+				8338246E1B47D411000DB52A /* main.m in Sources */,
+				833824CB1B47D691000DB52A /* RHPacketHttpRequest.m in Sources */,
+				833824EE1B47D793000DB52A /* RHSocketService.m in Sources */,
+				833824EF1B47D793000DB52A /* RHPacketBody.m in Sources */,
+				833824CC1B47D691000DB52A /* RHPacketHttpResponse.m in Sources */,
+				833824EB1B47D793000DB52A /* RHSocketConnection.m in Sources */,
+				833824EC1B47D793000DB52A /* RHSocketDelimiterDecoder.m in Sources */,
+				833824EA1B47D793000DB52A /* RHPacketFrame.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338247D1B47D411000DB52A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				833824881B47D411000DB52A /* RHSocketKitDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		833824831B47D411000DB52A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 833824671B47D411000DB52A /* RHSocketKitDemo */;
+			targetProxy = 833824821B47D411000DB52A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		833824751B47D411000DB52A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				833824761B47D411000DB52A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8338247A1B47D411000DB52A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8338247B1B47D411000DB52A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		833824891B47D411000DB52A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8338248A1B47D411000DB52A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8338248C1B47D411000DB52A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D36A33B2D21FD6666C3B3DD /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RHSocketKitDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8338248D1B47D411000DB52A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8A26197775EDD93AE22E16A /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RHSocketKitDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8338248F1B47D411000DB52A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RHSocketKitDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RHSocketKitDemo.app/RHSocketKitDemo";
+			};
+			name = Debug;
+		};
+		833824901B47D411000DB52A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RHSocketKitDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RHSocketKitDemo.app/RHSocketKitDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		833824631B47D411000DB52A /* Build configuration list for PBXProject "RHSocketKitDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				833824891B47D411000DB52A /* Debug */,
+				8338248A1B47D411000DB52A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8338248B1B47D411000DB52A /* Build configuration list for PBXNativeTarget "RHSocketKitDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8338248C1B47D411000DB52A /* Debug */,
+				8338248D1B47D411000DB52A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8338248E1B47D411000DB52A /* Build configuration list for PBXNativeTarget "RHSocketKitDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8338248F1B47D411000DB52A /* Debug */,
+				833824901B47D411000DB52A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 833824601B47D411000DB52A /* Project object */;
+}
