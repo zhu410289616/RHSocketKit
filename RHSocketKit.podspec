@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.7"
   s.source       = { :git => "https://github.com/zhu410289616/RHSocketKit.git", :tag => s.version.to_s }
 
-  s.default_subspec = "Core"
+  s.default_subspec = "Core", "Extend"
 
   s.subspec "Core" do |cs|
     cs.source_files  = "RHSocketKit/Core/*.{h,m}" #"RHSocketKit/Extend/*.{h,m}"
