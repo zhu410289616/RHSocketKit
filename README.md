@@ -11,4 +11,7 @@ http://blog.csdn.net/zhu410289616/article/details/46746683
 
 # 联系方式
 qq:        410289616
+
 email:     zhu410289616@163.com
+
+qq群:      330585393
