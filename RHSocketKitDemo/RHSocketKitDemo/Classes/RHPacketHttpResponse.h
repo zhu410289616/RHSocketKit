@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 zhuruhong. All rights reserved.
 //
 
-#import "RHPacketBody.h"
+#import "RHPacketResponse.h"
 
-@interface RHPacketHttpResponse : RHPacketBody
+@interface RHPacketHttpResponse : RHPacketResponse
 
 @end

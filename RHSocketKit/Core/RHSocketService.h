@@ -7,21 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RHSocketEncoderProtocol.h"
-#import "RHSocketDecoderProtocol.h"
+#import "RHSocketChannel.h"
+#import "RHSocketCodecProtocol.h"
 
 extern NSString *const kNotificationSocketServiceState;
 extern NSString *const kNotificationSocketPacketRequest;
 extern NSString *const kNotificationSocketPacketResponse;
 
-@interface RHSocketService : NSObject <RHSocketEncoderOutputDelegate, RHSocketDecoderOutputDelegate>
+@interface RHSocketService : NSObject <RHSocketChannelDelegate>
 
-@property (nonatomic, copy) NSString *serverHost;
-@property (nonatomic, assign) int serverPort;
-
-@property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
-@property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
-
+@property (nonatomic, strong, readonly) RHSocketChannel *channel;
+@property (nonatomic, strong) id<RHSocketCodecProtocol> codec;
 @property (assign, readonly) BOOL isRunning;
 
 + (instancetype)sharedInstance;
@@ -29,6 +25,6 @@ extern NSString *const kNotificationSocketPacketResponse;
 - (void)startServiceWithHost:(NSString *)host port:(int)port;
 - (void)stopService;
 
-- (void)asyncSendPacket:(id<RHSocketPacketContent>)packet;
+- (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;
 
 @end

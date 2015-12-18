@@ -7,17 +7,15 @@
 //
 
 #import "RHSocketService.h"
-#import "RHSocketConnection.h"
-#import "RHSocketDelimiterEncoder.h"
-#import "RHSocketDelimiterDecoder.h"
 
 NSString *const kNotificationSocketServiceState = @"kNotificationSocketServiceState";
 NSString *const kNotificationSocketPacketRequest = @"kNotificationSocketPacketRequest";
 NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketResponse";
 
-@interface RHSocketService () <RHSocketConnectionDelegate>
+@interface RHSocketService ()
 {
-    RHSocketConnection *_connection;
+    NSString *_host;
+    int _port;
 }
 
 @end
@@ -38,8 +36,6 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 {
     if (self = [super init]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detectSocketPacketRequest:) name:kNotificationSocketPacketRequest object:nil];
-        _encoder = [[RHSocketDelimiterEncoder alloc] init];
-        _decoder = [[RHSocketDelimiterDecoder alloc] init];
     }
     return self;
 }
@@ -51,16 +47,14 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 
 - (void)startServiceWithHost:(NSString *)host port:(int)port
 {
-    NSAssert(_encoder, @"error, _encoder is nil...");
-    NSAssert(_decoder, @"error, _decoder is nil...");
-    NSAssert(host.length > 0, @"error, host is nil...");
+    NSAssert(_codec, @"Codec should not be nil...");
     
     if (_isRunning) {
         return;
     }
     
-    _serverHost = host;
-    _serverPort = port;
+    _host = host;
+    _port = port;
     
     [self openConnection];
 }
@@ -71,19 +65,18 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
     [self closeConnection];
 }
 
-- (void)asyncSendPacket:(id<RHSocketPacketContent>)packet
+- (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
     if (!_isRunning) {
         NSDictionary *userInfo = @{@"msg":@"Send packet error. Service is stop!"};
         NSError *error = [NSError errorWithDomain:@"RHSocketService" code:1 userInfo:userInfo];
-        [self didDisconnectWithError:error];
+        [self channelClosed:_channel error:error];
         return;
     }
-    [_encoder encodePacket:packet encoderOutput:self];
+    [_channel asyncSendPacket:packet];
 }
 
-#pragma mar -
-#pragma mark recevie response data
+#pragma mar - recevie response data
 
 - (void)detectSocketPacketRequest:(NSNotification *)notif
 {
@@ -97,62 +90,40 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 - (void)openConnection
 {
     [self closeConnection];
-    _connection = [[RHSocketConnection alloc] init];
-    _connection.delegate = self;
-    [_connection connectWithHost:_serverHost port:_serverPort];
+    _channel = [[RHSocketChannel alloc] initWithHost:_host port:_port];
+    _channel.delegate = self;
+    _channel.codec = _codec;
+    [_channel openConnection];
 }
 
 - (void)closeConnection
 {
-    if (_connection) {
-        _connection.delegate = nil;
-        [_connection disconnect];
-        _connection = nil;
+    if (_channel) {
+        [_channel closeConnection];
+        _channel.delegate = nil;
+        _channel = nil;
     }
 }
 
-#pragma mark -
-#pragma mark RHSocketConnectionDelegate method
+#pragma mark - RHSocketChannelDelegate
 
-- (void)didDisconnectWithError:(NSError *)error
-{
-    RHSocketLog(@"didDisconnectWithError: %@", error);
-    _isRunning = NO;
-    NSDictionary *userInfo = @{@"isRunning":@(_isRunning), @"error":error};
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketServiceState object:@(_isRunning) userInfo:userInfo];
-}
-
-- (void)didConnectToHost:(NSString *)host port:(UInt16)port
+- (void)channelOpened:(RHSocketChannel *)channel host:(NSString *)host port:(int)port
 {
     _isRunning = YES;
     NSDictionary *userInfo = @{@"host":host, @"port":@(port), @"isRunning":@(_isRunning)};
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketServiceState object:@(_isRunning) userInfo:userInfo];
 }
 
-- (void)didReceiveData:(NSData *)data tag:(long)tag
+- (void)channelClosed:(RHSocketChannel *)channel error:(NSError *)error
 {
-    NSUInteger remainDataLen = [_decoder decodeData:data decoderOutput:self tag:tag];
-    if (remainDataLen > 0) {
-        [_connection readDataWithTimeout:-1 tag:tag];
-    } else {
-        [_connection readDataWithTimeout:-1 tag:0];
-    }
+    _isRunning = NO;
+    NSDictionary *userInfo = @{@"isRunning":@(_isRunning), @"error":error};
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketServiceState object:@(_isRunning) userInfo:userInfo];
 }
 
-#pragma mark -
-#pragma mark RHSocketEncoderOutputDelegate method
-
-- (void)didEncode:(NSData *)data timeout:(NSTimeInterval)timeout tag:(NSInteger)tag
+- (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
-    [_connection writeData:data timeout:timeout tag:tag];
-}
-
-#pragma mark -
-#pragma mark RHSocketDecoderOutputDelegate method
-
-- (void)didDecode:(id<RHSocketPacket>)packet tag:(NSInteger)tag
-{
-    NSDictionary *userInfo = @{@"RHSocketPacket":packet, @"tag":@(tag)};
+    NSDictionary *userInfo = @{@"RHSocketPacket":packet};
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketResponse object:nil userInfo:userInfo];
 }
 

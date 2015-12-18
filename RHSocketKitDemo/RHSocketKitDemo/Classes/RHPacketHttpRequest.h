@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 zhuruhong. All rights reserved.
 //
 
-#import "RHPacketBody.h"
+#import "RHPacketRequest.h"
 
-@interface RHPacketHttpRequest : RHPacketBody
+@interface RHPacketHttpRequest : RHPacketRequest
 
 @property (nonatomic, copy) NSString *requestPath;
 @property (nonatomic, copy) NSString *host;
