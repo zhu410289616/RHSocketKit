@@ -10,19 +10,13 @@
 #import "RHSocketConfig.h"
 #import "RHPacketResponse.h"
 
-@interface RHSocketVariableLengthCodec ()
-{
-    NSUInteger _headLength;
-}
-
-@end
-
 @implementation RHSocketVariableLengthCodec
 
 - (instancetype)init
 {
     if (self = [super init]) {
         _headLength = 2;
+        _headDataShouldSwap = YES;
     }
     return self;
 }
@@ -42,29 +36,18 @@
     [output didEncode:sendData timeout:timeout];
 }
 
-- (NSData *)encode:(NSData *)upstreamData
-{
-    NSAssert(upstreamData.length > 0 , @"Encode data is too short ...");
-    
-    uint16_t dataLen = upstreamData.length;
-    NSMutableData *sendData = [[NSMutableData alloc] init];
-    [sendData appendBytes:&dataLen length:2];
-    [sendData appendData:upstreamData];
-    return sendData;
-}
-
 - (NSInteger)decode:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output
 {
     NSUInteger headIndex = 0;
     //先读区2个字节的协议长度 (前2个字节为数据包的长度)
     while (downstreamData && downstreamData.length - headIndex > _headLength) {
         NSData *lenData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _headLength)];
-        NSUInteger frameLen = [self frameLengthWithData:lenData];
+        NSUInteger frameLen = [self frameLengthWithData:lenData shouldSwapData:_headDataShouldSwap];
         
-        if (downstreamData.length - headIndex < frameLen) {
+        if (downstreamData.length - headIndex < _headLength + frameLen) {
             break;
         }
-        NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, frameLen)];
+        NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _headLength + frameLen)];
         RHPacketResponse *rsp = [[RHPacketResponse alloc] initWithData:frameData];
         [output didDecode:rsp];
         //
@@ -83,18 +66,45 @@
  */
 - (uint16_t)frameLengthWithData:(NSData *)lenData shouldSwapData:(BOOL)shouldSwap
 {
-    uint16_t frameLen = 0;
     if (shouldSwap) {
-        [lenData getBytes:&frameLen length:_headLength];
-    } else {
-        frameLen = ntohs((uint16_t)lenData.bytes);
+        NSMutableData *dstData = [[NSMutableData alloc] init];
+        for (NSUInteger i=0; i<lenData.length; i++) {
+            [dstData appendData:[lenData subdataWithRange:NSMakeRange(lenData.length-1-i, 1)]];
+        }//for
+        return [self lengthFromBytes:dstData];
     }
-    return frameLen;
+    return [self lengthFromBytes:lenData];
 }
 
-- (NSUInteger)frameLengthWithData:(NSData *)lenData
+- (NSData *)bytesFromLength:(uint32_t)length
 {
-    return [self frameLengthWithData:lenData shouldSwapData:YES];
+    NSMutableData *lenData = [[NSMutableData alloc] init];
+    
+    NSUInteger val = length;
+    do {
+        int8_t digit = val % 256;
+        val = val >> 8;
+        [lenData appendBytes:&digit length:1];
+    } while (val > 0);
+    
+    return lenData;
+}
+
+- (uint32_t)lengthFromBytes:(NSData *)lenData
+{
+    NSUInteger byteCount = MIN(4, lenData.length);
+    
+    const char *bytes = lenData.bytes;
+    int multiplier = 1;
+    uint32_t length = 0;
+    
+    for (NSUInteger i=0; i<byteCount; i++) {
+        int8_t digit = bytes[i];
+        length += digit * multiplier;
+        multiplier *= 256;
+    }//for
+    
+    return length;
 }
 
 @end

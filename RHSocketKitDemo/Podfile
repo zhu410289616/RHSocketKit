@@ -1,3 +1,5 @@
 platform:ios,'7.0'
 
 pod 'CocoaAsyncSocket', '~> 7.4.1'
+pod 'MSWeakTimer', '~> 1.1.0'
+

@@ -35,4 +35,9 @@
     _packetData = [NSMutableData dataWithData:data];
 }
 
+- (NSInteger)pid
+{
+    return 0;
+}
+
 @end

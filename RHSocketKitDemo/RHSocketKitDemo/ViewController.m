@@ -9,14 +9,23 @@
 #import "ViewController.h"
 #import "RHSocketChannel.h"
 
+#import "RHSocketDelimiterCodec.h"
+
+#import "RHSocketVariableLengthCodec.h"
+
 #import "RHSocketHttpCodec.h"
 #import "RHPacketHttpRequest.h"
 
 #import "RHSocketConfig.h"
 
+//
 #import "RHSocketService.h"
 
-@interface ViewController () <RHSocketChannelDelegate>
+//
+#import "RHSocketChannelProxy.h"
+#import "RHConnectCallReply.h"
+
+@interface ViewController () <RHSocketChannelDelegate, RHSocketReplyProtocol>
 {
     RHSocketChannel *_channel;
 }
@@ -44,15 +53,46 @@
     NSString *host = @"www.baidu.com";
     int port = 80;
     
+    host = @"127.0.0.1";
+    port = 7878;
+//    RHSocketDelimiterCodec *codec = [[RHSocketDelimiterCodec alloc] init];
+//    codec.delimiter = 10;
+    
+    RHSocketVariableLengthCodec *codec = [[RHSocketVariableLengthCodec alloc] init];
+    
+//    RHSocketHttpCodec *codec = [[RHSocketHttpCodec alloc] init];
+    
     _channel = [[RHSocketChannel alloc] initWithHost:host port:port];
     _channel.delegate = self;
-    _channel.codec = [[RHSocketHttpCodec alloc] init];
+    _channel.codec = codec;
 //    [_channel openConnection];
     
-    [RHSocketService sharedInstance].codec = [[RHSocketHttpCodec alloc] init];
-    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+//    [RHSocketService sharedInstance].codec = [[RHSocketHttpCodec alloc] init];
+//    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+    
+    RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
+    connect.delegate = self;
+    [RHSocketChannelProxy sharedInstance].codec = codec;
+    [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
     
 }
+
+- (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
+{
+    RHPacketRequest *req = [[RHPacketRequest alloc] init];
+    NSMutableData *tempData = [NSMutableData dataWithData:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]];
+    uint8_t delimiter = 10;
+    [tempData appendBytes:&delimiter length:1];
+    req.data = tempData;
+    
+    RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
+    callReply.request = req;
+    
+    [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
+}
+
+- (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
+{}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -65,7 +105,16 @@
 {
     RHSocketLog(@"channelOpened: %@:%d", host, port);
     
-    RHPacketHttpRequest *req = [[RHPacketHttpRequest alloc] init];
+    RHPacketRequest *req = [[RHPacketRequest alloc] init];
+//    req.data = [@"RHPacketRequest" dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableData *tempData = [NSMutableData dataWithData:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]];
+    uint8_t delimiter = 10;
+    [tempData appendBytes:&delimiter length:1];
+    req.data = tempData;
+    
+//    RHPacketHttpRequest *req = [[RHPacketHttpRequest alloc] init];
+    
     [channel asyncSendPacket:req];
 }
 
@@ -77,6 +126,9 @@
 - (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
     RHSocketLog(@"received: %ld", [packet data].length);
+    
+    NSData *body = [[packet data] subdataWithRange:NSMakeRange(2, [packet data].length - 2)];
+    RHSocketLog(@"received: %@", [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding]);
 }
 
 #pragma mark - notification

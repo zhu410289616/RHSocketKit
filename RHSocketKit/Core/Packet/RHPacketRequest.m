@@ -46,4 +46,9 @@
     _timeout = timeout;
 }
 
+- (NSInteger)pid
+{
+    return 0;
+}
+
 @end

@@ -16,6 +16,14 @@
  */
 @interface RHSocketVariableLengthCodec : NSObject <RHSocketCodecProtocol>
 
-- (NSUInteger)frameLengthWithData:(NSData *)lenData;
+/**
+ *  头部长度数据的字节个数，默认为2
+ */
+@property (nonatomic, assign) int headLength;
+
+/**
+ *  头部长度数据解析时，是否需要高地位互换，默认yes
+ */
+@property (nonatomic, assign) BOOL headDataShouldSwap;
 
 @end
