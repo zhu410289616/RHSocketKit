@@ -1,14 +1,7 @@
 Pod::Spec.new do |s|
 
-  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  These will help people to find your library, and whilst it
-  #  can feel like a chore to fill in it's definitely to your advantage. The
-  #  summary should be tweet-length, and the description more in depth.
-  #
-
   s.name         = "RHSocketKit"
-  s.version      = "1.0.7"
+  s.version      = "2.0.0"
   s.summary      = "A socket kit based on CocoaAsyncSocket."
   s.homepage     = "https://github.com/zhu410289616/RHSocketKit"
   s.license      = { :type => "Apache", :file => "LICENSE" }
@@ -21,14 +14,15 @@ Pod::Spec.new do |s|
   s.default_subspec = "Core", "Extend"
 
   s.subspec "Core" do |cs|
-    cs.source_files  = "RHSocketKit/Core/*.{h,m}" #"RHSocketKit/Extend/*.{h,m}"
+    cs.source_files  = "RHSocketKit/Core/{Channel,Codec,Packet}/*.{h,m}", "RHSocketKit/Core/*.{h,m}" 
     cs.requires_arc = true
     cs.dependency 'CocoaAsyncSocket', '~> 7.4.1'
   end
 
   s.subspec "Extend" do |cs|
     cs.dependency "RHSocketKit/Core"
-    cs.source_files = "RHSocketKit/Extend/*.{h,m}"
+    cs.dependency 'MSWeakTimer', '~> 1.1.0'
+    cs.source_files = "RHSocketKit/Extend/*.{h,m}", "RHSocketKit/Extend/RPC/*.{h,m}", "RHSocketKit/Extend/RPC/CallReply/*.{h,m}"
     cs.requires_arc = true 
   end
 
