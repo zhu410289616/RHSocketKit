@@ -27,6 +27,10 @@
 
 @interface ViewController () <RHSocketChannelDelegate, RHSocketReplyProtocol>
 {
+    UIButton *_channelTestButton;
+    UIButton *_serviceTestButton;
+    UIButton *_proxyTestButton;
+    
     RHSocketChannel *_channel;
 }
 
@@ -50,70 +54,62 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSString *host = @"www.baidu.com";
-    int port = 80;
+    _channelTestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _channelTestButton.frame = CGRectMake(20, 40, 130, 40);
+    _channelTestButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _channelTestButton.layer.borderWidth = 0.5;
+    _channelTestButton.layer.masksToBounds = YES;
+    [_channelTestButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_channelTestButton setTitle:@"Test Channel" forState:UIControlStateNormal];
+    [_channelTestButton addTarget:self action:@selector(doTestChannelButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_channelTestButton];
     
-    host = @"127.0.0.1";
-    port = 7878;
-//    RHSocketDelimiterCodec *codec = [[RHSocketDelimiterCodec alloc] init];
-//    codec.delimiter = 10;
+    _serviceTestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _serviceTestButton.frame = CGRectMake(20, CGRectGetMaxY(_channelTestButton.frame) + 20, 130, 40);
+    _serviceTestButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _serviceTestButton.layer.borderWidth = 0.5;
+    _serviceTestButton.layer.masksToBounds = YES;
+    [_serviceTestButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_serviceTestButton setTitle:@"Test Service" forState:UIControlStateNormal];
+    [_serviceTestButton addTarget:self action:@selector(doTestServiceButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_serviceTestButton];
     
-    RHSocketVariableLengthCodec *codec = [[RHSocketVariableLengthCodec alloc] init];
+    _proxyTestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _proxyTestButton.frame = CGRectMake(20, CGRectGetMaxY(_serviceTestButton.frame) + 20, 130, 40);
+    _proxyTestButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _proxyTestButton.layer.borderWidth = 0.5;
+    _proxyTestButton.layer.masksToBounds = YES;
+    [_proxyTestButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_proxyTestButton setTitle:@"Test Proxy" forState:UIControlStateNormal];
+    [_proxyTestButton addTarget:self action:@selector(doTestProxyButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_proxyTestButton];
     
-//    RHSocketHttpCodec *codec = [[RHSocketHttpCodec alloc] init];
+}
+
+#pragma mark - channel test
+
+- (void)doTestChannelButtonAction
+{
+    
+    NSString *host = @"127.0.0.1";
+    int port = 7878;
+    
+    RHSocketDelimiterCodec *codec = [[RHSocketDelimiterCodec alloc] init];
+    codec.delimiter = 0x0a;//0x0a，换行符
     
     _channel = [[RHSocketChannel alloc] initWithHost:host port:port];
     _channel.delegate = self;
     _channel.codec = codec;
-//    [_channel openConnection];
-    
-//    [RHSocketService sharedInstance].codec = [[RHSocketHttpCodec alloc] init];
-//    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
-    
-    RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
-    connect.delegate = self;
-    [RHSocketChannelProxy sharedInstance].codec = codec;
-    [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
+    [_channel openConnection];
     
 }
-
-- (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
-{
-    RHPacketRequest *req = [[RHPacketRequest alloc] init];
-    NSMutableData *tempData = [NSMutableData dataWithData:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]];
-    uint8_t delimiter = 10;
-    [tempData appendBytes:&delimiter length:1];
-    req.data = tempData;
-    
-    RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
-    callReply.request = req;
-    
-    [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
-}
-
-- (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
-{}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - RHSocketChannelDelegate
 
 - (void)channelOpened:(RHSocketChannel *)channel host:(NSString *)host port:(int)port
 {
     RHSocketLog(@"channelOpened: %@:%d", host, port);
     
     RHPacketRequest *req = [[RHPacketRequest alloc] init];
-//    req.data = [@"RHPacketRequest" dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSMutableData *tempData = [NSMutableData dataWithData:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]];
-    uint8_t delimiter = 10;
-    [tempData appendBytes:&delimiter length:1];
-    req.data = tempData;
-    
-//    RHPacketHttpRequest *req = [[RHPacketHttpRequest alloc] init];
+    req.data = [@"RHSocketDelimiterCodec RHPacketRequest" dataUsingEncoding:NSUTF8StringEncoding];
     
     [channel asyncSendPacket:req];
 }
@@ -125,13 +121,20 @@
 
 - (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
-    RHSocketLog(@"received: %ld", [packet data].length);
-    
-    NSData *body = [[packet data] subdataWithRange:NSMakeRange(2, [packet data].length - 2)];
-    RHSocketLog(@"received: %@", [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding]);
+    NSString *receive = [[NSString alloc] initWithData:[packet data] encoding:NSUTF8StringEncoding];
+    RHSocketLog(@"received: %ld, %@", [packet data].length, receive);
 }
 
-#pragma mark - notification
+#pragma mark - socket service test
+
+- (void)doTestServiceButtonAction
+{
+    NSString *host = @"www.baidu.com";
+    int port = 80;
+    
+    [RHSocketService sharedInstance].codec = [[RHSocketHttpCodec alloc] init];
+    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+}
 
 - (void)detectSocketServiceState:(NSNotification *)notif
 {
@@ -145,5 +148,44 @@
         //
     }//if
 }
+
+#pragma mark - channel proxy test
+
+- (void)doTestProxyButtonAction
+{
+    NSString *host = @"127.0.0.1";
+    int port = 7878;
+    
+    RHSocketVariableLengthCodec *codec = [[RHSocketVariableLengthCodec alloc] init];
+    
+    RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
+    connect.delegate = self;
+    connect.host = host;
+    connect.port = port;
+    
+    [RHSocketChannelProxy sharedInstance].codec = codec;
+    [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
+}
+
+- (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
+{
+    //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
+    //测试代码，默认为0，未做修改
+    
+    NSMutableData *tempData = [NSMutableData dataWithData:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]];
+    uint8_t delimiter = 10;
+    [tempData appendBytes:&delimiter length:1];
+    
+    RHPacketRequest *req = [[RHPacketRequest alloc] init];
+    req.data = tempData;
+    
+    RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
+    callReply.request = req;
+    
+    [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
+}
+
+- (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
+{}
 
 @end
