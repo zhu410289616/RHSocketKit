@@ -4,6 +4,12 @@ socket网络通信框架
 ## CocoaPods
 pod 'RHSocketKit'
 
+### 2015-12-23
+1-增加数值和字节互相转换的方法。<br/>
+2-修改可变长度解码的bug。<br/>
+3-调整rpc框架的目录结构，防止无效引入。<br/>
+4-提交2.0.1版本。通过pod 'RHSocketKit', '~> 2.0.1'时，默认只包含Core和Extend。rpc框架引入方式：pod 'RHSocketKit/RPC', '~> 2.0.1'。
+
 ### 2015-12-22
 1-对调整后的框架做扩展，增加rpc处理逻辑。<br/>
 2-整理测试代码。<br/>
