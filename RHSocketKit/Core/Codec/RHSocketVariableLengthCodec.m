@@ -8,7 +8,16 @@
 
 #import "RHSocketVariableLengthCodec.h"
 #import "RHSocketConfig.h"
+#import "RHSocketUtils.h"
 #import "RHPacketResponse.h"
+
+@interface RHSocketVariableLengthCodec ()
+{
+    //头部长度数据的字节个数，默认为2
+    int _headLength;
+}
+
+@end
 
 @implementation RHSocketVariableLengthCodec
 
@@ -43,15 +52,17 @@
     while (downstreamData && downstreamData.length - headIndex > _headLength) {
         NSData *lenData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _headLength)];
         NSUInteger frameLen = [self frameLengthWithData:lenData shouldSwapData:_headDataShouldSwap];
-        
+        //剩余数据，不是完整的数据包，则break继续读取等待
         if (downstreamData.length - headIndex < _headLength + frameLen) {
             break;
         }
+        //数据包(长度＋内容)
         NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _headLength + frameLen)];
-        RHPacketResponse *rsp = [[RHPacketResponse alloc] initWithData:frameData];
+        //去除数据长度后的数据内容
+        RHPacketResponse *rsp = [[RHPacketResponse alloc] initWithData:[frameData subdataWithRange:NSMakeRange(_headLength, frameLen)]];
         [output didDecode:rsp];
-        //
-        headIndex += frameLen;
+        //调整已经解码数据
+        headIndex += frameData.length;
     }//while
     return headIndex;
 }
@@ -71,40 +82,9 @@
         for (NSUInteger i=0; i<lenData.length; i++) {
             [dstData appendData:[lenData subdataWithRange:NSMakeRange(lenData.length-1-i, 1)]];
         }//for
-        return [self lengthFromBytes:dstData];
+        return [RHSocketUtils uint16FromBytes:dstData];
     }
-    return [self lengthFromBytes:lenData];
-}
-
-- (NSData *)bytesFromLength:(uint32_t)length
-{
-    NSMutableData *lenData = [[NSMutableData alloc] init];
-    
-    NSUInteger val = length;
-    do {
-        int8_t digit = val % 256;
-        val = val >> 8;
-        [lenData appendBytes:&digit length:1];
-    } while (val > 0);
-    
-    return lenData;
-}
-
-- (uint32_t)lengthFromBytes:(NSData *)lenData
-{
-    NSUInteger byteCount = MIN(4, lenData.length);
-    
-    const char *bytes = lenData.bytes;
-    int multiplier = 1;
-    uint32_t length = 0;
-    
-    for (NSUInteger i=0; i<byteCount; i++) {
-        int8_t digit = bytes[i];
-        length += digit * multiplier;
-        multiplier *= 256;
-    }//for
-    
-    return length;
+    return [RHSocketUtils uint16FromBytes:lenData];
 }
 
 @end
