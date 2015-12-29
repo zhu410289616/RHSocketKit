@@ -20,4 +20,16 @@
 + (uint16_t)uint16FromBytes:(NSData *)data;
 + (uint32_t)uint32FromBytes:(NSData *)data;
 
+/*** 16进制字符串转换为data。24211D3498FF62AF  -->  <24211D34 98FF62AF> */
++ (NSData *)dataFromHexString:(NSString *)hexString;
+
+/** data转换为16进制。<24211D34 98FF62AF>  -->  24211D3498FF62AF */
++ (NSString *)hexStringFromData:(NSData *)data;
+
+/** hex字符串转换为ascii码。00de0f1a8b24211D3498FF62AF -->  3030646530663161386232343231314433343938464636324146 */
++ (NSString *)asciiStringFromHexString:(NSString *)hexString;
+
+/** ascii码转换为hex字符串。343938464636324146 --> 498FF62AF */
++ (NSString *)hexStringFromASCIIString:(NSString *)asciiString;
+
 @end

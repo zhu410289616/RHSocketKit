@@ -25,6 +25,9 @@
 #import "RHSocketChannelProxy.h"
 #import "RHConnectCallReply.h"
 
+//
+#import "RHSocketUtils.h"
+
 @interface ViewController () <RHSocketChannelDelegate, RHSocketReplyProtocol>
 {
     UIButton *_channelTestButton;
@@ -84,6 +87,25 @@
     [_proxyTestButton addTarget:self action:@selector(doTestProxyButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_proxyTestButton];
     
+    
+    //
+    NSData *data = [RHSocketUtils dataFromHexString:@"24211D3498FF62AF"];
+    RHSocketLog(@"data: %@", data);
+    
+    NSString *hexString = [RHSocketUtils hexStringFromData:data];
+    RHSocketLog(@"hexString: %@", hexString);
+    
+    NSString *asciiString = [RHSocketUtils asciiStringFromHexString:@"00de0f1a8b24211D3498FF62AF"];
+    RHSocketLog(@"asciiString: %@", asciiString);
+    
+    hexString = [RHSocketUtils hexStringFromASCIIString:asciiString];
+    RHSocketLog(@"hexString: %@", hexString);
+    
+    hexString = [RHSocketUtils hexStringFromASCIIString:@"343938464636324146"];
+    RHSocketLog(@"hexString: %@", hexString);
+    
+    hexString = [RHSocketUtils hexStringFromASCIIString:@"3030646530663161386232343231314433"];
+    RHSocketLog(@"hexString: %@", hexString);
 }
 
 #pragma mark - channel test

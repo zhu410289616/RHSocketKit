@@ -86,4 +86,73 @@
     return dstVal;
 }
 
++ (NSData *)dataFromHexString:(NSString *)hexString
+{
+    NSAssert((hexString.length > 0) && (hexString.length % 2 == 0), @"hexString.length mod 2 != 0");
+    NSMutableData *data = [[NSMutableData alloc] init];
+    for (NSUInteger i=0; i<hexString.length; i+=2) {
+        NSRange tempRange = NSMakeRange(i, 2);
+        NSString *tempStr = [hexString substringWithRange:tempRange];
+        NSScanner *scanner = [NSScanner scannerWithString:tempStr];
+        unsigned int tempIntValue;
+        [scanner scanHexInt:&tempIntValue];
+        [data appendBytes:&tempIntValue length:1];
+    }
+    return data;
+}
+
++ (NSString *)hexStringFromData:(NSData *)data
+{
+    NSAssert(data.length > 0, @"data.length <= 0");
+    NSMutableString *hexString = [[NSMutableString alloc] init];
+    const Byte *bytes = data.bytes;
+    for (NSUInteger i=0; i<data.length; i++) {
+        Byte value = bytes[i];
+        Byte high = (value & 0xf0) >> 4;
+        Byte low = value & 0xf;
+        [hexString appendFormat:@"%x%x", high, low];
+    }//for
+    return hexString;
+}
+
++ (NSString *)asciiStringFromHexString:(NSString *)hexString
+{
+    NSMutableString *asciiString = [[NSMutableString alloc] init];
+    const char *bytes = [hexString UTF8String];
+    for (NSUInteger i=0; i<hexString.length; i++) {
+        [asciiString appendFormat:@"%0.2X", bytes[i]];
+    }
+    return asciiString;
+}
+
++ (NSString *)hexStringFromASCIIString:(NSString *)asciiString
+{
+    NSMutableString *hexString = [[NSMutableString alloc] init];
+    const char *asciiChars = [asciiString UTF8String];
+    for (NSUInteger i=0; i<asciiString.length; i+=2) {
+        char hexChar = '\0';
+        
+        //high
+        if (asciiChars[i] >= '0' && asciiChars[i] <= '9') {
+            hexChar = (asciiChars[i] - '0') << 4;
+        } else if (asciiChars[i] >= 'a' && asciiChars[i] <= 'z') {
+            hexChar = (asciiChars[i] - 'a' + 10) << 4;
+        } else if (asciiChars[i] >= 'A' && asciiChars[i] <= 'Z') {
+            hexChar = (asciiChars[i] - 'A' + 10) << 4;
+        }//if
+        
+        //low
+        if (asciiChars[i+1] >= '0' && asciiChars[i+1] <= '9') {
+            hexChar += asciiChars[i+1] - '0';
+        } else if (asciiChars[i+1] >= 'a' && asciiChars[i+1] <= 'z') {
+            hexChar += asciiChars[i+1] - 'a' + 10;
+        } else if (asciiChars[i+1] >= 'A' && asciiChars[i+1] <= 'Z') {
+            hexChar += asciiChars[i+1] - 'A' + 10;
+        }//if
+        
+        [hexString appendFormat:@"%c", hexChar];
+    }
+    return hexString;
+}
+
 @end
