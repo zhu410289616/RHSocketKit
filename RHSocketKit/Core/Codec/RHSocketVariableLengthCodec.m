@@ -35,9 +35,10 @@
     NSData *data = [upstreamPacket data];
     NSAssert(data.length > 0 , @"Encode data is too short ...");
     
+    //可变长度编码，数据块的前两个字节为后续完整数据块的长度
     uint16_t dataLen = data.length;
     NSMutableData *sendData = [[NSMutableData alloc] init];
-    [sendData appendBytes:&dataLen length:2];
+    [sendData appendBytes:&dataLen length:2];//将数据长度写入到数据块的前两个字节中
     [sendData appendData:data];
     NSTimeInterval timeout = [upstreamPacket timeout];
     
@@ -51,6 +52,7 @@
     //先读区2个字节的协议长度 (前2个字节为数据包的长度)
     while (downstreamData && downstreamData.length - headIndex > _headLength) {
         NSData *lenData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _headLength)];
+        //长度字节数据，可能存在高低位互换，通过数值转换工具处理
         NSUInteger frameLen = [self frameLengthWithData:lenData shouldSwapData:_headDataShouldSwap];
         //剩余数据，不是完整的数据包，则break继续读取等待
         if (downstreamData.length - headIndex < _headLength + frameLen) {

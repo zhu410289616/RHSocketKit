@@ -14,6 +14,9 @@ extern NSString *const kNotificationSocketServiceState;
 extern NSString *const kNotificationSocketPacketRequest;
 extern NSString *const kNotificationSocketPacketResponse;
 
+/**
+ *  封装好的单例socket服务器工具，需要初始化编码解码器codec
+ */
 @interface RHSocketService : NSObject <RHSocketChannelDelegate>
 
 @property (nonatomic, strong, readonly) RHSocketChannel *channel;

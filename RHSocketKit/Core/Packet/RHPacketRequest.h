@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "RHSocketPacket.h"
 
+/**
+ *  根据上行数据包协议实现的最基本的上行请求数据结构对象
+ */
 @interface RHPacketRequest : NSObject <RHUpstreamPacket>
 
 @end
