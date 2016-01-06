@@ -47,6 +47,25 @@
     return valData;
 }
 
++ (NSData *)bytesFromValue:(NSUInteger)value byteCount:(int)byteCount
+{
+    NSAssert(value <= 4294967295, @"bytesFromValue: (max value is 4294967295)");
+    NSAssert(byteCount <= 4, @"bytesFromValue: (byte count is too long)");
+    
+    NSMutableData *valData = [[NSMutableData alloc] init];
+    NSUInteger tempVal = value;
+    int offset = 0;
+    
+    while (offset < byteCount) {
+        unsigned char valChar = 0xff & tempVal;
+        [valData appendBytes:&valChar length:1];
+        tempVal = tempVal >> 8;
+        offset++;
+    }//while
+    
+    return valData;
+}
+
 + (uint8_t)uint8FromBytes:(NSData *)data
 {
     NSAssert(data.length == 1, @"uint8FromBytes: (data length != 1)");
@@ -84,6 +103,24 @@
     
     uint32_t dstVal = (val0 & 0xff) + ((val1 << 8) & 0xff00) + ((val1 << 16) & 0xff0000) + ((val1 << 24) & 0xff000000);
     return dstVal;
+}
+
++ (NSUInteger)valueFromBytes:(NSData *)data
+{
+    NSAssert(data.length <= 4, @"valueFromBytes: (data is too long)");
+    
+    NSUInteger dataLen = data.length;
+    NSUInteger value = 0;
+    int offset = 0;
+    
+    while (offset < dataLen) {
+        uint32_t tempVal = 0;
+        [data getBytes:&tempVal range:NSMakeRange(offset, 1)];
+        value += (tempVal << (8 * offset));
+        offset++;
+    }//while
+    
+    return value;
 }
 
 + (NSData *)dataFromHexString:(NSString *)hexString

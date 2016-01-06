@@ -106,6 +106,37 @@
     
     hexString = [RHSocketUtils hexStringFromASCIIString:@"3030646530663161386232343231314433"];
     RHSocketLog(@"hexString: %@", hexString);
+    
+    NSUInteger value = 4294967295;
+    data = [RHSocketUtils bytesFromValue:value byteCount:4];
+    RHSocketLog(@"data: %@", data);
+    value = [RHSocketUtils valueFromBytes:data];
+    RHSocketLog(@"value: %lu", (unsigned long)value);
+    
+    value = 300;//对应十六进制 0x12c
+    data = [RHSocketUtils bytesFromValue:value byteCount:4];
+    RHSocketLog(@"data: %@", data);//转换为低位在前高位在后的data 2c 01 00 00
+    value = [RHSocketUtils valueFromBytes:data];
+    RHSocketLog(@"value: %lu", (unsigned long)value);//将低位在前高位在后的data还原 300
+    
+    value = 255;
+    data = [RHSocketUtils bytesFromValue:value byteCount:3];
+    RHSocketLog(@"data: %@", data);
+    value = [RHSocketUtils valueFromBytes:data];
+    RHSocketLog(@"value: %lu", (unsigned long)value);
+    
+    value = 74;
+    data = [RHSocketUtils bytesFromValue:value byteCount:2];
+    RHSocketLog(@"data: %@", data);
+    value = [RHSocketUtils valueFromBytes:data];
+    RHSocketLog(@"value: %lu", (unsigned long)value);
+    
+    value = 74;
+    data = [RHSocketUtils bytesFromValue:value byteCount:1];
+    RHSocketLog(@"data: %@", data);
+    value = [RHSocketUtils valueFromBytes:data];
+    RHSocketLog(@"value: %lu", (unsigned long)value);
+    
 }
 
 #pragma mark - channel test
