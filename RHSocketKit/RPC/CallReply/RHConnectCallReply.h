@@ -8,6 +8,9 @@
 
 #import "RHSocketCallReply.h"
 
+/**
+ *  连接服务器结构对象
+ */
 @interface RHConnectCallReply : RHSocketCallReply
 
 @property (nonatomic, strong) NSString *host;

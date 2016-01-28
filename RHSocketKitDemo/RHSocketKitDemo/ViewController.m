@@ -24,11 +24,12 @@
 //
 #import "RHSocketChannelProxy.h"
 #import "RHConnectCallReply.h"
+#import "EXTScope.h"
 
 //
 #import "RHSocketUtils.h"
 
-@interface ViewController () <RHSocketChannelDelegate, RHSocketReplyProtocol>
+@interface ViewController () <RHSocketChannelDelegate>
 {
     UIButton *_channelTestButton;
     UIButton *_serviceTestButton;
@@ -210,35 +211,43 @@
     int port = 7878;
     
     RHSocketVariableLengthCodec *codec = [[RHSocketVariableLengthCodec alloc] init];
+    codec.reverseOfLengthByte = NO;
     
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
-    connect.delegate = self;
     connect.host = host;
     connect.port = port;
-    
+    @weakify(self);
+    connect.successBlock = ^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response) {
+        @strongify(self);
+        [self sendVariableLengthRPC];
+    };
     [RHSocketChannelProxy sharedInstance].codec = codec;
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
 }
 
-- (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
+- (void)sendVariableLengthRPC
 {
     //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
     //测试代码，默认为0，未做修改
-    
-    NSMutableData *tempData = [NSMutableData dataWithData:[@"123456" dataUsingEncoding:NSUTF8StringEncoding]];
-    uint8_t delimiter = 10;
-    [tempData appendBytes:&delimiter length:1];
-    
+    NSData *tempData = [@"可变数据包通信测试（包长＋包体数据）" dataUsingEncoding:NSUTF8StringEncoding];
     RHPacketRequest *req = [[RHPacketRequest alloc] init];
     req.data = tempData;
     
     RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
     callReply.request = req;
-    
+    callReply.successBlock = ^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response) {
+        if ([response data]) {
+            NSString *responseData = [[NSString alloc] initWithData:[response data] encoding:NSUTF8StringEncoding];
+            RHSocketLog(@"responseData: %@", responseData);
+        }
+    };
+    callReply.failureBlock = ^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
+        RHSocketLog(@"error: %@", error.description);
+    };
+    //发送，并等待返回
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
+    //只发送，不等待返回
+    [[RHSocketChannelProxy sharedInstance] asyncNotify:callReply];
 }
-
-- (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
-{}
 
 @end

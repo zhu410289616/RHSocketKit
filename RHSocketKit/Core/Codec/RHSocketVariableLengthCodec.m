@@ -16,8 +16,8 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _headByteCount = 2;
-        _isHeadByteReverse = YES;
+        _countOfLengthByte = 2;
+        _reverseOfLengthByte = NO;
     }
     return self;
 }
@@ -32,8 +32,8 @@
     NSMutableData *sendData = [[NSMutableData alloc] init];
     
     //将数据长度转换为长度字节，写入到数据块中。这里根据head占的字节个数转换data长度，默认为2个字节
-    NSData *headData = [RHSocketUtils bytesFromValue:dataLen byteCount:_headByteCount];
-    if (!_isHeadByteReverse) {
+    NSData *headData = [RHSocketUtils bytesFromValue:dataLen byteCount:_countOfLengthByte];
+    if (!_reverseOfLengthByte) {
         headData = [self dataWithReverse:headData];
     }
     [sendData appendData:headData];
@@ -48,21 +48,21 @@
 {
     NSUInteger headIndex = 0;
     //先读区2个字节的协议长度 (前2个字节为数据包的长度)
-    while (downstreamData && downstreamData.length - headIndex > _headByteCount) {
-        NSData *lenData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _headByteCount)];
+    while (downstreamData && downstreamData.length - headIndex > _countOfLengthByte) {
+        NSData *lenData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte)];
         //长度字节数据，可能存在高低位互换，通过数值转换工具处理
-        if (!_isHeadByteReverse) {
+        if (!_reverseOfLengthByte) {
             lenData = [self dataWithReverse:lenData];
         }
         NSUInteger frameLen = [RHSocketUtils valueFromBytes:lenData];
         //剩余数据，不是完整的数据包，则break继续读取等待
-        if (downstreamData.length - headIndex < _headByteCount + frameLen) {
+        if (downstreamData.length - headIndex < _countOfLengthByte + frameLen) {
             break;
         }
         //数据包(长度＋内容)
-        NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _headByteCount + frameLen)];
+        NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte + frameLen)];
         //去除数据长度后的数据内容
-        RHPacketResponse *rsp = [[RHPacketResponse alloc] initWithData:[frameData subdataWithRange:NSMakeRange(_headByteCount, frameLen)]];
+        RHPacketResponse *rsp = [[RHPacketResponse alloc] initWithData:[frameData subdataWithRange:NSMakeRange(_countOfLengthByte, frameLen)]];
         [output didDecode:rsp];
         //调整已经解码数据
         headIndex += frameData.length;

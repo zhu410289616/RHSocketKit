@@ -13,6 +13,8 @@
  *  针对数据包分隔符编码解码器
  *  默认数据包中每帧最大值为8192（maxFrameSize == 8192）
  *  默认数据包每帧分隔符为0xff（delimiter == 0xff）
+ *
+ *  对应netty的DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter())解码器
  */
 @interface RHSocketDelimiterCodec : NSObject <RHSocketCodecProtocol>
 

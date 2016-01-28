@@ -10,8 +10,15 @@
 #import "RHSocketCallReplyProtocol.h"
 #import "RHSocketConfig.h"
 
+typedef void(^RHSocketReplySuccessBlock)(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response);
+typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply, NSError *error);
+
+/**
+ *  请求
+ */
 @interface RHSocketCallReply : NSObject <RHSocketCallReplyProtocol>
 
-@property (nonatomic, weak) id<RHSocketReplyProtocol> delegate;
+@property (nonatomic, copy) RHSocketReplySuccessBlock successBlock;
+@property (nonatomic, copy) RHSocketReplyFailureBlock failureBlock;
 
 @end

@@ -36,13 +36,16 @@
 
 - (NSTimeInterval)callReplyTimeout
 {
+    if ([_request timeout] < 0) {
+        return LONG_MAX;
+    }
     return [_request timeout];
 }
 
 - (BOOL)isTimeout
 {
     time_t currentTime = time(0);
-    if (currentTime - _startTime >= [_request timeout]) {
+    if (currentTime - _startTime >= [self callReplyTimeout]) {
         return YES;
     }
     return NO;
@@ -51,15 +54,19 @@
 - (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
 {
     RHSocketLog(@"%@ onFailure: %@", [self class], error.description);
-    //TODO: 请求失败
-    [_delegate onFailure:aCallReply error:error];
+    //请求失败
+    if (_failureBlock) {
+        _failureBlock(aCallReply, error);
+    }
 }
 
 - (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
 {
     RHSocketLog(@"%@ onSuccess: %@", [self class], [response data]);
-    //TODO: 请求成功
-    [_delegate onSuccess:aCallReply response:response];
+    //请求成功
+    if (_successBlock) {
+        _successBlock(aCallReply, response);
+    }
 }
 
 @end

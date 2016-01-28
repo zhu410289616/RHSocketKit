@@ -8,6 +8,9 @@
 
 #import "RHSocketCallReply.h"
 
+/**
+ *  socket连接成功后，自定义一些授权验证包。（待实现）
+ */
 @interface RHAuthCallReply : RHSocketCallReply
 
 @end

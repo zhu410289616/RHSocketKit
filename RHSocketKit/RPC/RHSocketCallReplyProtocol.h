@@ -11,6 +11,9 @@
 
 @protocol RHSocketCallReplyProtocol;
 
+/**
+ *  RPC呼叫协议
+ */
 @protocol RHSocketCallProtocol <NSObject>
 
 @required
@@ -19,6 +22,9 @@
 
 @end
 
+/**
+ *  RPC应答协议
+ */
 @protocol RHSocketReplyProtocol <NSObject>
 
 @required
@@ -28,6 +34,9 @@
 
 @end
 
+/**
+ *  RPC相关协议
+ */
 @protocol RHSocketCallReplyProtocol <RHSocketCallProtocol, RHSocketReplyProtocol>
 
 @required
