@@ -9,6 +9,7 @@
 #import "RHSocketDelimiterCodec.h"
 #import "RHSocketConfig.h"
 #import "RHPacketResponse.h"
+#import "RHSocketException.h"
 
 @implementation RHSocketDelimiterCodec
 
@@ -24,7 +25,10 @@
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output
 {
     NSData *data = [upstreamPacket data];
-    NSAssert(data.length < _maxFrameSize, @"Encode data is too long ...");
+    if (data.length >= _maxFrameSize - 1) {
+        [RHSocketException raiseWithReason:@"[Encode] Too Long Frame ..."];
+        return;
+    }
     
     NSMutableData *sendData = [NSMutableData dataWithData:data];
     [sendData appendBytes:&_delimiter length:1];//在上行数据的末尾加上分隔符标记
@@ -41,10 +45,10 @@
     
     for (NSUInteger i=0; i<dataLen; i++) {
         //遍历数据的最大允许长度后，返回异常长度－1，进入channel的断开退出逻辑
-        if (i >= _maxFrameSize) {
+        if (i >= _maxFrameSize - 1) {
+            [RHSocketException raiseWithReason:@"[Decode] Too Long Frame ..."];
             return -1;
         }
-        NSAssert(i < _maxFrameSize, @"Decode data is too long ...");
         //根据分隔符，获取一块数据包，类似得到一句完整的句子。然后output，触发上层逻辑
         uint8_t byte;
         [downstreamData getBytes:&byte range:NSMakeRange(i, 1)];

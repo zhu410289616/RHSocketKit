@@ -19,6 +19,11 @@
 @interface RHSocketVariableLengthCodec : NSObject <RHSocketCodecProtocol>
 
 /**
+ *  应用协议中允许发送的最大数据块大小，默认为65536
+ */
+@property (nonatomic, assign) NSUInteger maxFrameSize;
+
+/**
  *  包长度数据的字节个数，默认为2
  */
 @property (nonatomic, assign) int countOfLengthByte;

@@ -31,6 +31,7 @@
 		837C5D1E1C2AB8A9003A000E /* RHSocketCallReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C5D161C2AB8A9003A000E /* RHSocketCallReply.m */; };
 		837C5D1F1C2AB8A9003A000E /* RHSocketCallReplyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C5D181C2AB8A9003A000E /* RHSocketCallReplyManager.m */; };
 		837C5D201C2AB8A9003A000E /* RHSocketChannelProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C5D1B1C2AB8A9003A000E /* RHSocketChannelProxy.m */; };
+		83A00E411C5F115500883FD8 /* RHSocketException.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A00E401C5F115500883FD8 /* RHSocketException.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		837C5D191C2AB8A9003A000E /* RHSocketCallReplyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCallReplyProtocol.h; sourceTree = "<group>"; };
 		837C5D1A1C2AB8A9003A000E /* RHSocketChannelProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannelProxy.h; sourceTree = "<group>"; };
 		837C5D1B1C2AB8A9003A000E /* RHSocketChannelProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannelProxy.m; sourceTree = "<group>"; };
+		83A00E3F1C5F115500883FD8 /* RHSocketException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketException.h; sourceTree = "<group>"; };
+		83A00E401C5F115500883FD8 /* RHSocketException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketException.m; sourceTree = "<group>"; };
 		C8A26197775EDD93AE22E16A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +131,7 @@
 		8320EBFE1C23F166006A4CEC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				83A00E321C5F0D0000883FD8 /* Exception */,
 				837C5D0B1C2A7C42003A000E /* Utils */,
 				8320EBFF1C23F166006A4CEC /* Channel */,
 				8320EC041C23F166006A4CEC /* Codec */,
@@ -301,6 +305,15 @@
 				837C5D161C2AB8A9003A000E /* RHSocketCallReply.m */,
 			);
 			path = CallReply;
+			sourceTree = "<group>";
+		};
+		83A00E321C5F0D0000883FD8 /* Exception */ = {
+			isa = PBXGroup;
+			children = (
+				83A00E3F1C5F115500883FD8 /* RHSocketException.h */,
+				83A00E401C5F115500883FD8 /* RHSocketException.m */,
+			);
+			path = Exception;
 			sourceTree = "<group>";
 		};
 		9C1552C6FF76D1C5CD3E2DE0 /* Pods */ = {
@@ -480,6 +493,7 @@
 				833824CB1B47D691000DB52A /* RHPacketHttpRequest.m in Sources */,
 				837C5D201C2AB8A9003A000E /* RHSocketChannelProxy.m in Sources */,
 				8320EC131C23F166006A4CEC /* RHSocketConnection.m in Sources */,
+				83A00E411C5F115500883FD8 /* RHSocketException.m in Sources */,
 				833824CC1B47D691000DB52A /* RHPacketHttpResponse.m in Sources */,
 				8320EC231C23FAA1006A4CEC /* RHPacketRequest.m in Sources */,
 			);

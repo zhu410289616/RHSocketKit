@@ -10,12 +10,14 @@
 #import "RHSocketConfig.h"
 #import "RHSocketUtils.h"
 #import "RHPacketResponse.h"
+#import "RHSocketException.h"
 
 @implementation RHSocketVariableLengthCodec
 
 - (instancetype)init
 {
     if (self = [super init]) {
+        _maxFrameSize = 65536;
         _countOfLengthByte = 2;
         _reverseOfLengthByte = NO;
     }
@@ -25,7 +27,15 @@
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output
 {
     NSData *data = [upstreamPacket data];
-    NSAssert(data.length > 0 , @"Encode data is too short ...");
+    if (data.length == 0) {
+        [RHSocketException raiseWithReason:@"[Encode] Too short Frame ..."];
+        return;
+    }//
+    
+    if (data.length >= _maxFrameSize - _countOfLengthByte) {
+        [RHSocketException raiseWithReason:@"[Encode] Too Long Frame ..."];
+        return;
+    }//
     
     //可变长度编码，数据块的前两个字节为后续完整数据块的长度
     NSUInteger dataLen = data.length;
@@ -55,6 +65,11 @@
             lenData = [self dataWithReverse:lenData];
         }
         NSUInteger frameLen = [RHSocketUtils valueFromBytes:lenData];
+        if (frameLen >= _maxFrameSize - _countOfLengthByte) {
+            [RHSocketException raiseWithReason:@"[Decode] Too Long Frame ..."];
+            return -1;
+        }//
+        
         //剩余数据，不是完整的数据包，则break继续读取等待
         if (downstreamData.length - headIndex < _countOfLengthByte + frameLen) {
             break;

@@ -8,6 +8,7 @@
 
 #import "RHSocketChannel.h"
 #import "RHSocketConnection.h"
+#import "RHSocketException.h"
 
 @interface RHSocketChannel () <RHSocketConnectionDelegate, RHSocketEncoderOutputProtocol, RHSocketDecoderOutputProtocol>
 {
@@ -40,7 +41,10 @@
 
 - (void)openConnection
 {
-    NSAssert(_codec, @"RHSocketHandler should not be nil ...");
+    if (nil == _codec) {
+        [RHSocketException raiseWithReason:@"RHSocket Codec should not be nil ..."];
+        return;
+    }
     
     @synchronized(self) {
         [self closeConnection];
@@ -94,6 +98,7 @@
         NSInteger decodedLength = [_codec decode:_receiveDataBuffer output:self];
         
         if (decodedLength < 0) {
+            [RHSocketException raiseWithReason:@"Decode Failed ..."];
             [self closeConnection];
             return;
         }//if
