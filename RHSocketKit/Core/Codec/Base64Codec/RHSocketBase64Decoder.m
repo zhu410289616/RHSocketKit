@@ -1,22 +1,22 @@
 //
-//  RHSocketStringDecoder.m
+//  RHSocketBase64Decoder.m
 //  RHSocketKitDemo
 //
 //  Created by zhuruhong on 16/2/15.
 //  Copyright © 2016年 zhuruhong. All rights reserved.
 //
 
-#import "RHSocketStringDecoder.h"
-#import "RHSocketException.h"
+#import "RHSocketBase64Decoder.h"
+#import "Base64.h"
 
-@interface RHSocketStringDecoder ()
+@interface RHSocketBase64Decoder ()
 {
     NSStringEncoding _stringEncoding;
 }
 
 @end
 
-@implementation RHSocketStringDecoder
+@implementation RHSocketBase64Decoder
 
 - (instancetype)init
 {
@@ -36,15 +36,19 @@
 
 - (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output
 {
-    NSString *stringObject = nil;
+    NSString *base64Object = nil;
     
     id object = [downstreamPacket object];
     if ([object isKindOfClass:[NSString class]]) {
-        stringObject = object;
+        base64Object = object;
     } else if ([object isKindOfClass:[NSData class]]) {
-        stringObject = [[NSString alloc] initWithData:object encoding:_stringEncoding];
-    } else {
-        [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
+        base64Object = [[NSString alloc] initWithData:object encoding:_stringEncoding];
+    }
+    
+    //做base64解码
+    NSString *stringObject = nil;
+    if (stringObject.length > 0) {
+        stringObject = [base64Object base64DecodedString];
     }
     [downstreamPacket setObject:stringObject];
     

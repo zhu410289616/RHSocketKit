@@ -1,22 +1,22 @@
 //
-//  RHSocketStringEncoder.m
+//  RHSocketBase64Encoder.m
 //  RHSocketKitDemo
 //
 //  Created by zhuruhong on 16/2/15.
 //  Copyright © 2016年 zhuruhong. All rights reserved.
 //
 
-#import "RHSocketStringEncoder.h"
-#import "RHSocketException.h"
+#import "RHSocketBase64Encoder.h"
+#import "Base64.h"
 
-@interface RHSocketStringEncoder ()
+@interface RHSocketBase64Encoder ()
 {
     NSStringEncoding _stringEncoding;
 }
 
 @end
 
-@implementation RHSocketStringEncoder
+@implementation RHSocketBase64Encoder
 
 - (instancetype)init
 {
@@ -36,16 +36,25 @@
 
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output
 {
-    NSData *dataObject = nil;
+    NSString *base64Object = nil;
     
     id object = [upstreamPacket object];
     if ([object isKindOfClass:[NSString class]]) {
         NSString *stringObject = object;
-        dataObject = [stringObject dataUsingEncoding:_stringEncoding];
+        base64Object = [stringObject base64EncodedString];//string -> base64 string
     } else if ([object isKindOfClass:[NSData class]]) {
-        dataObject = object;
-    } else {
-        [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
+        NSData *dataObject = object;
+        base64Object = [dataObject base64EncodedString];//data -> base64 string
+    }
+    
+    //做base64编码
+    NSData *dataObject = nil;
+    if (base64Object.length > 0) {
+        dataObject = [base64Object dataUsingEncoding:_stringEncoding];
+    }
+    
+    if (dataObject.length <= 0) {
+        return;
     }
     
     //责任链模式，丢给下一个处理器

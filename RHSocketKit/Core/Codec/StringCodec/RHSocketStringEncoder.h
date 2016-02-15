@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) id<RHSocketEncoderProtocol> nextEncoder;
 
+- (instancetype)initWithStringEncoding:(NSStringEncoding)stringEncoding;
+
 @end

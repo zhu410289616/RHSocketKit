@@ -26,6 +26,14 @@
 @synthesize object;
 @synthesize pid;
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        _timeout = -1;
+    }
+    return self;
+}
+
 - (NSTimeInterval)timeout
 {
     return _timeout;

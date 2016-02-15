@@ -12,6 +12,18 @@
 #import "RHSocketStringEncoder.h"
 #import "RHSocketStringDecoder.h"
 
+#import "RHSocketBase64Encoder.h"
+#import "RHSocketBase64Decoder.h"
+
+#import "RHSocketJSONSerializationEncoder.h"
+#import "RHSocketJSONSerializationDecoder.h"
+
+#import "RHSocketZlibCompressionEncoder.h"
+#import "RHSocketZlibCompressionDecoder.h"
+
+#import "RHSocketProtobufEncoder.h"
+#import "RHSocketProtobufDecoder.h"
+
 #import "RHSocketDelimiterEncoder.h"
 #import "RHSocketDelimiterDecoder.h"
 
@@ -160,17 +172,22 @@
     RHSocketStringEncoder *stringEncoder = [[RHSocketStringEncoder alloc] init];
     stringEncoder.nextEncoder = encoder;
     
+    RHSocketBase64Encoder *base64Encoder = [[RHSocketBase64Encoder alloc] init];
+    base64Encoder.nextEncoder = encoder;
+    
     //
     RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
     
+    RHSocketBase64Decoder *base64Decoder = [[RHSocketBase64Decoder alloc] init];
+    
     RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
     decoder.delimiter = 0x0a;//0x0a，换行符
-    decoder.nextDecoder = stringDecoder;
+    decoder.nextDecoder = stringDecoder;//base64Decoder;
     
     //
     _channel = [[RHSocketChannel alloc] initWithHost:host port:port];
     _channel.delegate = self;
-    _channel.encoder = stringEncoder;
+    _channel.encoder = base64Encoder;//stringEncoder;
     _channel.decoder = decoder;
     [_channel openConnection];
     
@@ -196,8 +213,7 @@
 
 - (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
-    NSString *receive = [[NSString alloc] initWithData:[packet object] encoding:NSUTF8StringEncoding];
-    RHSocketLog(@"received: %@, %@", [packet object], receive);
+    RHSocketLog(@"received: %@", [packet object]);
 }
 
 #pragma mark - socket service test

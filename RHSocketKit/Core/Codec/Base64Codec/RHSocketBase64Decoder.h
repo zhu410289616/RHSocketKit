@@ -1,5 +1,5 @@
 //
-//  RHSocketStringDecoder.h
+//  RHSocketBase64Decoder.h
 //  RHSocketKitDemo
 //
 //  Created by zhuruhong on 16/2/15.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RHSocketCodecProtocol.h"
 
-@interface RHSocketStringDecoder : NSObject <RHSocketDecoderProtocol>
+@interface RHSocketBase64Decoder : NSObject <RHSocketDecoderProtocol>
 
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> nextDecoder;
 
