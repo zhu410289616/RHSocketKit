@@ -1,27 +1,22 @@
 //
-//  RHSocketDelimiterCodec.h
+//  RHSocketDelimiterEncoder.h
 //  RHSocketKitDemo
 //
-//  Created by zhuruhong on 15/12/17.
-//  Copyright © 2015年 zhuruhong. All rights reserved.
+//  Created by zhuruhong on 16/2/15.
+//  Copyright © 2016年 zhuruhong. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "RHSocketCodecProtocol.h"
 
 /**
- *  针对数据包分隔符编码解码器
- *  默认数据包中每帧最大值为8192（maxFrameSize == 8192）
+ *  分隔符编码器
  *  默认数据包每帧分隔符为0xff（delimiter == 0xff）
+ *  默认数据包中每帧最大值为8192（maxFrameSize == 8192）
  *
  *  对应netty的DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter())解码器
  */
-@interface RHSocketDelimiterCodec : NSObject <RHSocketCodecProtocol>
-
-/**
- *  应用协议中允许发送的最大数据块大小，默认为8192
- */
-@property (nonatomic, assign) NSUInteger maxFrameSize;
+@interface RHSocketDelimiterEncoder : NSObject <RHSocketEncoderProtocol>
 
 /**
  *  应用协议中每帧数据之间的标记分隔符号
@@ -29,5 +24,12 @@
  *  在底层的二进制通讯中，这个分隔符就是最简单的协议标记
  */
 @property (nonatomic, assign) uint8_t delimiter;
+
+/**
+ *  应用协议中允许发送的最大数据块大小，默认为8192
+ */
+@property (nonatomic, assign) NSUInteger maxFrameSize;
+
+- (instancetype)initWithDelimiter:(uint8_t)aDelimiter maxFrameSize:(NSUInteger)aMaxFrameSize;
 
 @end

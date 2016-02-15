@@ -18,9 +18,9 @@
 @required
 
 /**
- *  数据包携带的data变量，必须实现data的读取方法
+ *  数据包携带的数据变量（可以是任何数据格式）
  */
-@property (nonatomic, strong, readonly) NSData *data;
+@property (nonatomic, strong) id object;
 
 @optional
 
@@ -28,8 +28,6 @@
  *  类似tag，必要的时候实现，用于区分某个数据包
  */
 @property (nonatomic, assign) NSInteger pid;
-
-- (void)setData:(NSData *)data;
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RHSocketConfig.h"
 
 extern NSString *const kRHSocketException;
 

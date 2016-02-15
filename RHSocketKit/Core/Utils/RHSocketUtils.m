@@ -10,6 +10,35 @@
 
 @implementation RHSocketUtils
 
+/**
+ *  反转字节序列
+ *
+ *  @param srcData 原始字节NSData
+ *
+ *  @return 反转序列后字节NSData
+ */
++ (NSData *)dataWithReverse:(NSData *)srcData
+{
+//    NSMutableData *dstData = [[NSMutableData alloc] init];
+//    for (NSUInteger i=0; i<srcData.length; i++) {
+//        [dstData appendData:[srcData subdataWithRange:NSMakeRange(srcData.length-1-i, 1)]];
+//    }//for
+    
+    NSUInteger byteCount = srcData.length;
+    NSMutableData *dstData = [[NSMutableData alloc] initWithData:srcData];
+    NSUInteger halfLength = byteCount / 2;
+    for (NSUInteger i=0; i<halfLength; i++) {
+        NSRange begin = NSMakeRange(i, 1);
+        NSRange end = NSMakeRange(byteCount - i, 1);
+        NSData *beginData = [srcData subdataWithRange:begin];
+        NSData *endData = [srcData subdataWithRange:end];
+        [dstData replaceBytesInRange:begin withBytes:beginData.bytes];
+        [dstData replaceBytesInRange:end withBytes:endData.bytes];
+    }//for
+    
+    return dstData;
+}
+
 + (NSData *)byteFromUInt8:(uint8_t)val
 {
     NSMutableData *valData = [[NSMutableData alloc] init];
@@ -64,6 +93,16 @@
     }//while
     
     return valData;
+}
+
++ (NSData *)bytesFromValue:(NSUInteger)value byteCount:(int)byteCount reverse:(BOOL)reverse
+{
+    NSData *tempData = [self bytesFromValue:value byteCount:byteCount];
+    if (reverse) {
+        return tempData;
+    }
+    
+    return [self dataWithReverse:tempData];
 }
 
 + (uint8_t)uint8FromBytes:(NSData *)data
@@ -121,6 +160,15 @@
     }//while
     
     return value;
+}
+
++ (NSUInteger)valueFromBytes:(NSData *)data reverse:(BOOL)reverse
+{
+    NSData *tempData = data;
+    if (reverse) {
+        tempData = [self dataWithReverse:tempData];
+    }
+    return [self valueFromBytes:tempData];
 }
 
 + (NSData *)dataFromHexString:(NSString *)hexString

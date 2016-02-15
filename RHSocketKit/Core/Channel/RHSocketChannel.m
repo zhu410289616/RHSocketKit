@@ -9,12 +9,14 @@
 #import "RHSocketChannel.h"
 #import "RHSocketConnection.h"
 #import "RHSocketException.h"
+#import "RHPacketHandler.h"
 
 @interface RHSocketChannel () <RHSocketConnectionDelegate, RHSocketEncoderOutputProtocol, RHSocketDecoderOutputProtocol>
 {
     RHSocketConnection *_connection;
     //
     NSMutableData *_receiveDataBuffer;
+    RHPacketDownstreamHandler *_downstreamHandler;
 }
 
 @end
@@ -25,6 +27,7 @@
 {
     if (self = [super init]) {
         _receiveDataBuffer = [[NSMutableData alloc] init];
+        _downstreamHandler = [[RHPacketDownstreamHandler alloc] init];
     }
     return self;
 }
@@ -33,6 +36,7 @@
 {
     if (self = [super init]) {
         _receiveDataBuffer = [[NSMutableData alloc] init];
+        _downstreamHandler = [[RHPacketDownstreamHandler alloc] init];
         _host = host;
         _port = port;
     }
@@ -41,8 +45,13 @@
 
 - (void)openConnection
 {
-    if (nil == _codec) {
-        [RHSocketException raiseWithReason:@"RHSocket Codec should not be nil ..."];
+    if (nil == _encoder) {
+        [RHSocketException raiseWithReason:@"RHSocket Encoder should not be nil ..."];
+        return;
+    }
+    
+    if (nil == _decoder) {
+        [RHSocketException raiseWithReason:@"RHSocket Decoder should not be nil ..."];
         return;
     }
     
@@ -72,7 +81,7 @@
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
-    [_codec encode:packet output:self];
+    [_encoder encode:packet output:self];
 }
 
 #pragma mark RHSocketConnectionDelegate method
@@ -95,7 +104,9 @@
     
     @synchronized(self) {
         [_receiveDataBuffer appendData:data];
-        NSInteger decodedLength = [_codec decode:_receiveDataBuffer output:self];
+        
+        _downstreamHandler.object = _receiveDataBuffer;
+        NSInteger decodedLength = [_decoder decode:_downstreamHandler output:self];
         
         if (decodedLength < 0) {
             [RHSocketException raiseWithReason:@"Decode Failed ..."];

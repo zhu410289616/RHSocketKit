@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RHSocketPacket.h"
+#import "RHPacketHandler.h"
 
 #pragma mark - encoder output protocol
 
@@ -35,12 +35,12 @@
 
 @end
 
-#pragma mark - codec protocol
+#pragma mark - encoder protocol
 
 /**
- *  编码解码器协议
+ *  编码器协议
  */
-@protocol RHSocketCodecProtocol <NSObject>
+@protocol RHSocketEncoderProtocol <NSObject>
 
 @required
 
@@ -52,14 +52,26 @@
  */
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output;
 
+@end
+
+#pragma mark - decoder protocol
+
+/**
+ *  解码器协议
+ */
+@protocol RHSocketDecoderProtocol <NSObject>
+
 /**
  *  解码器
  *
- *  @param data   接收到的原始数据
- *  @param output 数据解码后，分发对象
+ *  @param downstreamPacket 接收到的原始数据
+ *  @param output           数据解码后，分发对象
  *
  *  @return -1解码异常，断开连接; 0数据不完整，等待数据包; >0解码正常，为已解码数据长度
  */
-- (NSInteger)decode:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output;
+- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output;
 
 @end
+
+#pragma mark -
+

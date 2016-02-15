@@ -9,12 +9,17 @@
 #import "ViewController.h"
 #import "RHSocketChannel.h"
 
-#import "RHSocketDelimiterCodec.h"
+#import "RHSocketStringEncoder.h"
+#import "RHSocketStringDecoder.h"
 
-#import "RHSocketVariableLengthCodec.h"
+#import "RHSocketDelimiterEncoder.h"
+#import "RHSocketDelimiterDecoder.h"
 
-#import "RHSocketHttpCodec.h"
-#import "RHPacketHttpRequest.h"
+#import "RHSocketVariableLengthEncoder.h"
+#import "RHSocketVariableLengthDecoder.h"
+
+//#import "RHSocketHttpCodec.h"
+//#import "RHPacketHttpRequest.h"
 
 #import "RHSocketConfig.h"
 
@@ -148,12 +153,25 @@
     NSString *host = @"127.0.0.1";
     int port = 7878;
     
-    RHSocketDelimiterCodec *codec = [[RHSocketDelimiterCodec alloc] init];
-    codec.delimiter = 0x0a;//0x0a，换行符
+    //
+    RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
+    encoder.delimiter = 0x0a;//0x0a，换行符
     
+    RHSocketStringEncoder *stringEncoder = [[RHSocketStringEncoder alloc] init];
+    stringEncoder.nextEncoder = encoder;
+    
+    //
+    RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
+    
+    RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
+    decoder.delimiter = 0x0a;//0x0a，换行符
+    decoder.nextDecoder = stringDecoder;
+    
+    //
     _channel = [[RHSocketChannel alloc] initWithHost:host port:port];
     _channel.delegate = self;
-    _channel.codec = codec;
+    _channel.encoder = stringEncoder;
+    _channel.decoder = decoder;
     [_channel openConnection];
     
 }
@@ -162,9 +180,12 @@
 {
     RHSocketLog(@"channelOpened: %@:%d", host, port);
     
-    RHPacketRequest *req = [[RHPacketRequest alloc] init];
-    req.data = [@"RHSocketDelimiterCodec RHPacketRequest" dataUsingEncoding:NSUTF8StringEncoding];
+    RHPacketUpstreamHandler *req = [[RHPacketUpstreamHandler alloc] init];
+    req.object = [@"RHSocketDelimiterEncoder" dataUsingEncoding:NSUTF8StringEncoding];
+    [channel asyncSendPacket:req];
     
+    req = [[RHPacketUpstreamHandler alloc] init];
+    req.object = @"RHSocketStringEncoder";
     [channel asyncSendPacket:req];
 }
 
@@ -175,8 +196,8 @@
 
 - (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
-    NSString *receive = [[NSString alloc] initWithData:[packet data] encoding:NSUTF8StringEncoding];
-    RHSocketLog(@"received: %ld, %@", [packet data].length, receive);
+    NSString *receive = [[NSString alloc] initWithData:[packet object] encoding:NSUTF8StringEncoding];
+    RHSocketLog(@"received: %@, %@", [packet object], receive);
 }
 
 #pragma mark - socket service test
@@ -186,8 +207,8 @@
     NSString *host = @"www.baidu.com";
     int port = 80;
     
-    [RHSocketService sharedInstance].codec = [[RHSocketHttpCodec alloc] init];
-    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+//    [RHSocketService sharedInstance].codec = [[RHSocketHttpCodec alloc] init];
+//    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
 }
 
 - (void)detectSocketServiceState:(NSNotification *)notif
@@ -196,8 +217,8 @@
     
     id state = notif.object;
     if (state && [state boolValue]) {
-        RHPacketHttpRequest *req = [[RHPacketHttpRequest alloc] init];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
+//        RHPacketHttpRequest *req = [[RHPacketHttpRequest alloc] init];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
     } else {
         //
     }//if
@@ -210,8 +231,8 @@
     NSString *host = @"127.0.0.1";
     int port = 7878;
     
-    RHSocketVariableLengthCodec *codec = [[RHSocketVariableLengthCodec alloc] init];
-    codec.reverseOfLengthByte = NO;
+    RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
+    RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
     
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
     connect.host = host;
@@ -221,7 +242,8 @@
         @strongify(self);
         [self sendVariableLengthRPC];
     };
-    [RHSocketChannelProxy sharedInstance].codec = codec;
+    [RHSocketChannelProxy sharedInstance].encoder = encoder;
+    [RHSocketChannelProxy sharedInstance].decoder = decoder;
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
 }
 
@@ -230,14 +252,14 @@
     //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
     //测试代码，默认为0，未做修改
     NSData *tempData = [@"可变数据包通信测试（包长＋包体数据）" dataUsingEncoding:NSUTF8StringEncoding];
-    RHPacketRequest *req = [[RHPacketRequest alloc] init];
-    req.data = tempData;
+    RHPacketUpstreamHandler *req = [[RHPacketUpstreamHandler alloc] init];
+    req.object = tempData;
     
     RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
     callReply.request = req;
     callReply.successBlock = ^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response) {
-        if ([response data]) {
-            NSString *responseData = [[NSString alloc] initWithData:[response data] encoding:NSUTF8StringEncoding];
+        if ([response object]) {
+            NSString *responseData = [[NSString alloc] initWithData:[response object] encoding:NSUTF8StringEncoding];
             RHSocketLog(@"responseData: %@", responseData);
         }
     };

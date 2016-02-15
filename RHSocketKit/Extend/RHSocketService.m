@@ -47,8 +47,6 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 
 - (void)startServiceWithHost:(NSString *)host port:(int)port
 {
-    NSAssert(_codec, @"Codec should not be nil...");
-    
     if (_isRunning) {
         return;
     }
@@ -92,7 +90,8 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
     [self closeConnection];
     _channel = [[RHSocketChannel alloc] initWithHost:_host port:_port];
     _channel.delegate = self;
-    _channel.codec = _codec;
+    _channel.encoder = _encoder;
+    _channel.decoder = _decoder;
     [_channel openConnection];
 }
 

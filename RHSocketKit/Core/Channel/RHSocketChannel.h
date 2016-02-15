@@ -32,7 +32,8 @@
 @property (nonatomic, copy) NSString *host;
 @property (nonatomic, assign) int port;
 
-@property (nonatomic, strong) id<RHSocketCodecProtocol> codec;
+@property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
+@property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 
 @property (nonatomic, weak) id<RHSocketChannelDelegate> delegate;
 

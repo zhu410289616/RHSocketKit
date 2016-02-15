@@ -62,7 +62,7 @@
 
 - (void)onSuccess:(id<RHSocketCallReplyProtocol>)aCallReply response:(id<RHDownstreamPacket>)response
 {
-    RHSocketLog(@"%@ onSuccess: %@", [self class], [response data]);
+    RHSocketLog(@"%@ onSuccess: %@", [self class], [response object]);
     //请求成功
     if (_successBlock) {
         _successBlock(aCallReply, response);

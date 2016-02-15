@@ -7,7 +7,6 @@
 //
 
 #import "RHSocketChannelProxy.h"
-#import "RHPacketResponse.h"
 
 @interface RHSocketChannelProxy () <RHSocketChannelDelegate>
 {
@@ -77,7 +76,8 @@
     [self closeConnection];
     _channel = [[RHSocketChannel alloc] initWithHost:_connectCallReply.host port:_connectCallReply.port];
     _channel.delegate = self;
-    _channel.codec = _codec;
+    _channel.encoder = _encoder;
+    _channel.decoder = _decoder;
     [_channel openConnection];
 }
 
@@ -106,11 +106,11 @@
 - (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
     //TODO: 针对callreply协议，从packet中解析出callreplyid。然后从_callReplyManager中获得replay指针处理回调。
-    RHPacketResponse *rsp = [[RHPacketResponse alloc] initWithData:[packet data]];
-    NSInteger callReplyId = [rsp pid];
-    id<RHSocketCallReplyProtocol> tempCallReply = [_callReplyManager getCallReplyWithId:callReplyId];
-    [_callReplyManager removeCallReplyWithId:callReplyId];
-    [tempCallReply onSuccess:tempCallReply response:rsp];
+//    RHPacketResponse *rsp = [[RHPacketResponse alloc] initWithData:[packet object]];
+//    NSInteger callReplyId = [rsp pid];
+//    id<RHSocketCallReplyProtocol> tempCallReply = [_callReplyManager getCallReplyWithId:callReplyId];
+//    [_callReplyManager removeCallReplyWithId:callReplyId];
+//    [tempCallReply onSuccess:tempCallReply response:rsp];
 }
 
 @end

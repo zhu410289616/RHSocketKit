@@ -20,7 +20,8 @@ extern NSString *const kNotificationSocketPacketResponse;
 @interface RHSocketService : NSObject <RHSocketChannelDelegate>
 
 @property (nonatomic, strong, readonly) RHSocketChannel *channel;
-@property (nonatomic, strong) id<RHSocketCodecProtocol> codec;
+@property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
+@property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 @property (assign, readonly) BOOL isRunning;
 
 + (instancetype)sharedInstance;
