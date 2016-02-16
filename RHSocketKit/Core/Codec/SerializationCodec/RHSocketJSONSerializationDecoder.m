@@ -18,11 +18,11 @@
     
     id object = [downstreamPacket object];
     if ([object isKindOfClass:[NSString class]]) {
-        dictionaryObject = [NSDictionary dictionaryWithJsonString:object];
+        dictionaryObject = [NSDictionary rh_dictionaryWithJsonString:object];
     } else if ([object isKindOfClass:[NSDictionary class]]) {
         dictionaryObject = object;
     } else if ([object isKindOfClass:[NSData class]]) {
-        dictionaryObject = [NSDictionary dictionaryWithJsonData:object];
+        dictionaryObject = [NSDictionary rh_dictionaryWithJsonData:object];
     } else {
         [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
     }

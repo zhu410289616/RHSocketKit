@@ -19,7 +19,7 @@
     id object = [upstreamPacket object];
     if ([object isKindOfClass:[NSString class]]) {
         NSString *stringObject = object;
-        NSDictionary *dictionaryObject = [NSDictionary dictionaryWithJsonString:stringObject];
+        NSDictionary *dictionaryObject = [NSDictionary rh_dictionaryWithJsonString:stringObject];
         dataObject = [NSJSONSerialization dataWithJSONObject:dictionaryObject options:NSJSONWritingPrettyPrinted error:nil];
     } else if ([object isKindOfClass:[NSDictionary class]]) {
         dataObject = [NSJSONSerialization dataWithJSONObject:object options:NSJSONWritingPrettyPrinted error:nil];

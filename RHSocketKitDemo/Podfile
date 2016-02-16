@@ -1,7 +1,7 @@
 platform:ios,'7.0'
 
 pod 'CocoaAsyncSocket', '~> 7.4.1'
-pod 'RHCategoryKit', '~> 1.0.3'
+pod 'RHCategoryKit', '~> 1.0.4'
 pod 'MSWeakTimer', '~> 1.1.0'
 pod 'libextobjc/EXTScope', '~> 0.4.1'
 
