@@ -8,7 +8,7 @@
 
 #import "RHSocketDelimiterDecoder.h"
 #import "RHSocketException.h"
-#import "RHPacketHandler.h"
+#import "RHSocketPacketContext.h"
 
 @implementation RHSocketDelimiterDecoder
 
@@ -55,14 +55,14 @@
             NSInteger frameLen = i - headIndex;
             NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, frameLen)];
             
-            RHPacketDownstreamHandler *handler = [[RHPacketDownstreamHandler alloc] init];
-            handler.object = frameData;
+            RHSocketPacketDownstreamContext *ctx = [[RHSocketPacketDownstreamContext alloc] init];
+            ctx.object = frameData;
             
             //责任链模式，丢给下一个处理器
             if (_nextDecoder) {
-                [_nextDecoder decode:handler output:output];
+                [_nextDecoder decode:ctx output:output];
             } else {
-                [output didDecode:handler];
+                [output didDecode:ctx];
             }
             
             //

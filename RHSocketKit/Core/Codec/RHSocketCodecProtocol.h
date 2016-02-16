@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RHPacketHandler.h"
+#import "RHSocketPacketContext.h"
 
 #pragma mark - encoder output protocol
 

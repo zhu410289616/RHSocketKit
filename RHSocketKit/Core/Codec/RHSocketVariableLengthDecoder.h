@@ -29,7 +29,7 @@
 @property (nonatomic, assign) int countOfLengthByte;
 
 /**
- *  包长度数据的字节顺序是否需要反向倒序处理，默认为no
+ *  包长度数据的字节顺序是否需要反向倒序处理，默认为YES
  */
 @property (nonatomic, assign) BOOL reverseOfLengthByte;
 

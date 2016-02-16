@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RHSocketCodecProtocol.h"
 
-@interface RHSocketJSONSerializationEncoder : NSObject
+@interface RHSocketJSONSerializationEncoder : NSObject <RHSocketEncoderProtocol>
+
+@property (nonatomic, strong) id<RHSocketEncoderProtocol> nextEncoder;
 
 @end

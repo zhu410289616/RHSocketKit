@@ -29,11 +29,11 @@
     NSUInteger halfLength = byteCount / 2;
     for (NSUInteger i=0; i<halfLength; i++) {
         NSRange begin = NSMakeRange(i, 1);
-        NSRange end = NSMakeRange(byteCount - i, 1);
+        NSRange end = NSMakeRange(byteCount - i - 1, 1);
         NSData *beginData = [srcData subdataWithRange:begin];
         NSData *endData = [srcData subdataWithRange:end];
-        [dstData replaceBytesInRange:begin withBytes:beginData.bytes];
-        [dstData replaceBytesInRange:end withBytes:endData.bytes];
+        [dstData replaceBytesInRange:begin withBytes:endData.bytes];
+        [dstData replaceBytesInRange:end withBytes:beginData.bytes];
     }//for
     
     return dstData;

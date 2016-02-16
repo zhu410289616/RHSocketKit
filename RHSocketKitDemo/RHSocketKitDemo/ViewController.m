@@ -30,8 +30,10 @@
 #import "RHSocketVariableLengthEncoder.h"
 #import "RHSocketVariableLengthDecoder.h"
 
-//#import "RHSocketHttpCodec.h"
-//#import "RHPacketHttpRequest.h"
+#import "RHSocketHttpEncoder.h"
+#import "RHSocketHttpDecoder.h"
+#import "RHSocketHttpRequest.h"
+#import "RHSocketHttpResponse.h"
 
 #import "RHSocketConfig.h"
 
@@ -64,6 +66,7 @@
     [super loadView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detectSocketServiceState:) name:kNotificationSocketServiceState object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detectSocketPacketResponse:) name:kNotificationSocketPacketResponse object:nil];
 }
 
 - (void)dealloc
@@ -110,6 +113,9 @@
     NSData *data = [RHSocketUtils dataFromHexString:@"24211D3498FF62AF"];
     RHSocketLog(@"data: %@", data);
     
+    data = [RHSocketUtils dataWithReverse:data];
+    RHSocketLog(@"Reverse data: %@", data);
+    
     NSString *hexString = [RHSocketUtils hexStringFromData:data];
     RHSocketLog(@"hexString: %@", hexString);
     
@@ -139,15 +145,27 @@
     
     value = 255;
     data = [RHSocketUtils bytesFromValue:value byteCount:3];
-    RHSocketLog(@"data: %@", data);
+    RHSocketLog(@"reverse[YES] data: %@", data);
     value = [RHSocketUtils valueFromBytes:data];
-    RHSocketLog(@"value: %lu", (unsigned long)value);
+    RHSocketLog(@"reverse[YES] value: %lu", (unsigned long)value);
+    
+    value = 255;
+    data = [RHSocketUtils bytesFromValue:value byteCount:3 reverse:NO];
+    RHSocketLog(@"reverse[NO] data: %@", data);
+    value = [RHSocketUtils valueFromBytes:data reverse:NO];
+    RHSocketLog(@"reverse[NO] value: %lu", (unsigned long)value);
     
     value = 74;
     data = [RHSocketUtils bytesFromValue:value byteCount:2];
-    RHSocketLog(@"data: %@", data);
+    RHSocketLog(@"reverse[YES] data: %@", data);
     value = [RHSocketUtils valueFromBytes:data];
-    RHSocketLog(@"value: %lu", (unsigned long)value);
+    RHSocketLog(@"reverse[YES] value: %lu", (unsigned long)value);
+    
+    value = 74;
+    data = [RHSocketUtils bytesFromValue:value byteCount:2 reverse:NO];
+    RHSocketLog(@"reverse[NO] data: %@", data);
+    value = [RHSocketUtils valueFromBytes:data reverse:NO];
+    RHSocketLog(@"reverse[NO] value: %lu", (unsigned long)value);
     
     value = 74;
     data = [RHSocketUtils bytesFromValue:value byteCount:1];
@@ -175,8 +193,14 @@
     RHSocketBase64Encoder *base64Encoder = [[RHSocketBase64Encoder alloc] init];
     base64Encoder.nextEncoder = encoder;
     
+    RHSocketJSONSerializationEncoder *jsonEncoder = [[RHSocketJSONSerializationEncoder alloc] init];
+    jsonEncoder.nextEncoder = encoder;
+    
     //
+    RHSocketJSONSerializationDecoder *jsonDecoder = [[RHSocketJSONSerializationDecoder alloc] init];
+    
     RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
+    stringDecoder.nextDecoder = jsonDecoder;
     
     RHSocketBase64Decoder *base64Decoder = [[RHSocketBase64Decoder alloc] init];
     
@@ -187,7 +211,7 @@
     //
     _channel = [[RHSocketChannel alloc] initWithHost:host port:port];
     _channel.delegate = self;
-    _channel.encoder = base64Encoder;//stringEncoder;
+    _channel.encoder = jsonEncoder;//base64Encoder;//stringEncoder;
     _channel.decoder = decoder;
     [_channel openConnection];
     
@@ -197,12 +221,16 @@
 {
     RHSocketLog(@"channelOpened: %@:%d", host, port);
     
-    RHPacketUpstreamHandler *req = [[RHPacketUpstreamHandler alloc] init];
-    req.object = [@"RHSocketDelimiterEncoder" dataUsingEncoding:NSUTF8StringEncoding];
+    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+    req.object = [@"{\"key\":\"RHSocketDelimiterEncoder\"}" dataUsingEncoding:NSUTF8StringEncoding];
     [channel asyncSendPacket:req];
     
-    req = [[RHPacketUpstreamHandler alloc] init];
-    req.object = @"RHSocketStringEncoder";
+    req = [[RHSocketPacketRequest alloc] init];
+    req.object = @"{\"key\":\"RHSocketStringEncoder\"}";
+    [channel asyncSendPacket:req];
+    
+    req = [[RHSocketPacketRequest alloc] init];
+    req.object = @{@"key":@"RHSocketJSONSerializationEncoder"};
     [channel asyncSendPacket:req];
 }
 
@@ -223,8 +251,14 @@
     NSString *host = @"www.baidu.com";
     int port = 80;
     
-//    [RHSocketService sharedInstance].codec = [[RHSocketHttpCodec alloc] init];
-//    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+    RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
+    
+    RHSocketHttpDecoder *decoder = [[RHSocketHttpDecoder alloc] init];
+    decoder.nextDecoder = stringDecoder;
+    
+    [RHSocketService sharedInstance].encoder = [[RHSocketHttpEncoder alloc] init];
+    [RHSocketService sharedInstance].decoder = decoder;
+    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
 }
 
 - (void)detectSocketServiceState:(NSNotification *)notif
@@ -233,11 +267,20 @@
     
     id state = notif.object;
     if (state && [state boolValue]) {
-//        RHPacketHttpRequest *req = [[RHPacketHttpRequest alloc] init];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
+        RHSocketHttpRequest *req = [[RHSocketHttpRequest alloc] init];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
     } else {
         //
     }//if
+}
+
+- (void)detectSocketPacketResponse:(NSNotification *)notif
+{
+    NSLog(@"detectSocketPacketResponse: %@", notif);
+    
+    NSDictionary *userInfo = notif.userInfo;
+    RHSocketHttpResponse *rsp = userInfo[@"RHSocketPacket"];
+    NSLog(@"detectSocketPacketResponse: %@", [rsp object]);
 }
 
 #pragma mark - channel proxy test
@@ -247,8 +290,17 @@
     NSString *host = @"127.0.0.1";
     int port = 7878;
     
+    //
     RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
+    
+    //
+    RHSocketJSONSerializationDecoder *jsonDecoder = [[RHSocketJSONSerializationDecoder alloc] init];
+    
+    RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
+    stringDecoder.nextDecoder = jsonDecoder;
+    
     RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
+    decoder.nextDecoder = stringDecoder;
     
     RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
     connect.host = host;
@@ -268,16 +320,13 @@
     //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
     //测试代码，默认为0，未做修改
     NSData *tempData = [@"可变数据包通信测试（包长＋包体数据）" dataUsingEncoding:NSUTF8StringEncoding];
-    RHPacketUpstreamHandler *req = [[RHPacketUpstreamHandler alloc] init];
+    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
     req.object = tempData;
     
     RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
     callReply.request = req;
     callReply.successBlock = ^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response) {
-        if ([response object]) {
-            NSString *responseData = [[NSString alloc] initWithData:[response object] encoding:NSUTF8StringEncoding];
-            RHSocketLog(@"responseData: %@", responseData);
-        }
+        RHSocketLog(@"response: %@", [response object]);
     };
     callReply.failureBlock = ^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
         RHSocketLog(@"error: %@", error.description);
@@ -285,7 +334,7 @@
     //发送，并等待返回
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
     //只发送，不等待返回
-    [[RHSocketChannelProxy sharedInstance] asyncNotify:callReply];
+//    [[RHSocketChannelProxy sharedInstance] asyncNotify:callReply];
 }
 
 @end

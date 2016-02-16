@@ -8,6 +8,7 @@
 
 #import "RHSocketBase64Encoder.h"
 #import "Base64.h"
+#import "RHSocketException.h"
 
 @interface RHSocketBase64Encoder ()
 {
@@ -45,6 +46,8 @@
     } else if ([object isKindOfClass:[NSData class]]) {
         NSData *dataObject = object;
         base64Object = [dataObject base64EncodedString];//data -> base64 string
+    } else {
+        [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
     }
     
     //做base64编码

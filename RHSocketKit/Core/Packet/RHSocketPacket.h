@@ -29,6 +29,8 @@
  */
 @property (nonatomic, assign) NSInteger pid;
 
+- (instancetype)initWithObject:(id)aObject;
+
 @end
 
 #pragma mark - upstream packet
@@ -38,16 +40,12 @@
  */
 @protocol RHUpstreamPacket <RHSocketPacket>
 
-@required
+@optional
 
 /**
  *  发送数据超时时间，必须设置。－1时为无限等待
  */
-@property (nonatomic, assign, readonly) NSTimeInterval timeout;
-
-@optional
-
-- (void)setTimeout:(NSTimeInterval)timeout;
+@property (nonatomic, assign) NSTimeInterval timeout;
 
 @end
 
@@ -57,9 +55,5 @@
  *  下行数据包协议，接收数据时，必须遵循的协议
  */
 @protocol RHDownstreamPacket <RHSocketPacket>
-
-@optional
-
-- (instancetype)initWithData:(NSData *)data;
 
 @end

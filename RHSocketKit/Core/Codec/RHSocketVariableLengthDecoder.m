@@ -9,7 +9,7 @@
 #import "RHSocketVariableLengthDecoder.h"
 #import "RHSocketException.h"
 #import "RHSocketUtils.h"
-#import "RHPacketHandler.h"
+#import "RHSocketPacketContext.h"
 
 @implementation RHSocketVariableLengthDecoder
 
@@ -18,7 +18,7 @@
     if (self = [super init]) {
         _maxFrameSize = 65536;
         _countOfLengthByte = 2;
-        _reverseOfLengthByte = NO;
+        _reverseOfLengthByte = YES;
     }
     return self;
 }
@@ -52,14 +52,14 @@
         NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte + frameLen)];
         
         //去除数据长度后的数据内容
-        RHPacketDownstreamHandler *handler = [[RHPacketDownstreamHandler alloc] init];
-        handler.object = [frameData subdataWithRange:NSMakeRange(_countOfLengthByte, frameLen)];
+        RHSocketPacketDownstreamContext *ctx = [[RHSocketPacketDownstreamContext alloc] init];
+        ctx.object = [frameData subdataWithRange:NSMakeRange(_countOfLengthByte, frameLen)];
         
         //责任链模式，丢给下一个处理器
         if (_nextDecoder) {
-            [_nextDecoder decode:handler output:output];
+            [_nextDecoder decode:ctx output:output];
         } else {
-            [output didDecode:handler];
+            [output didDecode:ctx];
         }
         
         //调整已经解码数据

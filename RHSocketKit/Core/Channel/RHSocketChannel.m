@@ -9,14 +9,14 @@
 #import "RHSocketChannel.h"
 #import "RHSocketConnection.h"
 #import "RHSocketException.h"
-#import "RHPacketHandler.h"
+#import "RHSocketPacketContext.h"
 
 @interface RHSocketChannel () <RHSocketConnectionDelegate, RHSocketEncoderOutputProtocol, RHSocketDecoderOutputProtocol>
 {
     RHSocketConnection *_connection;
     //
     NSMutableData *_receiveDataBuffer;
-    RHPacketDownstreamHandler *_downstreamHandler;
+    RHSocketPacketDownstreamContext *_downstreamContext;
 }
 
 @end
@@ -27,7 +27,7 @@
 {
     if (self = [super init]) {
         _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamHandler = [[RHPacketDownstreamHandler alloc] init];
+        _downstreamContext = [[RHSocketPacketDownstreamContext alloc] init];
     }
     return self;
 }
@@ -36,7 +36,7 @@
 {
     if (self = [super init]) {
         _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamHandler = [[RHPacketDownstreamHandler alloc] init];
+        _downstreamContext = [[RHSocketPacketDownstreamContext alloc] init];
         _host = host;
         _port = port;
     }
@@ -105,8 +105,8 @@
     @synchronized(self) {
         [_receiveDataBuffer appendData:data];
         
-        _downstreamHandler.object = _receiveDataBuffer;
-        NSInteger decodedLength = [_decoder decode:_downstreamHandler output:self];
+        _downstreamContext.object = _receiveDataBuffer;
+        NSInteger decodedLength = [_decoder decode:_downstreamContext output:self];
         
         if (decodedLength < 0) {
             [RHSocketException raiseWithReason:@"Decode Failed ..."];
