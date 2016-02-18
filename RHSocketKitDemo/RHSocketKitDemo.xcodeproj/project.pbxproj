@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		28E32F341ED1FF4B26496E78 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3525CA8E0947D882E7C2A417 /* libPods.a */; };
+		83167D461C760F5D0067234F /* Person.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 83167D441C760F5D0067234F /* Person.pb.m */; };
+		83167D471C760F5D0067234F /* Person.proto in Resources */ = {isa = PBXBuildFile; fileRef = 83167D451C760F5D0067234F /* Person.proto */; };
 		8320EC121C23F166006A4CEC /* RHSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320EC011C23F166006A4CEC /* RHSocketChannel.m */; };
 		8320EC131C23F166006A4CEC /* RHSocketConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320EC031C23F166006A4CEC /* RHSocketConnection.m */; };
 		8333F0351C71B41700FEB4BF /* RHSocketStringEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333F0341C71B41700FEB4BF /* RHSocketStringEncoder.m */; };
@@ -60,6 +62,9 @@
 /* Begin PBXFileReference section */
 		3525CA8E0947D882E7C2A417 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D36A33B2D21FD6666C3B3DD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		83167D431C760F5D0067234F /* Person.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.pb.h; sourceTree = "<group>"; };
+		83167D441C760F5D0067234F /* Person.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.pb.m; sourceTree = "<group>"; };
+		83167D451C760F5D0067234F /* Person.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Person.proto; sourceTree = "<group>"; };
 		8320EC001C23F166006A4CEC /* RHSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannel.h; sourceTree = "<group>"; };
 		8320EC011C23F166006A4CEC /* RHSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannel.m; sourceTree = "<group>"; };
 		8320EC021C23F166006A4CEC /* RHSocketConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnection.h; sourceTree = "<group>"; };
@@ -165,6 +170,16 @@
 				3525CA8E0947D882E7C2A417 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83167D421C760F5D0067234F /* Proto */ = {
+			isa = PBXGroup;
+			children = (
+				83167D431C760F5D0067234F /* Person.pb.h */,
+				83167D441C760F5D0067234F /* Person.pb.m */,
+				83167D451C760F5D0067234F /* Person.proto */,
+			);
+			path = Proto;
 			sourceTree = "<group>";
 		};
 		8320EBFE1C23F166006A4CEC /* Core */ = {
@@ -316,6 +331,7 @@
 		833824C01B47D691000DB52A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				83167D421C760F5D0067234F /* Proto */,
 				8333F04B1C71D45700FEB4BF /* Http */,
 			);
 			path = Classes;
@@ -522,6 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				833824771B47D411000DB52A /* Main.storyboard in Resources */,
+				83167D471C760F5D0067234F /* Person.proto in Resources */,
 				8338247C1B47D411000DB52A /* LaunchScreen.xib in Resources */,
 				833824791B47D411000DB52A /* Images.xcassets in Resources */,
 			);
@@ -604,6 +621,7 @@
 				83D2A90B1C720E3D00FFBB72 /* RHSocketBase64Encoder.m in Sources */,
 				83D2A90E1C720E5200FFBB72 /* RHSocketBase64Decoder.m in Sources */,
 				83A5DA291C73286200E650A0 /* RHSocketUdpConnection.m in Sources */,
+				83167D461C760F5D0067234F /* Person.pb.m in Sources */,
 				833824711B47D411000DB52A /* AppDelegate.m in Sources */,
 				8338246E1B47D411000DB52A /* main.m in Sources */,
 				83A5DA1A1C730D4F00E650A0 /* RHSocketHttpEncoder.m in Sources */,

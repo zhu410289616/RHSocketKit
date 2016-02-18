@@ -1,0 +1,6 @@
+RHPBMessage Person {
+    required int32 id = 1;
+    required string name = 2;
+    optional string email = 3;
+}
+

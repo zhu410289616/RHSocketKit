@@ -8,15 +8,31 @@
 
 #import "RHSocketCallReply.h"
 
+typedef void(^RHSocketReplySuccessBlock)(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response);
+typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply, NSError *error);
+
 @interface RHSocketCallReply ()
 {
     id<RHUpstreamPacket> _request;
     time_t _startTime;
+    
+    RHSocketReplySuccessBlock _successBlock;
+    RHSocketReplyFailureBlock _failureBlock;
 }
 
 @end
 
 @implementation RHSocketCallReply
+
+- (void)setSuccessBlock:(void (^)(id<RHSocketCallReplyProtocol>, id<RHDownstreamPacket>))successBlock
+{
+    _successBlock = successBlock;
+}
+
+- (void)setFailureBlock:(void (^)(id<RHSocketCallReplyProtocol>, NSError *))failureBlock
+{
+    _failureBlock = failureBlock;
+}
 
 - (void)setRequest:(id<RHUpstreamPacket>)request
 {

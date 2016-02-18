@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RHSocketCodecProtocol.h"
 
-@interface RHSocketProtobufDecoder : NSObject
+@interface RHSocketProtobufDecoder : NSObject <RHSocketDecoderProtocol>
+
+@property (nonatomic, strong) id<RHSocketDecoderProtocol> nextDecoder;
 
 @end

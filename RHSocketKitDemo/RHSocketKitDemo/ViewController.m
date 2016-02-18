@@ -23,6 +23,7 @@
 
 #import "RHSocketProtobufEncoder.h"
 #import "RHSocketProtobufDecoder.h"
+#import "Person.pb.h"
 
 #import "RHSocketDelimiterEncoder.h"
 #import "RHSocketDelimiterDecoder.h"
@@ -173,6 +174,10 @@
     value = [RHSocketUtils valueFromBytes:data];
     RHSocketLog(@"value: %lu", (unsigned long)value);
     
+    //protobuf
+    Person *person = [[[[Person builder] setId:123] setName:@"name"] build];
+    RHSocketLog(@"[person data]: %@", [person data]);
+    
 }
 
 #pragma mark - channel test
@@ -306,10 +311,10 @@
     connect.host = host;
     connect.port = port;
     @weakify(self);
-    connect.successBlock = ^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response) {
+    [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         @strongify(self);
         [self sendVariableLengthRPC];
-    };
+    }];
     [RHSocketChannelProxy sharedInstance].encoder = encoder;
     [RHSocketChannelProxy sharedInstance].decoder = decoder;
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
@@ -325,12 +330,12 @@
     
     RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
     callReply.request = req;
-    callReply.successBlock = ^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket>response) {
+    [callReply setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         RHSocketLog(@"response: %@", [response object]);
-    };
-    callReply.failureBlock = ^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
+    }];
+    [callReply setFailureBlock:^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
         RHSocketLog(@"error: %@", error.description);
-    };
+    }];
     //发送，并等待返回
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
     //只发送，不等待返回
