@@ -24,6 +24,8 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
 
 @implementation RHSocketCallReply
 
+#pragma mark - 
+
 - (void)setSuccessBlock:(void (^)(id<RHSocketCallReplyProtocol>, id<RHDownstreamPacket>))successBlock
 {
     _successBlock = successBlock;
@@ -44,6 +46,8 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
     _startTime = time(0);
     return _request;
 }
+
+#pragma mark - RHSocketCallProtocol
 
 - (NSInteger)callReplyId
 {
@@ -66,6 +70,8 @@ typedef void(^RHSocketReplyFailureBlock)(id<RHSocketCallReplyProtocol> callReply
     }
     return NO;
 }
+
+#pragma mark - RHSocketReplyProtocol
 
 - (void)onFailure:(id<RHSocketCallReplyProtocol>)aCallReply error:(NSError *)error
 {

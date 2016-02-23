@@ -8,13 +8,6 @@
 
 #import "RHSocketChannelProxy.h"
 
-@interface RHSocketChannelProxy () <RHSocketChannelDelegate>
-{
-    RHConnectCallReply *_connectCallReply;
-}
-
-@end
-
 @implementation RHSocketChannelProxy
 
 + (instancetype)sharedInstance

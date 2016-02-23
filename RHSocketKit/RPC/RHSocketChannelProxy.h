@@ -12,7 +12,7 @@
 #import "RHSocketCallReplyManager.h"
 #import "RHConnectCallReply.h"
 
-@interface RHSocketChannelProxy : NSObject
+@interface RHSocketChannelProxy : NSObject <RHSocketChannelDelegate>
 
 @property (nonatomic, strong, readonly) RHSocketChannel *channel;
 
@@ -20,6 +20,8 @@
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 
 @property (nonatomic, strong, readonly) RHSocketCallReplyManager *callReplyManager;
+
+@property (nonatomic, strong, readonly) RHConnectCallReply *connectCallReply;
 
 + (instancetype)sharedInstance;
 

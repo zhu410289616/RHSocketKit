@@ -50,7 +50,7 @@
     
     //做base64解码
     NSString *stringObject = nil;
-    if (stringObject.length > 0) {
+    if (base64Object.length > 0) {
         stringObject = [base64Object base64DecodedString];
     }
     [downstreamPacket setObject:stringObject];
