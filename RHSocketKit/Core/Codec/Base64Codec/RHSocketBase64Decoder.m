@@ -7,7 +7,6 @@
 //
 
 #import "RHSocketBase64Decoder.h"
-#import "Base64.h"
 #import "RHSocketException.h"
 
 @interface RHSocketBase64Decoder ()
@@ -37,21 +36,19 @@
 
 - (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output
 {
-    NSString *base64Object = nil;
+    NSString *stringObject = nil;
     
     id object = [downstreamPacket object];
     if ([object isKindOfClass:[NSString class]]) {
-        base64Object = object;
+        NSString *base64Object = object;
+        NSData *base64Data = [[NSData alloc] initWithBase64EncodedString:base64Object options:0];
+        stringObject = [[NSString alloc] initWithData:base64Data encoding:_stringEncoding];
     } else if ([object isKindOfClass:[NSData class]]) {
-        base64Object = [[NSString alloc] initWithData:object encoding:_stringEncoding];
+        NSString *base64Object = [[NSString alloc] initWithData:object encoding:_stringEncoding];
+        NSData *base64Data = [[NSData alloc] initWithBase64EncodedString:base64Object options:0];
+        stringObject = [[NSString alloc] initWithData:base64Data encoding:_stringEncoding];
     } else {
         [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
-    }
-    
-    //做base64解码
-    NSString *stringObject = nil;
-    if (base64Object.length > 0) {
-        stringObject = [base64Object base64DecodedString];
     }
     [downstreamPacket setObject:stringObject];
     

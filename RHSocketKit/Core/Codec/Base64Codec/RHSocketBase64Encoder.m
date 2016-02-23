@@ -7,7 +7,6 @@
 //
 
 #import "RHSocketBase64Encoder.h"
-#import "Base64.h"
 #import "RHSocketException.h"
 
 @interface RHSocketBase64Encoder ()
@@ -42,10 +41,12 @@
     id object = [upstreamPacket object];
     if ([object isKindOfClass:[NSString class]]) {
         NSString *stringObject = object;
-        base64Object = [stringObject base64EncodedString];//string -> base64 string
+        //string -> base64 string
+        NSData *base64Data = [stringObject dataUsingEncoding:_stringEncoding];
+        base64Object = [base64Data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
     } else if ([object isKindOfClass:[NSData class]]) {
         NSData *dataObject = object;
-        base64Object = [dataObject base64EncodedString];//data -> base64 string
+        base64Object = [dataObject base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];//data -> base64 string
     } else {
         [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
     }
