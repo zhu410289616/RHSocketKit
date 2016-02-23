@@ -7,7 +7,7 @@
 //
 
 #import "RHSocketJSONSerializationDecoder.h"
-#import "NSDictionary+Ext.h"
+#import "NSDictionary+RHSocket.h"
 #import "RHSocketException.h"
 
 @implementation RHSocketJSONSerializationDecoder
@@ -18,11 +18,11 @@
     
     id object = [downstreamPacket object];
     if ([object isKindOfClass:[NSString class]]) {
-        dictionaryObject = [NSDictionary rh_dictionaryWithJsonString:object];
+        dictionaryObject = [NSDictionary dictionaryWithJsonString:object];
     } else if ([object isKindOfClass:[NSDictionary class]]) {
         dictionaryObject = object;
     } else if ([object isKindOfClass:[NSData class]]) {
-        dictionaryObject = [NSDictionary rh_dictionaryWithJsonData:object];
+        dictionaryObject = [NSDictionary dictionaryWithJsonData:object];
     } else {
         [RHSocketException raiseWithReason:[NSString stringWithFormat:@"%@ Error !", [self class]]];
     }
