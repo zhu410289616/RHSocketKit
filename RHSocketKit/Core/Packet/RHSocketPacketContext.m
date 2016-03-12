@@ -22,8 +22,9 @@
 
 @end
 
-@implementation RHSocketPacketUpstreamContext
+@implementation RHSocketPacketRequest
 
+@synthesize pid;
 @synthesize timeout = _timeout;
 
 - (instancetype)init
@@ -41,16 +42,6 @@
     }
     return self;
 }
-
-@end
-
-@implementation RHSocketPacketDownstreamContext
-
-@end
-
-@implementation RHSocketPacketRequest
-
-@synthesize pid;
 
 @end
 

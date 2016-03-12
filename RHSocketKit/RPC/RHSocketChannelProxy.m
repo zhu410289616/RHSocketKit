@@ -98,12 +98,11 @@
 
 - (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
-    //TODO: 针对callreply协议，从packet中解析出callreplyid。然后从_callReplyManager中获得replay指针处理回调。
-    RHSocketPacketResponse *rsp = [[RHSocketPacketResponse alloc] initWithObject:[packet object]];
-    NSInteger callReplyId = [rsp pid];
+    //结合命令编码解码器，解析命令字段。对callreply协议，从packet中解析出callreplyid。然后从_callReplyManager中获得replay指针处理回调。
+    NSInteger callReplyId = [packet pid];
     id<RHSocketCallReplyProtocol> tempCallReply = [_callReplyManager getCallReplyWithId:callReplyId];
     [_callReplyManager removeCallReplyWithId:callReplyId];
-    [tempCallReply onSuccess:tempCallReply response:rsp];
+    [tempCallReply onSuccess:tempCallReply response:packet];
 }
 
 @end

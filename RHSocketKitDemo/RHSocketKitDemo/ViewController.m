@@ -46,6 +46,9 @@
 #import "RHConnectCallReply.h"
 #import "EXTScope.h"
 
+#import "RHSocketRpcCmdEncoder.h"
+#import "RHSocketRpcCmdDecoder.h"
+
 //
 #import "RHSocketUtils.h"
 
@@ -503,17 +506,23 @@
     NSString *host = @"127.0.0.1";
     int port = 20162;
     
-    //protobufEncoder -> VariableLengthEncoder
+    //protobufEncoder -> cmdEncoder -> VariableLengthEncoder
     RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
     
-    RHSocketProtobufEncoder *protobufEncoder = [[RHSocketProtobufEncoder alloc] init];
-    protobufEncoder.nextEncoder = encoder;
+    RHSocketRpcCmdEncoder *cmdEncoder = [[RHSocketRpcCmdEncoder alloc] init];
+    cmdEncoder.nextEncoder = encoder;
     
-    //VariableLengthDecoder -> protobufDecoder
+    RHSocketProtobufEncoder *protobufEncoder = [[RHSocketProtobufEncoder alloc] init];
+    protobufEncoder.nextEncoder = cmdEncoder;
+    
+    //VariableLengthDecoder -> cmdDecoder -> protobufDecoder
     RHSocketProtobufDecoder *protobufDecoder = [[RHSocketProtobufDecoder alloc] init];
     
+    RHSocketRpcCmdDecoder *cmdDecoder = [[RHSocketRpcCmdDecoder alloc] init];
+    cmdDecoder.nextDecoder = protobufDecoder;
+    
     RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
-    decoder.nextDecoder = protobufDecoder;
+    decoder.nextDecoder = cmdDecoder;
     
     [RHSocketChannelProxy sharedInstance].encoder = protobufEncoder;
     [RHSocketChannelProxy sharedInstance].decoder = decoder;
@@ -537,6 +546,7 @@
     Person *person = [[[[Person builder] setId:123] setName:@"哈哈name"] build];
     
     RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+    req.pid = 999;
     req.object = person;
     
     RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];

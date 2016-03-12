@@ -55,7 +55,7 @@
             NSInteger frameLen = i - headIndex;
             NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, frameLen)];
             
-            RHSocketPacketDownstreamContext *ctx = [[RHSocketPacketDownstreamContext alloc] init];
+            RHSocketPacketResponse *ctx = [[RHSocketPacketResponse alloc] init];
             ctx.object = frameData;
             
             //责任链模式，丢给下一个处理器

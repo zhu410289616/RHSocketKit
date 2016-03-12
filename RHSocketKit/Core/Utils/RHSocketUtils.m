@@ -76,7 +76,7 @@
     return valData;
 }
 
-+ (NSData *)bytesFromValue:(NSUInteger)value byteCount:(int)byteCount
++ (NSData *)bytesFromValue:(NSInteger)value byteCount:(int)byteCount
 {
     NSAssert(value <= 4294967295, @"bytesFromValue: (max value is 4294967295)");
     NSAssert(byteCount <= 4, @"bytesFromValue: (byte count is too long)");
@@ -95,7 +95,7 @@
     return valData;
 }
 
-+ (NSData *)bytesFromValue:(NSUInteger)value byteCount:(int)byteCount reverse:(BOOL)reverse
++ (NSData *)bytesFromValue:(NSInteger)value byteCount:(int)byteCount reverse:(BOOL)reverse
 {
     NSData *tempData = [self bytesFromValue:value byteCount:byteCount];
     if (reverse) {
@@ -144,7 +144,7 @@
     return dstVal;
 }
 
-+ (NSUInteger)valueFromBytes:(NSData *)data
++ (NSInteger)valueFromBytes:(NSData *)data
 {
     NSAssert(data.length <= 4, @"valueFromBytes: (data is too long)");
     
@@ -162,7 +162,7 @@
     return value;
 }
 
-+ (NSUInteger)valueFromBytes:(NSData *)data reverse:(BOOL)reverse
++ (NSInteger)valueFromBytes:(NSData *)data reverse:(BOOL)reverse
 {
     NSData *tempData = data;
     if (reverse) {

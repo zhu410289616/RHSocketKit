@@ -16,7 +16,7 @@
     RHSocketConnection *_connection;
     //
     NSMutableData *_receiveDataBuffer;
-    RHSocketPacketDownstreamContext *_downstreamContext;
+    RHSocketPacketResponse *_downstreamContext;
 }
 
 @end
@@ -27,7 +27,7 @@
 {
     if (self = [super init]) {
         _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamContext = [[RHSocketPacketDownstreamContext alloc] init];
+        _downstreamContext = [[RHSocketPacketResponse alloc] init];
     }
     return self;
 }
@@ -36,7 +36,7 @@
 {
     if (self = [super init]) {
         _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamContext = [[RHSocketPacketDownstreamContext alloc] init];
+        _downstreamContext = [[RHSocketPacketResponse alloc] init];
         _host = host;
         _port = port;
     }

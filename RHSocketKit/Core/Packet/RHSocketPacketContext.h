@@ -13,18 +13,10 @@
 
 @end
 
-@interface RHSocketPacketUpstreamContext : RHSocketPacketContext
+@interface RHSocketPacketRequest : RHSocketPacketContext
 
 @end
 
-@interface RHSocketPacketDownstreamContext : RHSocketPacketContext
-
-@end
-
-@interface RHSocketPacketRequest : RHSocketPacketUpstreamContext
-
-@end
-
-@interface RHSocketPacketResponse : RHSocketPacketDownstreamContext
+@interface RHSocketPacketResponse : RHSocketPacketContext
 
 @end

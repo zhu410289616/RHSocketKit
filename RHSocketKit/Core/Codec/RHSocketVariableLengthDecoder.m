@@ -52,7 +52,7 @@
         NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte + frameLen)];
         
         //去除数据长度后的数据内容
-        RHSocketPacketDownstreamContext *ctx = [[RHSocketPacketDownstreamContext alloc] init];
+        RHSocketPacketResponse *ctx = [[RHSocketPacketResponse alloc] init];
         ctx.object = [frameData subdataWithRange:NSMakeRange(_countOfLengthByte, frameLen)];
         
         //责任链模式，丢给下一个处理器
