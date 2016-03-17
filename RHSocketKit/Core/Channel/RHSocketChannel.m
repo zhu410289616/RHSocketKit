@@ -116,7 +116,7 @@
         
         if (decodedLength > 0) {
             NSUInteger remainLength = _receiveDataBuffer.length - decodedLength;
-            NSData *remainData = [_receiveDataBuffer subdataWithRange:NSMakeRange(0, remainLength)];
+            NSData *remainData = [_receiveDataBuffer subdataWithRange:NSMakeRange(decodedLength, remainLength)];
             [_receiveDataBuffer setData:remainData];
         }//if
     }//@synchronized
