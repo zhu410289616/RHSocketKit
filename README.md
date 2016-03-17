@@ -5,11 +5,17 @@ socket网络通信框架
 pod 'RHSocketKit'
 
 ## Log
+### 2016-03-17
+1－针对rpc的场景，增加命令字段编码解码，处理rpc的call和reply的数据一一对应<br/>
+2－修正底层通道中的粘包bug。非常感谢网友［狙击手］的反馈，不愧为狙击手。<br/>
+3－pod版本更新（`pod 'RHSocketKit', '~> 2.1.0'`）。
+
 ### 2016-02-23
 1－增加异常输出信息，明确输出异常原因。<br/>
 2－使用责任链模式，调整codec的逻辑，方便编解码的分工协作。增加的编解码包括：**`字符串编解码，json编解码，base64编解码，protobuf编解码`**。<br/>
 3－增加编解码的测试用例和配套的echo服务器demo。<br/>
-4－pod版本更新（`pod 'RHSocketKit', '~> 2.0.8'`）。
+4－pod版本更新（`pod 'RHSocketKit', '~> 2.0.8'`）。<br/>
+5－protobuf使用：<http://blog.csdn.net/zhu410289616/article/details/50739164>
 
 ### 2016-01-28
 1－应网友要求，`对core中的核心类增加注释说明`。<br/>
@@ -37,11 +43,13 @@ pod 'RHSocketKit'
 4-文件命名和结构调整，整体框架看起来更加清晰。<br/>
 
 ### 旧框架(tag－1.0.7，已经保留在分支中)
-http://blog.csdn.net/zhu410289616/article/details/46731605<br/>
-http://blog.csdn.net/zhu410289616/article/details/46739019<br/>
-http://blog.csdn.net/zhu410289616/article/details/46746683<br/>
+<http://blog.csdn.net/zhu410289616/article/details/46731605><br/>
+<http://blog.csdn.net/zhu410289616/article/details/46739019><br/>
+<http://blog.csdn.net/zhu410289616/article/details/46746683><br/>
+<http://blog.csdn.net/zhu410289616/article/details/49331323><br/>
+<http://blog.csdn.net/zhu410289616/article/details/50739164><br/>
 
 ## 联系方式
 qq:        410289616<br/>
-email:     zhu410289616@163.com<br/>
+email:     <zhu410289616@163.com><br/>
 qq群:      330585393<br/>
