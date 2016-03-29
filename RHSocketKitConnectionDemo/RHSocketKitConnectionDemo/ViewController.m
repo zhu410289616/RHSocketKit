@@ -12,11 +12,6 @@
 #import "RHSocketDelimiterEncoder.h"
 #import "RHSocketDelimiterDecoder.h"
 
-#import "RHSocketVariableLengthEncoder.h"
-#import "RHSocketVariableLengthDecoder.h"
-
-#import "RHSocketPacketContext.h"
-
 @interface ViewController ()
 {
     UIButton *_serviceTestButton;
@@ -31,7 +26,6 @@
     [super loadView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detectSocketServiceState:) name:kNotificationSocketServiceState object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detectSocketPacketResponse:) name:kNotificationSocketPacketResponse object:nil];
 }
 
 - (void)dealloc
@@ -49,7 +43,7 @@
     _serviceTestButton.layer.borderWidth = 0.5;
     _serviceTestButton.layer.masksToBounds = YES;
     [_serviceTestButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [_serviceTestButton setTitle:@"Test Service" forState:UIControlStateNormal];
+    [_serviceTestButton setTitle:@"Test Connection" forState:UIControlStateNormal];
     [_serviceTestButton addTarget:self action:@selector(doTestServiceButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_serviceTestButton];
     
@@ -57,8 +51,8 @@
 
 - (void)doTestServiceButtonAction
 {
-    NSString *host = @"127.0.0.1";
-    int port = 20162;
+    NSString *host = @"www.baidu.com";
+    int port = 80;
     
     RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
     encoder.delimiter = 0x0a;//0x0a，换行符
@@ -66,33 +60,21 @@
     RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
     decoder.delimiter = 0x0a;//0x0a，换行符
     
+    //完整的socket传输数据，必须有定义应用的数据传输协议，也就必须设置一个对应的编码器和解码器。
+    //这里只是初始化，对于连接测试没有实际作用。
     [RHSocketService sharedInstance].encoder = encoder;
     [RHSocketService sharedInstance].decoder = decoder;
+    
+    //连接测试，没有额外交换，
     [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
 }
 
 - (void)detectSocketServiceState:(NSNotification *)notif
 {
+    //NSDictionary *userInfo = @{@"host":host, @"port":@(port), @"isRunning":@(_isRunning)};
+    //对应的连接ip和状态数据。_isRunning为YES是连接成功。
+    //没有心跳超时后会自动断开。
     NSLog(@"detectSocketServiceState: %@", notif);
-    
-    id state = notif.object;
-    if (state && [state boolValue]) {
-        RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
-        req.object = [@"socket连接测试发送数据" dataUsingEncoding:NSUTF8StringEncoding];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
-    } else {
-        //
-    }//if
-}
-
-- (void)detectSocketPacketResponse:(NSNotification *)notif
-{
-    NSLog(@"detectSocketPacketResponse: %@", notif);
-    
-    NSDictionary *userInfo = notif.userInfo;
-    RHSocketPacketResponse *rsp = userInfo[@"RHSocketPacket"];
-    NSLog(@"detectSocketPacketResponse data: %@", [rsp object]);
-    NSLog(@"detectSocketPacketResponse content: %@", [[NSString alloc] initWithData:[rsp object] encoding:NSUTF8StringEncoding]);
 }
 
 - (void)didReceiveMemoryWarning {
