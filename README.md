@@ -4,6 +4,81 @@ socket网络通信框架
 ## CocoaPods
 pod 'RHSocketKit'
 
+## Usage
+### 变长编码器和解码器demo
+```
+- (void)doTestServiceButtonAction
+{
+    //方便多次观察，先停止之前的连接
+    [[RHSocketService sharedInstance] stopService];
+    
+    //这里的服务器对应RHSocketServerDemo，连接之前，需要运行RHSocketServerDemo开启服务端监听。
+    //RHSocketServerDemo服务端只是返回数据，收到的数据是原封不动的，用来模拟发送给客户端的数据。
+    NSString *host = @"127.0.0.1";
+    int port = 20162;
+    
+    //变长编解码。包体＝包头（包体的长度）＋包体数据
+    RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
+    RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
+    
+    [RHSocketService sharedInstance].encoder = encoder;
+    [RHSocketService sharedInstance].decoder = decoder;
+    
+    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+}
+
+- (void)detectSocketServiceState:(NSNotification *)notif
+{
+    //NSDictionary *userInfo = @{@"host":host, @"port":@(port), @"isRunning":@(_isRunning)};
+    //对应的连接ip和状态数据。_isRunning为YES是连接成功。
+    //没有心跳超时后会自动断开。
+    NSLog(@"detectSocketServiceState: %@", notif);
+    
+    id state = notif.object;
+    if (state && [state boolValue]) {
+        //连接成功后，发送数据包
+        RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+        req.object = [@"变长编码器和解码器测试数据包1" dataUsingEncoding:NSUTF8StringEncoding];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
+        
+        req = [[RHSocketPacketRequest alloc] init];
+        req.object = [@"变长编码器和解码器测试数据包20" dataUsingEncoding:NSUTF8StringEncoding];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
+        
+        req = [[RHSocketPacketRequest alloc] init];
+        req.object = [@"变长编码器和解码器测试数据包300" dataUsingEncoding:NSUTF8StringEncoding];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSocketPacketRequest object:req];
+        
+        //2016-03-30 11:28:21.217 RHSocketVariableLengthCodecDemo[31043:3057289] timeout: -1.000000, sendData: <002be58f 98e995bf e7bc96e7 a081e599 a8e5928c e8a7a3e7 a081e599 a8e6b58b e8af95e6 95b0e68d aee58c85 31>
+        //2016-03-30 11:28:21.217 RHSocketVariableLengthCodecDemo[31043:3057289] timeout: -1.000000, sendData: <002ce58f 98e995bf e7bc96e7 a081e599 a8e5928c e8a7a3e7 a081e599 a8e6b58b e8af95e6 95b0e68d aee58c85 3230>
+        //2016-03-30 11:28:21.217 RHSocketVariableLengthCodecDemo[31043:3057289] timeout: -1.000000, sendData: <002de58f 98e995bf e7bc96e7 a081e599 a8e5928c e8a7a3e7 a081e599 a8e6b58b e8af95e6 95b0e68d aee58c85 333030>
+        //观察发送的数据，其实就是把获取object的长度当做［包头］，然后再接上［包体］，发送就ok了
+        //3个包的长度分别是，002b，002c，002d，都在sendData的最前面两个字节［包头］
+        //后面就是包体，前面都是一样的，就是1，20，300的数据的区别
+        
+        //解码<002be58f 98e995bf e7bc96e7 a081e599 a8e5928c e8a7a3e7 a081e599 a8e6b58b e8af95e6 95b0e68d aee58c85 31>
+        //例如得到上面这数据值后，先读区包头的长度字节，为002b。将002b转为10进制就是43，然后读区后续的43个字节，就是包体的内容。
+        //这样一个包就解码完成了。
+        
+    } else {
+        //
+    }//if
+}
+
+- (void)detectSocketPacketResponse:(NSNotification *)notif
+{
+    NSLog(@"detectSocketPacketResponse: %@", notif);
+    
+    //这里结果，记得观察打印的内容
+    NSDictionary *userInfo = notif.userInfo;
+    RHSocketPacketResponse *rsp = userInfo[@"RHSocketPacket"];
+    NSLog(@"detectSocketPacketResponse data: %@", [rsp object]);
+    NSLog(@"detectSocketPacketResponse string: %@", [[NSString alloc] initWithData:[rsp object] encoding:NSUTF8StringEncoding]);
+}
+```
+### 自定义编码器和解码器
+<http://blog.csdn.net/zhu410289616/article/details/51182751>
+
 ## Log
 ### 2016-04-05
 ####下面的3和4是最基本，最简单的使用了。2相对要求高点，需要理解应用中传输协议的内容，需要懂得把场景需求转化为传输编码。1是高层级的封装，还是看源码吧。
@@ -56,6 +131,9 @@ pod 'RHSocketKit'
 <http://blog.csdn.net/zhu410289616/article/details/46746683><br/>
 <http://blog.csdn.net/zhu410289616/article/details/49331323><br/>
 <http://blog.csdn.net/zhu410289616/article/details/50739164><br/>
+
+## Video
+框架简述：<http://www.tudou.com/programs/view/OahFYRBIFJA/>
 
 ## 联系方式
 qq:        410289616<br/>
