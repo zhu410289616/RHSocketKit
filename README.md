@@ -4,6 +4,123 @@ socket网络通信框架
 ## CocoaPods
 pod 'RHSocketKit'
 
+## Features
+框架的设计运用了一些设计模式，通过组合和协议编程，灵活多变，扩展方便。</br>
+`目前框架的核心在core目录中，主要组件有connection，channel，packet，codec，exception，utils，其中codec的实现是业务重点。`</br>
+另外，RHSocketService是一个单例实现，方便直接调用。RPC是一个深度封装的内容，需要理解框架才能使用。
+
+
+### RHSocketConnection
+```
+socket网络连接对象，只负责socket网络的连接通信，内部使用GCDAsyncSocket。
+1-只公开GCDAsyncSocket的主要方法，增加使用的便捷性。
+2-封装的另一个目的是，易于后续更新调整。如果不想使用GCDAsyncSocket，只想修改内部实现即可，对外不产生影响。
+```
+
+### RHSocketChannel
+```
+在RHSocketConnection基础上做封装，负责对socket中的二进制通讯数据做缓存、粘包，内部需要编码、解码处理。
+1-需要有一个编码解码器，对数据块做封包和解包。很多人不理解这个，其实很简单。比如一句话里面没有标点符号你怎么知道什么时候是结束什么时候开始呢
+2-内部带有一个数据缓存，用于对数据的拼包。发送网络数据时，一条数据会被切成多个网络包［不是我们上层协议中的概念］，需要对收到的数据做合并，完整后才能正常解码。
+```
+
+### Packet-数据包协议
+```
+/**
+ *  数据包协议
+ */
+@protocol RHSocketPacket <NSObject>
+
+@required
+
+/**
+ *  数据包携带的数据变量（可以是任何数据格式）
+ */
+@property (nonatomic, strong) id object;
+
+@optional
+
+/**
+ *  类似tag，必要的时候实现，用于区分某个数据包
+ */
+@property (nonatomic, assign) NSInteger pid;
+
+- (instancetype)initWithObject:(id)aObject;
+
+@end
+```
+
+```
+/**
+ *  上行数据包协议，发送数据时，必须遵循的协议
+ */
+@protocol RHUpstreamPacket <RHSocketPacket>
+
+@optional
+
+/**
+ *  发送数据超时时间，必须设置。－1时为无限等待
+ */
+@property (nonatomic, assign) NSTimeInterval timeout;
+
+@end
+```
+
+```
+/**
+ *  下行数据包协议，接收数据时，必须遵循的协议
+ */
+@protocol RHDownstreamPacket <RHSocketPacket>
+
+@end
+```
+
+### Codec－编码器encoder和解码器decoder
+`编码器和解码器是应用传输协议直接相关的重点，简单的有：`
+
+* 分隔符编码器RHSocketDelimiterEncoder和解码器RHSocketDelimiterDecoder。
+* 可变长度编码器RHSocketVariableLengthEncoder和解码器RHSocketVariableLengthDecoder。
+
+为了保证数据安全，一般都会在协议上做一些特殊定义，防止被恶意访问，所以自定义协议是必须的。框架的编码和解码协议如下，可以自由实现，满足需求。demo可以查看RHSocketCustomCodecDemo和基于本框架的RHMQTTKit。
+
+```
+/**
+ *  编码器协议
+ */
+@protocol RHSocketEncoderProtocol <NSObject>
+
+@required
+
+/**
+ *  编码器
+ *
+ *  @param packet 待发送的数据包
+ *  @param output 数据编码后，分发对象
+ */
+- (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output;
+
+@end
+```
+
+```
+/**
+ *  解码器协议
+ */
+@protocol RHSocketDecoderProtocol <NSObject>
+
+/**
+ *  解码器
+ *
+ *  @param downstreamPacket 接收到的原始数据
+ *  @param output           数据解码后，分发对象
+ *
+ *  @return -1解码异常，断开连接; 0数据不完整，等待数据包; >0解码正常，为已解码数据长度
+ */
+- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output;
+
+@end
+```
+
 ## Usage
 ### 变长编码器和解码器demo
 ```
