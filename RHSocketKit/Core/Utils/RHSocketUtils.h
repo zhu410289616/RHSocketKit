@@ -20,18 +20,18 @@
 + (NSData *)dataWithReverse:(NSData *)srcData;
 
 /** 将数值转成字节。编码方式：低位在前，高位在后 */
-+ (NSData *)byteFromUInt8:(uint8_t)val;
-+ (NSData *)bytesFromUInt16:(uint16_t)val;
-+ (NSData *)bytesFromUInt32:(uint32_t)val;
-+ (NSData *)bytesFromUInt64:(int64_t)val;
++ (NSData *)byteFromInt8:(int8_t)val;
++ (NSData *)bytesFromInt16:(int16_t)val;
++ (NSData *)bytesFromInt32:(int32_t)val;
++ (NSData *)bytesFromInt64:(int64_t)val;
 + (NSData *)bytesFromValue:(int64_t)value byteCount:(int)byteCount;
 + (NSData *)bytesFromValue:(int64_t)value byteCount:(int)byteCount reverse:(BOOL)reverse;
 
 /** 将字节转成数值。解码方式：前序字节为低位，后续字节为高位 */
-+ (uint8_t)uint8FromBytes:(NSData *)data;
-+ (uint16_t)uint16FromBytes:(NSData *)data;
-+ (uint32_t)uint32FromBytes:(NSData *)data;
-+ (int64_t)uint64FromBytes:(NSData *)data;
++ (int8_t)int8FromBytes:(NSData *)data;
++ (int16_t)int16FromBytes:(NSData *)data;
++ (int32_t)int32FromBytes:(NSData *)data;
++ (int64_t)int64FromBytes:(NSData *)data;
 + (int64_t)valueFromBytes:(NSData *)data;
 + (int64_t)valueFromBytes:(NSData *)data reverse:(BOOL)reverse;
 

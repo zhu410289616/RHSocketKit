@@ -39,44 +39,28 @@
     return dstData;
 }
 
-+ (NSData *)byteFromUInt8:(uint8_t)val
++ (NSData *)byteFromInt8:(int8_t)val
 {
     NSMutableData *valData = [[NSMutableData alloc] init];
-    
-    unsigned char valChar[1];
-    valChar[0] = 0xff & val;
-    [valData appendBytes:valChar length:1];
-    
+    [valData appendBytes:&val length:1];
     return valData;
 }
 
-+ (NSData *)bytesFromUInt16:(uint16_t)val
++ (NSData *)bytesFromInt16:(int16_t)val
 {
     NSMutableData *valData = [[NSMutableData alloc] init];
-    
-    unsigned char valChar[2];
-    valChar[0] = 0xff & val;
-    valChar[1] = (0xff00 & val) >> 8;
-    [valData appendBytes:valChar length:2];
-    
+    [valData appendBytes:&val length:2];
     return valData;
 }
 
-+ (NSData *)bytesFromUInt32:(uint32_t)val
++ (NSData *)bytesFromInt32:(int32_t)val
 {
     NSMutableData *valData = [[NSMutableData alloc] init];
-    
-    unsigned char valChar[4];
-    valChar[0] = 0xff & val;
-    valChar[1] = (0xff00 & val) >> 8;
-    valChar[2] = (0xff0000 & val) >> 16;
-    valChar[3] = (0xff000000 & val) >> 24;
-    [valData appendBytes:valChar length:4];
-    
+    [valData appendBytes:&val length:4];
     return valData;
 }
 
-+ (NSData *)bytesFromUInt64:(int64_t)val
++ (NSData *)bytesFromInt64:(int64_t)val
 {
     NSMutableData *tempData = [[NSMutableData alloc] init];
     [tempData appendBytes:&val length:8];
@@ -109,49 +93,39 @@
     return [self dataWithReverse:tempData];
 }
 
-+ (uint8_t)uint8FromBytes:(NSData *)data
++ (int8_t)int8FromBytes:(NSData *)data
 {
-    NSAssert(data.length == 1, @"uint8FromBytes: (data length != 1)");
+    NSAssert(data.length >= 1, @"uint8FromBytes: (data length < 1)");
     
-    uint8_t val = 0;
+    int8_t val = 0;
     [data getBytes:&val length:1];
     return val;
 }
 
-+ (uint16_t)uint16FromBytes:(NSData *)data
++ (int16_t)int16FromBytes:(NSData *)data
 {
-    NSAssert(data.length == 2, @"uint16FromBytes: (data length != 2)");
+    NSAssert(data.length >= 2, @"uint16FromBytes: (data length < 2)");
     
-    uint16_t val0 = 0;
-    uint16_t val1 = 0;
-    [data getBytes:&val0 range:NSMakeRange(0, 1)];
-    [data getBytes:&val1 range:NSMakeRange(1, 1)];
-    
-    uint16_t dstVal = (val0 & 0xff) + ((val1 << 8) & 0xff00);
-    return dstVal;
+    int16_t val = 0;
+    [data getBytes:&val length:2];
+    return val;
 }
 
-+ (uint32_t)uint32FromBytes:(NSData *)data
++ (int32_t)int32FromBytes:(NSData *)data
 {
-    NSAssert(data.length == 4, @"uint16FromBytes: (data length != 4)");
+    NSAssert(data.length >= 4, @"uint16FromBytes: (data length < 4)");
     
-    uint32_t val0 = 0;
-    uint32_t val1 = 0;
-    uint32_t val2 = 0;
-    uint32_t val3 = 0;
-    [data getBytes:&val0 range:NSMakeRange(0, 1)];
-    [data getBytes:&val1 range:NSMakeRange(1, 1)];
-    [data getBytes:&val2 range:NSMakeRange(2, 1)];
-    [data getBytes:&val3 range:NSMakeRange(3, 1)];
-    
-    uint32_t dstVal = (val0 & 0xff) + ((val1 << 8) & 0xff00) + ((val1 << 16) & 0xff0000) + ((val1 << 24) & 0xff000000);
-    return dstVal;
+    int32_t val = 0;
+    [data getBytes:&val length:4];
+    return val;
 }
 
-+ (int64_t)uint64FromBytes:(NSData *)data
++ (int64_t)int64FromBytes:(NSData *)data
 {
+    NSAssert(data.length >= 8, @"uint16FromBytes: (data length < 8)");
+    
     int64_t val = 0;
-    [data getBytes:&val range:NSMakeRange(0, 8)];
+    [data getBytes:&val length:8];
     return val;
 }
 
