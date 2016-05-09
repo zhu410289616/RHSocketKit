@@ -76,11 +76,15 @@
     return valData;
 }
 
-+ (NSData *)bytesFromValue:(NSInteger)value byteCount:(int)byteCount
++ (NSData *)bytesFromUInt64:(int64_t)val
 {
-    NSAssert(value <= 4294967295, @"bytesFromValue: (max value is 4294967295)");
-    NSAssert(byteCount <= 4, @"bytesFromValue: (byte count is too long)");
-    
+    NSMutableData *tempData = [[NSMutableData alloc] init];
+    [tempData appendBytes:&val length:8];
+    return tempData;
+}
+
++ (NSData *)bytesFromValue:(int64_t)value byteCount:(int)byteCount
+{
     NSMutableData *valData = [[NSMutableData alloc] init];
     NSUInteger tempVal = value;
     int offset = 0;
@@ -95,7 +99,7 @@
     return valData;
 }
 
-+ (NSData *)bytesFromValue:(NSInteger)value byteCount:(int)byteCount reverse:(BOOL)reverse
++ (NSData *)bytesFromValue:(int64_t)value byteCount:(int)byteCount reverse:(BOOL)reverse
 {
     NSData *tempData = [self bytesFromValue:value byteCount:byteCount];
     if (reverse) {
@@ -144,12 +148,17 @@
     return dstVal;
 }
 
-+ (NSInteger)valueFromBytes:(NSData *)data
++ (int64_t)uint64FromBytes:(NSData *)data
 {
-    NSAssert(data.length <= 4, @"valueFromBytes: (data is too long)");
-    
+    int64_t val = 0;
+    [data getBytes:&val range:NSMakeRange(0, 8)];
+    return val;
+}
+
++ (int64_t)valueFromBytes:(NSData *)data
+{
     NSUInteger dataLen = data.length;
-    NSUInteger value = 0;
+    int64_t value = 0;
     int offset = 0;
     
     while (offset < dataLen) {
@@ -162,13 +171,24 @@
     return value;
 }
 
-+ (NSInteger)valueFromBytes:(NSData *)data reverse:(BOOL)reverse
++ (int64_t)valueFromBytes:(NSData *)data reverse:(BOOL)reverse
 {
     NSData *tempData = data;
     if (reverse) {
         tempData = [self dataWithReverse:tempData];
     }
     return [self valueFromBytes:tempData];
+}
+
+/** 将字符串转换为data。例如：返回8个字节的data， upano --> <7570616e 6f000000> */
++ (NSData *)dataFromNormalString:(NSString *)normalString byteCount:(int)byteCount
+{
+    NSAssert(byteCount > 0, @"byteCount <= 0");
+    
+    char normalChar[byteCount];
+    memset(normalChar, 0, byteCount);
+    memcpy(normalChar, [normalString UTF8String], MIN(normalString.length, byteCount));
+    return [[NSData alloc] initWithBytes:normalChar length:byteCount];
 }
 
 + (NSData *)dataFromHexString:(NSString *)hexString
