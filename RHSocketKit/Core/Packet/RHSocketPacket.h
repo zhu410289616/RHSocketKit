@@ -30,6 +30,7 @@
 @property (nonatomic, assign) NSInteger pid;
 
 - (instancetype)initWithObject:(id)aObject;
+- (NSData *)dataWithPacket;
 
 @end
 

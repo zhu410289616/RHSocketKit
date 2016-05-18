@@ -52,7 +52,10 @@
 //
 #import "RHSocketUtils.h"
 
-@interface ViewController () <RHSocketChannelDelegate>
+//
+#import "RHWebSocket.h"
+
+@interface ViewController () <RHSocketChannelDelegate, RHWebSocketDelegate>
 {
     UIButton *_channelTestButton;
     UIButton *_serviceTestButton;
@@ -64,6 +67,8 @@
     
     RHSocketChannel *_channel;
 }
+
+@property (nonatomic, strong) RHWebSocket *webSocket;
 
 @end
 
@@ -215,7 +220,32 @@
     Person *person = [[[[Person builder] setId:123] setName:@"name"] build];
     RHSocketLog(@"[person data]: %@", [person data]);
     
+    //
+    RHWebSocketConfig *config = [[RHWebSocketConfig alloc] init];
+    config.host = @"115.29.193.48";
+    config.port = 8088;
+    _webSocket = [[RHWebSocket alloc] initWithConfig:config];
+    _webSocket.delegate = self;
+    [_webSocket openConnection];
 }
+
+#pragma mark - RHWebSocketDelegate
+
+- (void)socket:(RHWebSocket *)webSocket didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    RHSocketLog(@"socket didConnectToHost: %@:%d", host, port);
+}
+
+- (void)socket:(RHWebSocket *)webSocket didHandshakeFinished:(RHWebSocketConfig *)config
+{
+    RHSocketLog(@"socket didHandshakeFinished ...");
+}
+
+- (void)socket:(RHWebSocket *)webSocket didReceived:(id<RHDownstreamPacket>)packet
+{}
+
+- (void)socket:(RHWebSocket *)webSocket didDisconnectWithError:(NSError *)error
+{}
 
 #pragma mark - channel test
 

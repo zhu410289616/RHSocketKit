@@ -234,4 +234,25 @@
     return hexString;
 }
 
+// Return line separators.
++ (NSData *)CRLFData
+{
+    return [NSData dataWithBytes:"\x0D\x0A" length:2];
+}
+
++ (NSData *)CRData
+{
+    return [NSData dataWithBytes:"\x0D" length:1];
+}
+
++ (NSData *)LFData
+{
+    return [NSData dataWithBytes:"\x0A" length:1];
+}
+
++ (NSData *)ZeroData
+{
+    return [NSData dataWithBytes:"" length:1];
+}
+
 @end

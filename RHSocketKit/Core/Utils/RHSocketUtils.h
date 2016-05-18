@@ -50,4 +50,10 @@
 /** ascii码转换为hex字符串。343938464636324146 --> 498FF62AF */
 + (NSString *)hexStringFromASCIIString:(NSString *)asciiString;
 
+// Return line separators.
++ (NSData *)CRLFData;
++ (NSData *)CRData;
++ (NSData *)LFData;
++ (NSData *)ZeroData;
+
 @end
