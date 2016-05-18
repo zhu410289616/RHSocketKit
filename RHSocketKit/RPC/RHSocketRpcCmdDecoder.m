@@ -23,7 +23,7 @@
     NSData *dataObject = object;
     if ([downstreamPacket respondsToSelector:@selector(pid)]) {
         NSData *cmdData = [dataObject subdataWithRange:NSMakeRange(0, 4)];
-        NSInteger pid = [RHSocketUtils valueFromBytes:cmdData];
+        NSInteger pid = (NSInteger)[RHSocketUtils valueFromBytes:cmdData];
         [downstreamPacket setPid:pid];
         [downstreamPacket setObject:[dataObject subdataWithRange:NSMakeRange(4, dataObject.length - 4)]];
     }

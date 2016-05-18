@@ -70,7 +70,7 @@
 + (NSData *)bytesFromValue:(int64_t)value byteCount:(int)byteCount
 {
     NSMutableData *valData = [[NSMutableData alloc] init];
-    NSUInteger tempVal = value;
+    int64_t tempVal = value;
     int offset = 0;
     
     while (offset < byteCount) {
