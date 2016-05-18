@@ -45,16 +45,6 @@
 
 - (void)openConnection
 {
-    if (nil == _encoder) {
-        [RHSocketException raiseWithReason:@"RHSocket Encoder should not be nil ..."];
-        return;
-    }
-    
-    if (nil == _decoder) {
-        [RHSocketException raiseWithReason:@"RHSocket Decoder should not be nil ..."];
-        return;
-    }
-    
     @synchronized(self) {
         [self closeConnection];
         _connection = [[RHSocketConnection alloc] init];
@@ -81,6 +71,10 @@
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
+    if (nil == _encoder) {
+        RHSocketLog(@"RHSocket Encoder should not be nil ...");
+        return;
+    }
     [_encoder encode:packet output:self];
 }
 
@@ -99,6 +93,11 @@
 - (void)didReceiveData:(NSData *)data tag:(long)tag
 {
     if (data.length < 1) {
+        return;
+    }
+    
+    if (nil == _decoder) {
+        RHSocketLog(@"RHSocket Decoder should not be nil ...");
         return;
     }
     
