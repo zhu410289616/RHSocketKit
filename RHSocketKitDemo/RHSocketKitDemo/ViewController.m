@@ -253,11 +253,11 @@
 {
     
     NSString *host = @"127.0.0.1";
-    int port = 7878;
+    int port = 20162;
     
     //
     RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
-    encoder.delimiter = 0x0a;//0x0a，换行符
+    encoder.delimiterData = [RHSocketUtils CRLFData];//回车换行符\r\n
     
     RHSocketStringEncoder *stringEncoder = [[RHSocketStringEncoder alloc] init];
     stringEncoder.nextEncoder = encoder;
@@ -277,7 +277,7 @@
     RHSocketBase64Decoder *base64Decoder = [[RHSocketBase64Decoder alloc] init];
     
     RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
-    decoder.delimiter = 0x0a;//0x0a，换行符
+    decoder.delimiterData = [RHSocketUtils CRLFData];//回车换行符\r\n
     decoder.nextDecoder = stringDecoder;//base64Decoder;
     
     //

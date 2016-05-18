@@ -7,6 +7,7 @@
 //
 
 #import "RHSocketDelimiterEncoder.h"
+#import "RHSocketUtils.h"
 #import "RHSocketException.h"
 
 @implementation RHSocketDelimiterEncoder
@@ -14,7 +15,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _delimiter = 0xff;
+        _delimiterData = [RHSocketUtils CRLFData];
         _maxFrameSize = 8192;
     }
     return self;
@@ -23,7 +24,7 @@
 - (instancetype)initWithDelimiter:(uint8_t)aDelimiter maxFrameSize:(NSUInteger)aMaxFrameSize
 {
     if (self = [super init]) {
-        _delimiter = aDelimiter;
+        _delimiterData = [NSData dataWithBytes:&aDelimiter length:1];
         _maxFrameSize = aMaxFrameSize;
     }
     return self;
@@ -44,7 +45,7 @@
     }
     
     NSMutableData *sendData = [NSMutableData dataWithData:data];
-    [sendData appendBytes:&_delimiter length:1];//在上行数据的末尾加上分隔符标记
+    [sendData appendData:_delimiterData];//在上行数据的末尾加上分隔符标记
     NSTimeInterval timeout = [upstreamPacket timeout];
     
     RHSocketLog(@"timeout: %f, sendData: %@", timeout, sendData);
