@@ -221,12 +221,12 @@
     RHSocketLog(@"[person data]: %@", [person data]);
     
     //
-    RHWebSocketConfig *config = [[RHWebSocketConfig alloc] init];
-    config.host = @"115.29.193.48";
-    config.port = 8088;
-    _webSocket = [[RHWebSocket alloc] initWithConfig:config];
-    _webSocket.delegate = self;
-    [_webSocket openConnection];
+//    RHWebSocketConfig *config = [[RHWebSocketConfig alloc] init];
+//    config.host = @"115.29.193.48";
+//    config.port = 8088;
+//    _webSocket = [[RHWebSocket alloc] initWithConfig:config];
+//    _webSocket.delegate = self;
+//    [_webSocket openConnection];
 }
 
 #pragma mark - RHWebSocketDelegate
@@ -257,7 +257,7 @@
     
     //
     RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
-    encoder.delimiterData = [RHSocketUtils CRLFData];//回车换行符\r\n
+    encoder.delimiterData = [@"aaa" dataUsingEncoding:NSUTF8StringEncoding];// [RHSocketUtils CRLFData];//回车换行符\r\n
     
     RHSocketStringEncoder *stringEncoder = [[RHSocketStringEncoder alloc] init];
     stringEncoder.nextEncoder = encoder;
@@ -277,7 +277,7 @@
     RHSocketBase64Decoder *base64Decoder = [[RHSocketBase64Decoder alloc] init];
     
     RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
-    decoder.delimiterData = [RHSocketUtils CRLFData];//回车换行符\r\n
+    decoder.delimiterData = [@"aaa" dataUsingEncoding:NSUTF8StringEncoding];//[RHSocketUtils CRLFData];//回车换行符\r\n
     decoder.nextDecoder = stringDecoder;//base64Decoder;
     
     //
