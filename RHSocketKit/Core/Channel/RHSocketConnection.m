@@ -22,6 +22,7 @@
 {
     if (self = [super init]) {
         _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+        [_asyncSocket setIPv4PreferredOverIPv6:NO];
     }
     return self;
 }
