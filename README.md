@@ -197,6 +197,10 @@ socket网络连接对象，只负责socket网络的连接通信，内部使用GC
 <http://blog.csdn.net/zhu410289616/article/details/51182751>
 
 ## Log
+### 2016-05-20
+1－RHSocketConnection增加ipv6的设置，在ipv4和ipv6都存在时，优选ipv6。<br/>
+2－pod版本更新（`pod 'RHSocketKit', '~> 2.1.3'`）。
+
 ### 2016-05-19
 1－修改分隔符编解码器的字节数，可以使用多个字节作为分隔符。<br/>
 2－修改RHSocketUtils中的部分转换方法。<br/>
