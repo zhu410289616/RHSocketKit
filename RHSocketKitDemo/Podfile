@@ -1,9 +1,10 @@
 platform :ios, '7.0'
 
-target :RHSocketKitDemo do
+target 'RHSocketKitDemo' do
 	pod 'CocoaAsyncSocket', '~> 7.4.3'
 	pod 'ProtocolBuffers', '~> 1.9.9.2'
 	pod 'MSWeakTimer', '~> 1.1.0'
 	pod 'libextobjc/EXTScope', '~> 0.4.1'
+	pod 'SocketRocket', '~> 0.5.1'
 end
 

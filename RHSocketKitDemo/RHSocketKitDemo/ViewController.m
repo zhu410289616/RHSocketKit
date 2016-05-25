@@ -53,9 +53,9 @@
 #import "RHSocketUtils.h"
 
 //
-#import "RHWebSocket.h"
+#import "RHWebSocketChannel.h"
 
-@interface ViewController () <RHSocketChannelDelegate, RHWebSocketDelegate>
+@interface ViewController () <RHSocketChannelDelegate, SRWebSocketDelegate>
 {
     UIButton *_channelTestButton;
     UIButton *_serviceTestButton;
@@ -68,7 +68,7 @@
     RHSocketChannel *_channel;
 }
 
-@property (nonatomic, strong) RHWebSocket *webSocket;
+@property (nonatomic, strong) RHWebSocketChannel *webSocketChannel;
 
 @end
 
@@ -221,31 +221,40 @@
     RHSocketLog(@"[person data]: %@", [person data]);
     
     //
-//    RHWebSocketConfig *config = [[RHWebSocketConfig alloc] init];
-//    config.host = @"115.29.193.48";
-//    config.port = 8088;
-//    _webSocket = [[RHWebSocket alloc] initWithConfig:config];
-//    _webSocket.delegate = self;
-//    [_webSocket openConnection];
+    _webSocketChannel = [[RHWebSocketChannel alloc] initWithURL:@"ws://115.29.193.48:8088"];
+    _webSocketChannel.delegate = self;
+    [_webSocketChannel openConnection];
+    
 }
 
-#pragma mark - RHWebSocketDelegate
+#pragma mark - SRWebSocketDelegate
 
-- (void)socket:(RHWebSocket *)webSocket didConnectToHost:(NSString *)host port:(uint16_t)port
+// message will either be an NSString if the server is using text
+// or NSData if the server is using binary.
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    RHSocketLog(@"socket didConnectToHost: %@:%d", host, port);
+    RHSocketLog(@"Received: %@", message);
 }
 
-- (void)socket:(RHWebSocket *)webSocket didHandshakeFinished:(RHWebSocketConfig *)config
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
-    RHSocketLog(@"socket didHandshakeFinished ...");
+    RHSocketLog(@"Websocket Connected ...");
 }
 
-- (void)socket:(RHWebSocket *)webSocket didReceived:(id<RHDownstreamPacket>)packet
-{}
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
+{
+    RHSocketLog(@":( Websocket Failed With Error %@", error);
+}
 
-- (void)socket:(RHWebSocket *)webSocket didDisconnectWithError:(NSError *)error
-{}
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
+{
+    RHSocketLog(@"WebSocket closed: code-[%ld], reason-[%@]", code, reason);
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
+{
+    RHSocketLog(@"Websocket received pong");
+}
 
 #pragma mark - channel test
 
