@@ -9,13 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "RHSocketPacket.h"
 
+#pragma mark - RHSocketPacketContext
+
 @interface RHSocketPacketContext : NSObject <RHUpstreamPacket, RHDownstreamPacket>
 
 @end
 
+#pragma mark - RHSocketPacketRequest
+
 @interface RHSocketPacketRequest : RHSocketPacketContext
 
 @end
+
+#pragma mark - RHSocketPacketResponse
 
 @interface RHSocketPacketResponse : RHSocketPacketContext
 

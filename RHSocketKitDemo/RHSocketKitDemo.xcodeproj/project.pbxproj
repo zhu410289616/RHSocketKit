@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2D8BC97B13F3BA64E8FE828E /* libPods-RHSocketKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73820D7E1E53198293D02C8D /* libPods-RHSocketKitDemo.a */; };
+		8300A9FF1CF7496200E4264B /* RHBaseMessage.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 8300A9FC1CF7496200E4264B /* RHBaseMessage.pb.m */; };
+		8300AA001CF7496200E4264B /* RHBaseMessage.proto in Resources */ = {isa = PBXBuildFile; fileRef = 8300A9FD1CF7496200E4264B /* RHBaseMessage.proto */; };
 		83167D461C760F5D0067234F /* Person.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 83167D441C760F5D0067234F /* Person.pb.m */; };
 		83167D471C760F5D0067234F /* Person.proto in Resources */ = {isa = PBXBuildFile; fileRef = 83167D451C760F5D0067234F /* Person.proto */; };
 		8320EC121C23F166006A4CEC /* RHSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320EC011C23F166006A4CEC /* RHSocketChannel.m */; };
@@ -69,6 +71,9 @@
 		50937C611C5C621FAAAC8636 /* libPods-RHSocketKitDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RHSocketKitDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D36A33B2D21FD6666C3B3DD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		73820D7E1E53198293D02C8D /* libPods-RHSocketKitDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RHSocketKitDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8300A9FB1CF7496200E4264B /* RHBaseMessage.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHBaseMessage.pb.h; sourceTree = "<group>"; };
+		8300A9FC1CF7496200E4264B /* RHBaseMessage.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHBaseMessage.pb.m; sourceTree = "<group>"; };
+		8300A9FD1CF7496200E4264B /* RHBaseMessage.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RHBaseMessage.proto; sourceTree = "<group>"; };
 		83167D431C760F5D0067234F /* Person.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.pb.h; sourceTree = "<group>"; };
 		83167D441C760F5D0067234F /* Person.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.pb.m; sourceTree = "<group>"; };
 		83167D451C760F5D0067234F /* Person.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Person.proto; sourceTree = "<group>"; };
@@ -421,6 +426,9 @@
 		838647751CF702790083DA33 /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
+				8300A9FB1CF7496200E4264B /* RHBaseMessage.pb.h */,
+				8300A9FC1CF7496200E4264B /* RHBaseMessage.pb.m */,
+				8300A9FD1CF7496200E4264B /* RHBaseMessage.proto */,
 				838647A21CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.h */,
 				838647A31CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.m */,
 				838647A51CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.h */,
@@ -603,6 +611,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				833824771B47D411000DB52A /* Main.storyboard in Resources */,
+				8300AA001CF7496200E4264B /* RHBaseMessage.proto in Resources */,
 				83167D471C760F5D0067234F /* Person.proto in Resources */,
 				8338247C1B47D411000DB52A /* LaunchScreen.xib in Resources */,
 				833824791B47D411000DB52A /* Images.xcassets in Resources */,
@@ -710,6 +719,7 @@
 				838647A41CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.m in Sources */,
 				83A5DA201C730DEF00E650A0 /* RHSocketHttpRequest.m in Sources */,
 				83A00E411C5F115500883FD8 /* RHSocketException.m in Sources */,
+				8300A9FF1CF7496200E4264B /* RHBaseMessage.pb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

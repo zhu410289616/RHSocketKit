@@ -32,13 +32,12 @@
 
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output
 {
-    id object = [upstreamPacket object];
-    if (![object isKindOfClass:[NSData class]]) {
-        [RHSocketException raiseWithReason:@"[Encode] object should be NSData ..."];
+    NSData *data = [upstreamPacket dataWithPacket];
+    if (data.length == 0) {
+        RHSocketLog(@"[Encode] object data is nil ...");
         return;
-    }
+    }//
     
-    NSData *data = object;
     if (data.length >= _maxFrameSize - 1) {
         [RHSocketException raiseWithReason:@"[Encode] Too Long Frame ..."];
         return;

@@ -54,6 +54,7 @@
     while (offset < dataLen) {
         int32_t tempVal = 0;
         [data getBytes:&tempVal range:NSMakeRange(offset, 1)];
+        tempVal = (tempVal & 0x7F);
         value += (tempVal << (7 * offset));
         offset++;
     }//while

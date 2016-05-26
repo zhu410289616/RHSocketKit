@@ -31,6 +31,7 @@
 
 - (instancetype)initWithObject:(id)aObject;
 - (NSData *)dataWithPacket;
+- (NSString *)stringWithPacket;
 
 @end
 

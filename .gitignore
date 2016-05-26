@@ -26,6 +26,7 @@ DerivedData
 Pods/
 *.lock
 
-#.DS_Store
+.DS_Store
 *.xcworkspace
+
 

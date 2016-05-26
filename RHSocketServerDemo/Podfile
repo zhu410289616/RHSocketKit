@@ -1,4 +1,7 @@
 
-pod 'CocoaAsyncSocket', '~> 7.4.1'
+
+target 'RHSocketServerDemo' do
+	pod 'CocoaAsyncSocket', '~> 7.4.3'
+end
 
 

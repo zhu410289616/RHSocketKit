@@ -22,14 +22,9 @@
 
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output
 {
-    id object = [upstreamPacket object];
-    if (![object isKindOfClass:[NSData class]]) {
-        [RHSocketException raiseWithReason:@"[Encode] object should be NSData ..."];
-        return;
-    }
-    
-    NSData *data = object;
+    NSData *data = [upstreamPacket dataWithPacket];
     if (data.length == 0) {
+        RHSocketLog(@"[Encode] object data is nil ...");
         return;
     }//
     

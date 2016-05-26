@@ -1,0 +1,8 @@
+package com.zrh.socket.core.codec.proto;
+option optimize_for = LITE_RUNTIME;
+
+message RHBaseMessage {
+    required int32 protobuf_type = 1;
+    required string protobuf_class_name = 2;
+    optional bytes protobuf_data = 3;
+}

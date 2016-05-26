@@ -52,6 +52,12 @@
 //
 #import "RHWebSocketChannel.h"
 
+//
+#import "RHSocketUtils+Protobuf.h"
+#import "RHProtobufVarint32LengthEncoder.h"
+#import "RHProtobufVarint32LengthDecoder.h"
+#import "RHBaseMessage.pb.h"
+
 @interface ViewController () <RHSocketChannelDelegate, SRWebSocketDelegate>
 {
     UIButton *_channelTestButton;
@@ -61,6 +67,7 @@
     UIButton *_jsonTestButton;
     UIButton *_base64TestButton;
     UIButton *_protobufTestButton;
+    UIButton *_protobufCodecTestButton;
     
     RHSocketChannel *_channel;
 }
@@ -145,9 +152,19 @@
     _protobufTestButton.layer.borderWidth = 0.5;
     _protobufTestButton.layer.masksToBounds = YES;
     [_protobufTestButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [_protobufTestButton setTitle:@"Test Protobuf Codec" forState:UIControlStateNormal];
-    [_protobufTestButton addTarget:self action:@selector(doTestProtobufCodecButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [_protobufTestButton setTitle:@"Test Protobuf And Cmd Codec" forState:UIControlStateNormal];
+    [_protobufTestButton addTarget:self action:@selector(doTestProtobufAndCmdCodecButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_protobufTestButton];
+    
+    _protobufCodecTestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _protobufCodecTestButton.frame = CGRectMake(20, CGRectGetMaxY(_protobufTestButton.frame) + 20, 250, 40);
+    _protobufCodecTestButton.layer.borderColor = [UIColor blackColor].CGColor;
+    _protobufCodecTestButton.layer.borderWidth = 0.5;
+    _protobufCodecTestButton.layer.masksToBounds = YES;
+    [_protobufCodecTestButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_protobufCodecTestButton setTitle:@"Test Protobuf Codec" forState:UIControlStateNormal];
+    [_protobufCodecTestButton addTarget:self action:@selector(doTestProtobufCodecButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_protobufCodecTestButton];
     
     //
     NSData *data = [RHSocketUtils dataFromHexString:@"24211D3498FF62AF"];
@@ -222,6 +239,11 @@
     _webSocketChannel.delegate = self;
 //    [_webSocketChannel openConnection];
     
+    data = [RHSocketUtils dataWithRawVarint32:300];
+    RHSocketLog(@"data: %@", data);
+    
+    value = [RHSocketUtils valueWithVarint32Data:data];
+    RHSocketLog(@"value: %ld", value);
 }
 
 #pragma mark - SRWebSocketDelegate
@@ -535,9 +557,9 @@
     [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
 }
 
-#pragma mark - test protobuf codec
+#pragma mark - test protobuf and cmd codec
 
-- (void)doTestProtobufCodecButtonAction
+- (void)doTestProtobufAndCmdCodecButtonAction
 {
     NSString *host = @"127.0.0.1";
     int port = 20162;
@@ -570,13 +592,13 @@
     @weakify(self);
     [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         @strongify(self);
-        [self sendRpcForTestProtobufCodec];
+        [self sendRpcForTestProtobufAndCmdCodec];
     }];
     
     [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
 }
 
-- (void)sendRpcForTestProtobufCodec
+- (void)sendRpcForTestProtobufAndCmdCodec
 {
     //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
     Person *person = [[[[Person builder] setId:123] setName:@"哈哈name"] build];
@@ -590,6 +612,61 @@
     [callReply setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
         RHSocketLog(@"protobuf response: %@", [response object]);
         Person *person = [Person parseFromData:[response object]];
+        RHSocketLog(@"person: %@", person.name);
+    }];
+    [callReply setFailureBlock:^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
+        RHSocketLog(@"error: %@", error.description);
+    }];
+    //发送，并等待返回
+    [[RHSocketChannelProxy sharedInstance] asyncCallReply:callReply];
+}
+
+#pragma mark - test protobuf codec
+
+- (void)doTestProtobufCodecButtonAction
+{
+    NSString *host = @"127.0.0.1";
+    int port = 20162;
+    
+    //
+    RHProtobufVarint32LengthEncoder *encoder = [[RHProtobufVarint32LengthEncoder alloc] init];
+    RHProtobufVarint32LengthDecoder *decoder = [[RHProtobufVarint32LengthDecoder alloc] init];
+    
+    [RHSocketChannelProxy sharedInstance].encoder = encoder;
+    [RHSocketChannelProxy sharedInstance].decoder = decoder;
+    
+    //
+    RHConnectCallReply *connect = [[RHConnectCallReply alloc] init];
+    connect.host = host;
+    connect.port = port;
+    @weakify(self);
+    [connect setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
+        @strongify(self);
+        [self sendRpcForTestProtobufCodec];
+    }];
+    
+    [[RHSocketChannelProxy sharedInstance] asyncConnect:connect];
+}
+
+- (void)sendRpcForTestProtobufCodec
+{
+    //rpc返回的call reply id是需要和服务端协议一致的，否则无法对应call和reply。
+    Person *person = [[[[Person builder] setId:123] setName:@"哈哈name"] build];
+    RHBaseMessage *msg = [[[[[RHBaseMessage builder] setProtobufType:1] setProtobufClassName:@"Person"] setProtobufData:[person data]] build];
+    
+    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+    req.pid = 0;
+    req.object = [msg data];
+    
+    RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
+    callReply.request = req;
+    [callReply setSuccessBlock:^(id<RHSocketCallReplyProtocol> callReply, id<RHDownstreamPacket> response) {
+        RHSocketLog(@"protobuf response: %@", [response object]);
+        
+        RHBaseMessage *msg = [RHBaseMessage parseFromData:[response object]];
+        RHSocketLog(@"protobuf[%d]: %@", msg.protobufType, msg.protobufClassName);
+        
+        Person *person = [Person parseFromData:msg.protobufData];
         RHSocketLog(@"person: %@", person.name);
     }];
     [callReply setFailureBlock:^(id<RHSocketCallReplyProtocol> callReply, NSError *error) {
