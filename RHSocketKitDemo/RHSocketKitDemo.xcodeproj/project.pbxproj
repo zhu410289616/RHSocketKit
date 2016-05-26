@@ -12,12 +12,6 @@
 		83167D471C760F5D0067234F /* Person.proto in Resources */ = {isa = PBXBuildFile; fileRef = 83167D451C760F5D0067234F /* Person.proto */; };
 		8320EC121C23F166006A4CEC /* RHSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320EC011C23F166006A4CEC /* RHSocketChannel.m */; };
 		8320EC131C23F166006A4CEC /* RHSocketConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320EC031C23F166006A4CEC /* RHSocketConnection.m */; };
-		8333F0351C71B41700FEB4BF /* RHSocketStringEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333F0341C71B41700FEB4BF /* RHSocketStringEncoder.m */; };
-		8333F03B1C71B44500FEB4BF /* RHSocketStringDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333F03A1C71B44500FEB4BF /* RHSocketStringDecoder.m */; };
-		8333F03E1C71B99900FEB4BF /* RHSocketDelimiterEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333F03D1C71B99900FEB4BF /* RHSocketDelimiterEncoder.m */; };
-		8333F0411C71B9C200FEB4BF /* RHSocketDelimiterDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333F0401C71B9C200FEB4BF /* RHSocketDelimiterDecoder.m */; };
-		8333F0441C71BE8400FEB4BF /* RHSocketVariableLengthEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333F0431C71BE8400FEB4BF /* RHSocketVariableLengthEncoder.m */; };
-		8333F0471C71BEB900FEB4BF /* RHSocketVariableLengthDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333F0461C71BEB900FEB4BF /* RHSocketVariableLengthDecoder.m */; };
 		8338246E1B47D411000DB52A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338246D1B47D411000DB52A /* main.m */; };
 		833824711B47D411000DB52A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824701B47D411000DB52A /* AppDelegate.m */; };
 		833824741B47D411000DB52A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833824731B47D411000DB52A /* ViewController.m */; };
@@ -32,7 +26,22 @@
 		837C5D1E1C2AB8A9003A000E /* RHSocketCallReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C5D161C2AB8A9003A000E /* RHSocketCallReply.m */; };
 		837C5D1F1C2AB8A9003A000E /* RHSocketCallReplyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C5D181C2AB8A9003A000E /* RHSocketCallReplyManager.m */; };
 		837C5D201C2AB8A9003A000E /* RHSocketChannelProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C5D1B1C2AB8A9003A000E /* RHSocketChannelProxy.m */; };
-		838B8F9A1C7C875C0072BB5C /* NSDictionary+RHSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 838B8F991C7C875C0072BB5C /* NSDictionary+RHSocket.m */; };
+		8386477B1CF702790083DA33 /* RHSocketDelimiterDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647721CF702790083DA33 /* RHSocketDelimiterDecoder.m */; };
+		8386477C1CF702790083DA33 /* RHSocketDelimiterEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647741CF702790083DA33 /* RHSocketDelimiterEncoder.m */; };
+		8386477D1CF702790083DA33 /* RHSocketVariableLengthDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647781CF702790083DA33 /* RHSocketVariableLengthDecoder.m */; };
+		8386477E1CF702790083DA33 /* RHSocketVariableLengthEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8386477A1CF702790083DA33 /* RHSocketVariableLengthEncoder.m */; };
+		838647961CF7028B0083DA33 /* RHSocketBase64Decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647821CF7028B0083DA33 /* RHSocketBase64Decoder.m */; };
+		838647971CF7028B0083DA33 /* RHSocketBase64Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647841CF7028B0083DA33 /* RHSocketBase64Encoder.m */; };
+		838647981CF7028B0083DA33 /* RHSocketProtobufDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647871CF7028B0083DA33 /* RHSocketProtobufDecoder.m */; };
+		838647991CF7028B0083DA33 /* RHSocketProtobufEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647891CF7028B0083DA33 /* RHSocketProtobufEncoder.m */; };
+		8386479A1CF7028B0083DA33 /* NSDictionary+RHSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8386478C1CF7028B0083DA33 /* NSDictionary+RHSocket.m */; };
+		8386479B1CF7028B0083DA33 /* RHSocketJSONSerializationDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8386478E1CF7028B0083DA33 /* RHSocketJSONSerializationDecoder.m */; };
+		8386479C1CF7028B0083DA33 /* RHSocketJSONSerializationEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647901CF7028B0083DA33 /* RHSocketJSONSerializationEncoder.m */; };
+		8386479D1CF7028B0083DA33 /* RHSocketStringDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647931CF7028B0083DA33 /* RHSocketStringDecoder.m */; };
+		8386479E1CF7028B0083DA33 /* RHSocketStringEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647951CF7028B0083DA33 /* RHSocketStringEncoder.m */; };
+		838647A41CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647A31CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.m */; };
+		838647A71CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647A61CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.m */; };
+		838647AA1CF71E760083DA33 /* RHSocketUtils+Protobuf.m in Sources */ = {isa = PBXBuildFile; fileRef = 838647A91CF71E760083DA33 /* RHSocketUtils+Protobuf.m */; };
 		83A00E411C5F115500883FD8 /* RHSocketException.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A00E401C5F115500883FD8 /* RHSocketException.m */; };
 		83A5DA141C72BD9D00E650A0 /* RHSocketPacketContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A5DA131C72BD9D00E650A0 /* RHSocketPacketContext.m */; };
 		83A5DA1A1C730D4F00E650A0 /* RHSocketHttpEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A5DA191C730D4F00E650A0 /* RHSocketHttpEncoder.m */; };
@@ -41,14 +50,6 @@
 		83A5DA231C730E0F00E650A0 /* RHSocketHttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A5DA221C730E0F00E650A0 /* RHSocketHttpResponse.m */; };
 		83A5DA291C73286200E650A0 /* RHSocketUdpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A5DA281C73286200E650A0 /* RHSocketUdpConnection.m */; };
 		83A758131CF5800C008B3364 /* RHWebSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A758121CF5800C008B3364 /* RHWebSocketChannel.m */; };
-		83D2A9051C720DC400FFBB72 /* RHSocketJSONSerializationEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A9041C720DC400FFBB72 /* RHSocketJSONSerializationEncoder.m */; };
-		83D2A90B1C720E3D00FFBB72 /* RHSocketBase64Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A90A1C720E3D00FFBB72 /* RHSocketBase64Encoder.m */; };
-		83D2A90E1C720E5200FFBB72 /* RHSocketBase64Decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A90D1C720E5200FFBB72 /* RHSocketBase64Decoder.m */; };
-		83D2A9111C720ED900FFBB72 /* RHSocketZlibCompressionEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A9101C720ED900FFBB72 /* RHSocketZlibCompressionEncoder.m */; };
-		83D2A9141C720EF200FFBB72 /* RHSocketZlibCompressionDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A9131C720EF200FFBB72 /* RHSocketZlibCompressionDecoder.m */; };
-		83D2A9171C720F0700FFBB72 /* RHSocketJSONSerializationDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A9161C720F0700FFBB72 /* RHSocketJSONSerializationDecoder.m */; };
-		83D2A91A1C720F2D00FFBB72 /* RHSocketProtobufEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A9191C720F2D00FFBB72 /* RHSocketProtobufEncoder.m */; };
-		83D2A91D1C720F4100FFBB72 /* RHSocketProtobufDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2A91C1C720F4100FFBB72 /* RHSocketProtobufDecoder.m */; };
 		83D831E11C9419EB0024E20C /* RHSocketRpcCmdDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D831DE1C9419EB0024E20C /* RHSocketRpcCmdDecoder.m */; };
 		83D831E21C9419EB0024E20C /* RHSocketRpcCmdEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D831E01C9419EB0024E20C /* RHSocketRpcCmdEncoder.m */; };
 /* End PBXBuildFile section */
@@ -78,18 +79,6 @@
 		8320EC051C23F166006A4CEC /* RHSocketCodecProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCodecProtocol.h; sourceTree = "<group>"; };
 		8320EC0D1C23F166006A4CEC /* RHSocketPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketPacket.h; sourceTree = "<group>"; };
 		8320EC0F1C23F166006A4CEC /* RHSocketConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConfig.h; sourceTree = "<group>"; };
-		8333F0331C71B41700FEB4BF /* RHSocketStringEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketStringEncoder.h; sourceTree = "<group>"; };
-		8333F0341C71B41700FEB4BF /* RHSocketStringEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketStringEncoder.m; sourceTree = "<group>"; };
-		8333F0391C71B44500FEB4BF /* RHSocketStringDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketStringDecoder.h; sourceTree = "<group>"; };
-		8333F03A1C71B44500FEB4BF /* RHSocketStringDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketStringDecoder.m; sourceTree = "<group>"; };
-		8333F03C1C71B99900FEB4BF /* RHSocketDelimiterEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterEncoder.h; sourceTree = "<group>"; };
-		8333F03D1C71B99900FEB4BF /* RHSocketDelimiterEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterEncoder.m; sourceTree = "<group>"; };
-		8333F03F1C71B9C200FEB4BF /* RHSocketDelimiterDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterDecoder.h; sourceTree = "<group>"; };
-		8333F0401C71B9C200FEB4BF /* RHSocketDelimiterDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterDecoder.m; sourceTree = "<group>"; };
-		8333F0421C71BE8400FEB4BF /* RHSocketVariableLengthEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthEncoder.h; sourceTree = "<group>"; };
-		8333F0431C71BE8400FEB4BF /* RHSocketVariableLengthEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthEncoder.m; sourceTree = "<group>"; };
-		8333F0451C71BEB900FEB4BF /* RHSocketVariableLengthDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthDecoder.h; sourceTree = "<group>"; };
-		8333F0461C71BEB900FEB4BF /* RHSocketVariableLengthDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthDecoder.m; sourceTree = "<group>"; };
 		833824681B47D411000DB52A /* RHSocketKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RHSocketKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8338246C1B47D411000DB52A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8338246D1B47D411000DB52A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -118,8 +107,38 @@
 		837C5D191C2AB8A9003A000E /* RHSocketCallReplyProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCallReplyProtocol.h; sourceTree = "<group>"; };
 		837C5D1A1C2AB8A9003A000E /* RHSocketChannelProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannelProxy.h; sourceTree = "<group>"; };
 		837C5D1B1C2AB8A9003A000E /* RHSocketChannelProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannelProxy.m; sourceTree = "<group>"; };
-		838B8F981C7C875C0072BB5C /* NSDictionary+RHSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHSocket.h"; sourceTree = "<group>"; };
-		838B8F991C7C875C0072BB5C /* NSDictionary+RHSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHSocket.m"; sourceTree = "<group>"; };
+		838647711CF702790083DA33 /* RHSocketDelimiterDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterDecoder.h; sourceTree = "<group>"; };
+		838647721CF702790083DA33 /* RHSocketDelimiterDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterDecoder.m; sourceTree = "<group>"; };
+		838647731CF702790083DA33 /* RHSocketDelimiterEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketDelimiterEncoder.h; sourceTree = "<group>"; };
+		838647741CF702790083DA33 /* RHSocketDelimiterEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketDelimiterEncoder.m; sourceTree = "<group>"; };
+		838647771CF702790083DA33 /* RHSocketVariableLengthDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthDecoder.h; sourceTree = "<group>"; };
+		838647781CF702790083DA33 /* RHSocketVariableLengthDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthDecoder.m; sourceTree = "<group>"; };
+		838647791CF702790083DA33 /* RHSocketVariableLengthEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketVariableLengthEncoder.h; sourceTree = "<group>"; };
+		8386477A1CF702790083DA33 /* RHSocketVariableLengthEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketVariableLengthEncoder.m; sourceTree = "<group>"; };
+		838647811CF7028B0083DA33 /* RHSocketBase64Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketBase64Decoder.h; sourceTree = "<group>"; };
+		838647821CF7028B0083DA33 /* RHSocketBase64Decoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketBase64Decoder.m; sourceTree = "<group>"; };
+		838647831CF7028B0083DA33 /* RHSocketBase64Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketBase64Encoder.h; sourceTree = "<group>"; };
+		838647841CF7028B0083DA33 /* RHSocketBase64Encoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketBase64Encoder.m; sourceTree = "<group>"; };
+		838647861CF7028B0083DA33 /* RHSocketProtobufDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketProtobufDecoder.h; sourceTree = "<group>"; };
+		838647871CF7028B0083DA33 /* RHSocketProtobufDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketProtobufDecoder.m; sourceTree = "<group>"; };
+		838647881CF7028B0083DA33 /* RHSocketProtobufEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketProtobufEncoder.h; sourceTree = "<group>"; };
+		838647891CF7028B0083DA33 /* RHSocketProtobufEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketProtobufEncoder.m; sourceTree = "<group>"; };
+		8386478B1CF7028B0083DA33 /* NSDictionary+RHSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RHSocket.h"; sourceTree = "<group>"; };
+		8386478C1CF7028B0083DA33 /* NSDictionary+RHSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RHSocket.m"; sourceTree = "<group>"; };
+		8386478D1CF7028B0083DA33 /* RHSocketJSONSerializationDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketJSONSerializationDecoder.h; sourceTree = "<group>"; };
+		8386478E1CF7028B0083DA33 /* RHSocketJSONSerializationDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketJSONSerializationDecoder.m; sourceTree = "<group>"; };
+		8386478F1CF7028B0083DA33 /* RHSocketJSONSerializationEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketJSONSerializationEncoder.h; sourceTree = "<group>"; };
+		838647901CF7028B0083DA33 /* RHSocketJSONSerializationEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketJSONSerializationEncoder.m; sourceTree = "<group>"; };
+		838647921CF7028B0083DA33 /* RHSocketStringDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketStringDecoder.h; sourceTree = "<group>"; };
+		838647931CF7028B0083DA33 /* RHSocketStringDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketStringDecoder.m; sourceTree = "<group>"; };
+		838647941CF7028B0083DA33 /* RHSocketStringEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketStringEncoder.h; sourceTree = "<group>"; };
+		838647951CF7028B0083DA33 /* RHSocketStringEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketStringEncoder.m; sourceTree = "<group>"; };
+		838647A21CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHProtobufVarint32LengthEncoder.h; sourceTree = "<group>"; };
+		838647A31CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHProtobufVarint32LengthEncoder.m; sourceTree = "<group>"; };
+		838647A51CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHProtobufVarint32LengthDecoder.h; sourceTree = "<group>"; };
+		838647A61CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHProtobufVarint32LengthDecoder.m; sourceTree = "<group>"; };
+		838647A81CF71E760083DA33 /* RHSocketUtils+Protobuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RHSocketUtils+Protobuf.h"; sourceTree = "<group>"; };
+		838647A91CF71E760083DA33 /* RHSocketUtils+Protobuf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RHSocketUtils+Protobuf.m"; sourceTree = "<group>"; };
 		83A00E3F1C5F115500883FD8 /* RHSocketException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketException.h; sourceTree = "<group>"; };
 		83A00E401C5F115500883FD8 /* RHSocketException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketException.m; sourceTree = "<group>"; };
 		83A5DA121C72BD9D00E650A0 /* RHSocketPacketContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketPacketContext.h; sourceTree = "<group>"; };
@@ -136,22 +155,6 @@
 		83A5DA281C73286200E650A0 /* RHSocketUdpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketUdpConnection.m; sourceTree = "<group>"; };
 		83A758111CF5800C008B3364 /* RHWebSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHWebSocketChannel.h; sourceTree = "<group>"; };
 		83A758121CF5800C008B3364 /* RHWebSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHWebSocketChannel.m; sourceTree = "<group>"; };
-		83D2A9031C720DC400FFBB72 /* RHSocketJSONSerializationEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketJSONSerializationEncoder.h; sourceTree = "<group>"; };
-		83D2A9041C720DC400FFBB72 /* RHSocketJSONSerializationEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketJSONSerializationEncoder.m; sourceTree = "<group>"; };
-		83D2A9091C720E3D00FFBB72 /* RHSocketBase64Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketBase64Encoder.h; sourceTree = "<group>"; };
-		83D2A90A1C720E3D00FFBB72 /* RHSocketBase64Encoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketBase64Encoder.m; sourceTree = "<group>"; };
-		83D2A90C1C720E5200FFBB72 /* RHSocketBase64Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketBase64Decoder.h; sourceTree = "<group>"; };
-		83D2A90D1C720E5200FFBB72 /* RHSocketBase64Decoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketBase64Decoder.m; sourceTree = "<group>"; };
-		83D2A90F1C720ED900FFBB72 /* RHSocketZlibCompressionEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketZlibCompressionEncoder.h; sourceTree = "<group>"; };
-		83D2A9101C720ED900FFBB72 /* RHSocketZlibCompressionEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketZlibCompressionEncoder.m; sourceTree = "<group>"; };
-		83D2A9121C720EF200FFBB72 /* RHSocketZlibCompressionDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketZlibCompressionDecoder.h; sourceTree = "<group>"; };
-		83D2A9131C720EF200FFBB72 /* RHSocketZlibCompressionDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketZlibCompressionDecoder.m; sourceTree = "<group>"; };
-		83D2A9151C720F0700FFBB72 /* RHSocketJSONSerializationDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketJSONSerializationDecoder.h; sourceTree = "<group>"; };
-		83D2A9161C720F0700FFBB72 /* RHSocketJSONSerializationDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketJSONSerializationDecoder.m; sourceTree = "<group>"; };
-		83D2A9181C720F2D00FFBB72 /* RHSocketProtobufEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketProtobufEncoder.h; sourceTree = "<group>"; };
-		83D2A9191C720F2D00FFBB72 /* RHSocketProtobufEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketProtobufEncoder.m; sourceTree = "<group>"; };
-		83D2A91B1C720F4100FFBB72 /* RHSocketProtobufDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketProtobufDecoder.h; sourceTree = "<group>"; };
-		83D2A91C1C720F4100FFBB72 /* RHSocketProtobufDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketProtobufDecoder.m; sourceTree = "<group>"; };
 		83D831DD1C9419EB0024E20C /* RHSocketRpcCmdDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketRpcCmdDecoder.h; sourceTree = "<group>"; };
 		83D831DE1C9419EB0024E20C /* RHSocketRpcCmdDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketRpcCmdDecoder.m; sourceTree = "<group>"; };
 		83D831DF1C9419EB0024E20C /* RHSocketRpcCmdEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketRpcCmdEncoder.h; sourceTree = "<group>"; };
@@ -229,20 +232,10 @@
 		8320EC041C23F166006A4CEC /* Codec */ = {
 			isa = PBXGroup;
 			children = (
-				83D2A9061C720E2600FFBB72 /* Base64Codec */,
-				83D2A9071C720E2600FFBB72 /* CompressionCodec */,
-				83D2A9081C720E2600FFBB72 /* ProtobufCodec */,
-				83D2A9021C720DC400FFBB72 /* SerializationCodec */,
-				8333F02F1C71AF1B00FEB4BF /* StringCodec */,
+				838647701CF702790083DA33 /* Delimiter */,
+				838647751CF702790083DA33 /* Protobuf */,
+				838647761CF702790083DA33 /* VariableLength */,
 				8320EC051C23F166006A4CEC /* RHSocketCodecProtocol.h */,
-				8333F03C1C71B99900FEB4BF /* RHSocketDelimiterEncoder.h */,
-				8333F03D1C71B99900FEB4BF /* RHSocketDelimiterEncoder.m */,
-				8333F03F1C71B9C200FEB4BF /* RHSocketDelimiterDecoder.h */,
-				8333F0401C71B9C200FEB4BF /* RHSocketDelimiterDecoder.m */,
-				8333F0421C71BE8400FEB4BF /* RHSocketVariableLengthEncoder.h */,
-				8333F0431C71BE8400FEB4BF /* RHSocketVariableLengthEncoder.m */,
-				8333F0451C71BEB900FEB4BF /* RHSocketVariableLengthDecoder.h */,
-				8333F0461C71BEB900FEB4BF /* RHSocketVariableLengthDecoder.m */,
 			);
 			path = Codec;
 			sourceTree = "<group>";
@@ -255,17 +248,6 @@
 				83A5DA131C72BD9D00E650A0 /* RHSocketPacketContext.m */,
 			);
 			path = Packet;
-			sourceTree = "<group>";
-		};
-		8333F02F1C71AF1B00FEB4BF /* StringCodec */ = {
-			isa = PBXGroup;
-			children = (
-				8333F0331C71B41700FEB4BF /* RHSocketStringEncoder.h */,
-				8333F0341C71B41700FEB4BF /* RHSocketStringEncoder.m */,
-				8333F0391C71B44500FEB4BF /* RHSocketStringDecoder.h */,
-				8333F03A1C71B44500FEB4BF /* RHSocketStringDecoder.m */,
-			);
-			path = StringCodec;
 			sourceTree = "<group>";
 		};
 		8333F04B1C71D45700FEB4BF /* Http */ = {
@@ -379,6 +361,7 @@
 		836D65AD1C27E8ED0044AD4A /* Extend */ = {
 			isa = PBXGroup;
 			children = (
+				8386477F1CF7028B0083DA33 /* Codec */,
 				836D65B91C27E9360044AD4A /* RHSocketService.h */,
 				836D65BA1C27E9360044AD4A /* RHSocketService.m */,
 			);
@@ -424,6 +407,98 @@
 			path = CallReply;
 			sourceTree = "<group>";
 		};
+		838647701CF702790083DA33 /* Delimiter */ = {
+			isa = PBXGroup;
+			children = (
+				838647711CF702790083DA33 /* RHSocketDelimiterDecoder.h */,
+				838647721CF702790083DA33 /* RHSocketDelimiterDecoder.m */,
+				838647731CF702790083DA33 /* RHSocketDelimiterEncoder.h */,
+				838647741CF702790083DA33 /* RHSocketDelimiterEncoder.m */,
+			);
+			path = Delimiter;
+			sourceTree = "<group>";
+		};
+		838647751CF702790083DA33 /* Protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				838647A21CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.h */,
+				838647A31CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.m */,
+				838647A51CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.h */,
+				838647A61CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.m */,
+				838647A81CF71E760083DA33 /* RHSocketUtils+Protobuf.h */,
+				838647A91CF71E760083DA33 /* RHSocketUtils+Protobuf.m */,
+			);
+			path = Protobuf;
+			sourceTree = "<group>";
+		};
+		838647761CF702790083DA33 /* VariableLength */ = {
+			isa = PBXGroup;
+			children = (
+				838647771CF702790083DA33 /* RHSocketVariableLengthDecoder.h */,
+				838647781CF702790083DA33 /* RHSocketVariableLengthDecoder.m */,
+				838647791CF702790083DA33 /* RHSocketVariableLengthEncoder.h */,
+				8386477A1CF702790083DA33 /* RHSocketVariableLengthEncoder.m */,
+			);
+			path = VariableLength;
+			sourceTree = "<group>";
+		};
+		8386477F1CF7028B0083DA33 /* Codec */ = {
+			isa = PBXGroup;
+			children = (
+				838647801CF7028B0083DA33 /* Base64Codec */,
+				838647851CF7028B0083DA33 /* ProtobufCodec */,
+				8386478A1CF7028B0083DA33 /* SerializationCodec */,
+				838647911CF7028B0083DA33 /* StringCodec */,
+			);
+			path = Codec;
+			sourceTree = "<group>";
+		};
+		838647801CF7028B0083DA33 /* Base64Codec */ = {
+			isa = PBXGroup;
+			children = (
+				838647811CF7028B0083DA33 /* RHSocketBase64Decoder.h */,
+				838647821CF7028B0083DA33 /* RHSocketBase64Decoder.m */,
+				838647831CF7028B0083DA33 /* RHSocketBase64Encoder.h */,
+				838647841CF7028B0083DA33 /* RHSocketBase64Encoder.m */,
+			);
+			path = Base64Codec;
+			sourceTree = "<group>";
+		};
+		838647851CF7028B0083DA33 /* ProtobufCodec */ = {
+			isa = PBXGroup;
+			children = (
+				838647861CF7028B0083DA33 /* RHSocketProtobufDecoder.h */,
+				838647871CF7028B0083DA33 /* RHSocketProtobufDecoder.m */,
+				838647881CF7028B0083DA33 /* RHSocketProtobufEncoder.h */,
+				838647891CF7028B0083DA33 /* RHSocketProtobufEncoder.m */,
+			);
+			path = ProtobufCodec;
+			sourceTree = "<group>";
+		};
+		8386478A1CF7028B0083DA33 /* SerializationCodec */ = {
+			isa = PBXGroup;
+			children = (
+				8386478B1CF7028B0083DA33 /* NSDictionary+RHSocket.h */,
+				8386478C1CF7028B0083DA33 /* NSDictionary+RHSocket.m */,
+				8386478D1CF7028B0083DA33 /* RHSocketJSONSerializationDecoder.h */,
+				8386478E1CF7028B0083DA33 /* RHSocketJSONSerializationDecoder.m */,
+				8386478F1CF7028B0083DA33 /* RHSocketJSONSerializationEncoder.h */,
+				838647901CF7028B0083DA33 /* RHSocketJSONSerializationEncoder.m */,
+			);
+			path = SerializationCodec;
+			sourceTree = "<group>";
+		};
+		838647911CF7028B0083DA33 /* StringCodec */ = {
+			isa = PBXGroup;
+			children = (
+				838647921CF7028B0083DA33 /* RHSocketStringDecoder.h */,
+				838647931CF7028B0083DA33 /* RHSocketStringDecoder.m */,
+				838647941CF7028B0083DA33 /* RHSocketStringEncoder.h */,
+				838647951CF7028B0083DA33 /* RHSocketStringEncoder.m */,
+			);
+			path = StringCodec;
+			sourceTree = "<group>";
+		};
 		83A00E321C5F0D0000883FD8 /* Exception */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,52 +506,6 @@
 				83A00E401C5F115500883FD8 /* RHSocketException.m */,
 			);
 			path = Exception;
-			sourceTree = "<group>";
-		};
-		83D2A9021C720DC400FFBB72 /* SerializationCodec */ = {
-			isa = PBXGroup;
-			children = (
-				83D2A9031C720DC400FFBB72 /* RHSocketJSONSerializationEncoder.h */,
-				83D2A9041C720DC400FFBB72 /* RHSocketJSONSerializationEncoder.m */,
-				83D2A9151C720F0700FFBB72 /* RHSocketJSONSerializationDecoder.h */,
-				83D2A9161C720F0700FFBB72 /* RHSocketJSONSerializationDecoder.m */,
-				838B8F981C7C875C0072BB5C /* NSDictionary+RHSocket.h */,
-				838B8F991C7C875C0072BB5C /* NSDictionary+RHSocket.m */,
-			);
-			path = SerializationCodec;
-			sourceTree = "<group>";
-		};
-		83D2A9061C720E2600FFBB72 /* Base64Codec */ = {
-			isa = PBXGroup;
-			children = (
-				83D2A9091C720E3D00FFBB72 /* RHSocketBase64Encoder.h */,
-				83D2A90A1C720E3D00FFBB72 /* RHSocketBase64Encoder.m */,
-				83D2A90C1C720E5200FFBB72 /* RHSocketBase64Decoder.h */,
-				83D2A90D1C720E5200FFBB72 /* RHSocketBase64Decoder.m */,
-			);
-			path = Base64Codec;
-			sourceTree = "<group>";
-		};
-		83D2A9071C720E2600FFBB72 /* CompressionCodec */ = {
-			isa = PBXGroup;
-			children = (
-				83D2A90F1C720ED900FFBB72 /* RHSocketZlibCompressionEncoder.h */,
-				83D2A9101C720ED900FFBB72 /* RHSocketZlibCompressionEncoder.m */,
-				83D2A9121C720EF200FFBB72 /* RHSocketZlibCompressionDecoder.h */,
-				83D2A9131C720EF200FFBB72 /* RHSocketZlibCompressionDecoder.m */,
-			);
-			path = CompressionCodec;
-			sourceTree = "<group>";
-		};
-		83D2A9081C720E2600FFBB72 /* ProtobufCodec */ = {
-			isa = PBXGroup;
-			children = (
-				83D2A9181C720F2D00FFBB72 /* RHSocketProtobufEncoder.h */,
-				83D2A9191C720F2D00FFBB72 /* RHSocketProtobufEncoder.m */,
-				83D2A91B1C720F4100FFBB72 /* RHSocketProtobufDecoder.h */,
-				83D2A91C1C720F4100FFBB72 /* RHSocketProtobufDecoder.m */,
-			);
-			path = ProtobufCodec;
 			sourceTree = "<group>";
 		};
 		9C1552C6FF76D1C5CD3E2DE0 /* Pods */ = {
@@ -643,42 +672,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				83D831E11C9419EB0024E20C /* RHSocketRpcCmdDecoder.m in Sources */,
+				8386477E1CF702790083DA33 /* RHSocketVariableLengthEncoder.m in Sources */,
 				837C5D1C1C2AB8A9003A000E /* RHAuthCallReply.m in Sources */,
 				83A5DA1D1C730D5D00E650A0 /* RHSocketHttpDecoder.m in Sources */,
-				8333F03B1C71B44500FEB4BF /* RHSocketStringDecoder.m in Sources */,
-				83D2A9111C720ED900FFBB72 /* RHSocketZlibCompressionEncoder.m in Sources */,
+				838647961CF7028B0083DA33 /* RHSocketBase64Decoder.m in Sources */,
 				833824741B47D411000DB52A /* ViewController.m in Sources */,
-				83D2A9171C720F0700FFBB72 /* RHSocketJSONSerializationDecoder.m in Sources */,
-				83D2A9141C720EF200FFBB72 /* RHSocketZlibCompressionDecoder.m in Sources */,
+				838647981CF7028B0083DA33 /* RHSocketProtobufDecoder.m in Sources */,
 				837C5D1F1C2AB8A9003A000E /* RHSocketCallReplyManager.m in Sources */,
-				8333F0351C71B41700FEB4BF /* RHSocketStringEncoder.m in Sources */,
 				837C5D0E1C2A7C58003A000E /* RHSocketUtils.m in Sources */,
-				8333F0441C71BE8400FEB4BF /* RHSocketVariableLengthEncoder.m in Sources */,
+				838647991CF7028B0083DA33 /* RHSocketProtobufEncoder.m in Sources */,
 				837C5D1E1C2AB8A9003A000E /* RHSocketCallReply.m in Sources */,
-				83D2A90B1C720E3D00FFBB72 /* RHSocketBase64Encoder.m in Sources */,
-				83D2A90E1C720E5200FFBB72 /* RHSocketBase64Decoder.m in Sources */,
 				83A5DA291C73286200E650A0 /* RHSocketUdpConnection.m in Sources */,
 				83167D461C760F5D0067234F /* Person.pb.m in Sources */,
 				833824711B47D411000DB52A /* AppDelegate.m in Sources */,
 				8338246E1B47D411000DB52A /* main.m in Sources */,
 				83A758131CF5800C008B3364 /* RHWebSocketChannel.m in Sources */,
+				8386479E1CF7028B0083DA33 /* RHSocketStringEncoder.m in Sources */,
+				838647AA1CF71E760083DA33 /* RHSocketUtils+Protobuf.m in Sources */,
+				8386479B1CF7028B0083DA33 /* RHSocketJSONSerializationDecoder.m in Sources */,
 				83A5DA1A1C730D4F00E650A0 /* RHSocketHttpEncoder.m in Sources */,
 				8320EC121C23F166006A4CEC /* RHSocketChannel.m in Sources */,
-				8333F0471C71BEB900FEB4BF /* RHSocketVariableLengthDecoder.m in Sources */,
 				836D65BB1C27E9360044AD4A /* RHSocketService.m in Sources */,
-				83D2A9051C720DC400FFBB72 /* RHSocketJSONSerializationEncoder.m in Sources */,
-				8333F03E1C71B99900FEB4BF /* RHSocketDelimiterEncoder.m in Sources */,
 				837C5D1D1C2AB8A9003A000E /* RHConnectCallReply.m in Sources */,
-				83D2A91A1C720F2D00FFBB72 /* RHSocketProtobufEncoder.m in Sources */,
+				838647A71CF70B5E0083DA33 /* RHProtobufVarint32LengthDecoder.m in Sources */,
+				8386477C1CF702790083DA33 /* RHSocketDelimiterEncoder.m in Sources */,
 				83A5DA231C730E0F00E650A0 /* RHSocketHttpResponse.m in Sources */,
 				83D831E21C9419EB0024E20C /* RHSocketRpcCmdEncoder.m in Sources */,
+				8386479A1CF7028B0083DA33 /* NSDictionary+RHSocket.m in Sources */,
 				837C5D201C2AB8A9003A000E /* RHSocketChannelProxy.m in Sources */,
+				8386479C1CF7028B0083DA33 /* RHSocketJSONSerializationEncoder.m in Sources */,
 				8320EC131C23F166006A4CEC /* RHSocketConnection.m in Sources */,
-				838B8F9A1C7C875C0072BB5C /* NSDictionary+RHSocket.m in Sources */,
+				8386477D1CF702790083DA33 /* RHSocketVariableLengthDecoder.m in Sources */,
+				838647971CF7028B0083DA33 /* RHSocketBase64Encoder.m in Sources */,
 				83A5DA141C72BD9D00E650A0 /* RHSocketPacketContext.m in Sources */,
+				8386477B1CF702790083DA33 /* RHSocketDelimiterDecoder.m in Sources */,
+				8386479D1CF7028B0083DA33 /* RHSocketStringDecoder.m in Sources */,
+				838647A41CF70B330083DA33 /* RHProtobufVarint32LengthEncoder.m in Sources */,
 				83A5DA201C730DEF00E650A0 /* RHSocketHttpRequest.m in Sources */,
-				8333F0411C71B9C200FEB4BF /* RHSocketDelimiterDecoder.m in Sources */,
-				83D2A91D1C720F4100FFBB72 /* RHSocketProtobufDecoder.m in Sources */,
 				83A00E411C5F115500883FD8 /* RHSocketException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

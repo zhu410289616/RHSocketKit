@@ -136,7 +136,7 @@
     int offset = 0;
     
     while (offset < dataLen) {
-        uint32_t tempVal = 0;
+        int32_t tempVal = 0;
         [data getBytes:&tempVal range:NSMakeRange(offset, 1)];
         value += (tempVal << (8 * offset));
         offset++;

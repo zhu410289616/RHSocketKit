@@ -18,9 +18,6 @@
 #import "RHSocketJSONSerializationEncoder.h"
 #import "RHSocketJSONSerializationDecoder.h"
 
-#import "RHSocketZlibCompressionEncoder.h"
-#import "RHSocketZlibCompressionDecoder.h"
-
 #import "RHSocketProtobufEncoder.h"
 #import "RHSocketProtobufDecoder.h"
 #import "Person.pb.h"
@@ -223,7 +220,7 @@
     //
     _webSocketChannel = [[RHWebSocketChannel alloc] initWithURL:@"ws://115.29.193.48:8088"];
     _webSocketChannel.delegate = self;
-    [_webSocketChannel openConnection];
+//    [_webSocketChannel openConnection];
     
 }
 
