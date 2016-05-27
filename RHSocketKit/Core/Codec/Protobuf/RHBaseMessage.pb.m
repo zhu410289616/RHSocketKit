@@ -70,10 +70,10 @@ static RHBaseMessage* defaultRHBaseMessageInstance = nil;
   return defaultRHBaseMessageInstance;
 }
 - (BOOL) isInitialized {
-  if (!self.hasProtobufType) {
+  if (!self.hasProtobufClassName) {
     return NO;
   }
-  if (!self.hasProtobufClassName) {
+  if (!self.hasProtobufData) {
     return NO;
   }
   return YES;

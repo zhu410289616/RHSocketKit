@@ -15,7 +15,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _maxFrameSize = NSIntegerMax;
+        _maxFrameSize = INT32_MAX;
     }
     return self;
 }
