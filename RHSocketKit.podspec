@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RHSocketKit"
-  s.version      = "2.1.3"
+  s.version      = "2.1.4"
   s.summary      = "A socket kit based on CocoaAsyncSocket."
   s.homepage     = "https://github.com/zhu410289616/RHSocketKit"
   s.license      = { :type => "Apache", :file => "LICENSE" }
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.default_subspec = "Core", "Extend"
 
   s.subspec "Core" do |cs|
-    cs.source_files  = "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils}/*.{h,m}", "RHSocketKit/Core/Codec/{Base64Codec,SerializationCodec,StringCodec,CompressionCodec}/*.{h,m}", "RHSocketKit/Core/*.{h,m}" 
+    cs.source_files  = "RHSocketKit/Core/*.{h,m}", "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils}/*.{h,m}", "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}" 
     cs.requires_arc = true
     cs.dependency 'CocoaAsyncSocket', '~> 7.4.3'
     cs.dependency 'ProtocolBuffers', '~> 1.9.9.2'
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.subspec "Extend" do |cs|
     cs.dependency "RHSocketKit/Core"
-    cs.source_files = "RHSocketKit/Extend/*.{h,m}"
+    cs.source_files = "RHSocketKit/Extend/*.{h,m}", "RHSocketKit/Extend/Codec/{Base64Codec,ProtobufCodec,SerializationCodec,StringCodec}/*.{h,m}"
     cs.requires_arc = true 
   end
 
