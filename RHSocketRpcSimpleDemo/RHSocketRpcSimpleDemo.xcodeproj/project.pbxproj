@@ -13,11 +13,12 @@
 		831C2DFA1CB3D70A0067FEEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 831C2DF81CB3D70A0067FEEE /* Main.storyboard */; };
 		831C2DFC1CB3D70A0067FEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 831C2DFB1CB3D70A0067FEEE /* Assets.xcassets */; };
 		831C2DFF1CB3D70A0067FEEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 831C2DFD1CB3D70A0067FEEE /* LaunchScreen.storyboard */; };
-		B86D95C2724A67F580A47427 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD83999CB0420E64C827232 /* libPods.a */; };
+		8A65252F2073C013A35153D3 /* libPods-RHSocketRpcSimpleDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 797085BB2F07D176AC984CB1 /* libPods-RHSocketRpcSimpleDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3AD83999CB0420E64C827232 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		797085BB2F07D176AC984CB1 /* libPods-RHSocketRpcSimpleDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RHSocketRpcSimpleDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C51A8FA285F793E88411875 /* Pods-RHSocketRpcSimpleDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RHSocketRpcSimpleDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RHSocketRpcSimpleDemo/Pods-RHSocketRpcSimpleDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		831C2DEC1CB3D7090067FEEE /* RHSocketRpcSimpleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RHSocketRpcSimpleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		831C2DF01CB3D70A0067FEEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		831C2DF21CB3D70A0067FEEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -28,8 +29,7 @@
 		831C2DFB1CB3D70A0067FEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		831C2DFE1CB3D70A0067FEEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		831C2E001CB3D70A0067FEEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D37AC083CA9649CB142FFFEE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		F21275DE977448284FC15C41 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B2EFE50529236506113F1543 /* Pods-RHSocketRpcSimpleDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RHSocketRpcSimpleDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RHSocketRpcSimpleDemo/Pods-RHSocketRpcSimpleDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B86D95C2724A67F580A47427 /* libPods.a in Frameworks */,
+				8A65252F2073C013A35153D3 /* libPods-RHSocketRpcSimpleDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,7 +47,7 @@
 		11D9A15AE4295769BBDDF681 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3AD83999CB0420E64C827232 /* libPods.a */,
+				797085BB2F07D176AC984CB1 /* libPods-RHSocketRpcSimpleDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,8 +97,8 @@
 		F623311564DBEAFCFE636698 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D37AC083CA9649CB142FFFEE /* Pods.debug.xcconfig */,
-				F21275DE977448284FC15C41 /* Pods.release.xcconfig */,
+				7C51A8FA285F793E88411875 /* Pods-RHSocketRpcSimpleDemo.debug.xcconfig */,
+				B2EFE50529236506113F1543 /* Pods-RHSocketRpcSimpleDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -110,12 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 831C2E031CB3D70A0067FEEE /* Build configuration list for PBXNativeTarget "RHSocketRpcSimpleDemo" */;
 			buildPhases = (
-				4866EC73929A12E9D5EF379B /* Check Pods Manifest.lock */,
+				4866EC73929A12E9D5EF379B /* 📦 Check Pods Manifest.lock */,
 				831C2DE81CB3D7090067FEEE /* Sources */,
 				831C2DE91CB3D7090067FEEE /* Frameworks */,
 				831C2DEA1CB3D7090067FEEE /* Resources */,
-				277E17BE42F32D4DB7359463 /* Embed Pods Frameworks */,
-				7D7B40078052C74BC7BAF58A /* Copy Pods Resources */,
+				277E17BE42F32D4DB7359463 /* 📦 Embed Pods Frameworks */,
+				7D7B40078052C74BC7BAF58A /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -172,29 +172,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		277E17BE42F32D4DB7359463 /* Embed Pods Frameworks */ = {
+		277E17BE42F32D4DB7359463 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketRpcSimpleDemo/Pods-RHSocketRpcSimpleDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4866EC73929A12E9D5EF379B /* Check Pods Manifest.lock */ = {
+		4866EC73929A12E9D5EF379B /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,19 +202,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		7D7B40078052C74BC7BAF58A /* Copy Pods Resources */ = {
+		7D7B40078052C74BC7BAF58A /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketRpcSimpleDemo/Pods-RHSocketRpcSimpleDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -338,7 +338,7 @@
 		};
 		831C2E041CB3D70A0067FEEE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D37AC083CA9649CB142FFFEE /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 7C51A8FA285F793E88411875 /* Pods-RHSocketRpcSimpleDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RHSocketRpcSimpleDemo/Info.plist;
@@ -350,7 +350,7 @@
 		};
 		831C2E051CB3D70A0067FEEE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F21275DE977448284FC15C41 /* Pods.release.xcconfig */;
+			baseConfigurationReference = B2EFE50529236506113F1543 /* Pods-RHSocketRpcSimpleDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RHSocketRpcSimpleDemo/Info.plist;
