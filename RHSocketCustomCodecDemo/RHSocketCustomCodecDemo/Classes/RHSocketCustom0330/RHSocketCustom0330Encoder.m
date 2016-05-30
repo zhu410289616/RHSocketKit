@@ -31,11 +31,11 @@
     
     NSMutableData *sendData = [[NSMutableData alloc] init];
     //分隔符 2个字节
-    [sendData appendData:[RHSocketUtils bytesFromUInt16:req.fenGeFu]];
+    [sendData appendData:[RHSocketUtils bytesFromInt16:req.fenGeFu]];
     //数据包类型 2个字节
-    [sendData appendData:[RHSocketUtils bytesFromUInt16:req.dataType]];
+    [sendData appendData:[RHSocketUtils bytesFromInt16:req.dataType]];
     //长度（不含包头长度） 4个字节
-    [sendData appendData:[RHSocketUtils bytesFromUInt32:(uint32_t)dataLen]];
+    [sendData appendData:[RHSocketUtils bytesFromInt32:(uint32_t)dataLen]];
     //数据包 dataLen个字节
     [sendData appendData:data];
     
