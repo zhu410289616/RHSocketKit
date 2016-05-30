@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3DB01D98A01902740A01916D /* libPods-RHSocketKitConnectionDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2D7A7ECC21CC2BE859BD81 /* libPods-RHSocketKitConnectionDemo.a */; };
 		838F13311CAAD32400AE8BAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 838F13301CAAD32400AE8BAF /* main.m */; };
 		838F13341CAAD32400AE8BAF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 838F13331CAAD32400AE8BAF /* AppDelegate.m */; };
 		838F13371CAAD32500AE8BAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 838F13361CAAD32500AE8BAF /* ViewController.m */; };
 		838F133A1CAAD32500AE8BAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838F13381CAAD32500AE8BAF /* Main.storyboard */; };
 		838F133C1CAAD32500AE8BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838F133B1CAAD32500AE8BAF /* Assets.xcassets */; };
 		838F133F1CAAD32500AE8BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838F133D1CAAD32500AE8BAF /* LaunchScreen.storyboard */; };
-		BD3C50F6D2DEFEC461F85F0B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DF44E68EB9D4274731D0EB /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		586AF26498278E27D490191F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		2435C47152A0749B7F58E25D /* Pods-RHSocketKitConnectionDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RHSocketKitConnectionDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RHSocketKitConnectionDemo/Pods-RHSocketKitConnectionDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		7B2D7A7ECC21CC2BE859BD81 /* libPods-RHSocketKitConnectionDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RHSocketKitConnectionDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		838F132C1CAAD32400AE8BAF /* RHSocketKitConnectionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RHSocketKitConnectionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		838F13301CAAD32400AE8BAF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		838F13321CAAD32400AE8BAF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -28,8 +29,7 @@
 		838F133B1CAAD32500AE8BAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		838F133E1CAAD32500AE8BAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		838F13401CAAD32500AE8BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		986F3CAAB0108D7BE0CECA19 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		B9DF44E68EB9D4274731D0EB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EC604B5554D36AAEB13866A /* Pods-RHSocketKitConnectionDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RHSocketKitConnectionDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RHSocketKitConnectionDemo/Pods-RHSocketKitConnectionDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD3C50F6D2DEFEC461F85F0B /* libPods.a in Frameworks */,
+				3DB01D98A01902740A01916D /* libPods-RHSocketKitConnectionDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,8 +47,8 @@
 		6535CE729AA2D30AB3B69612 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				586AF26498278E27D490191F /* Pods.debug.xcconfig */,
-				986F3CAAB0108D7BE0CECA19 /* Pods.release.xcconfig */,
+				2435C47152A0749B7F58E25D /* Pods-RHSocketKitConnectionDemo.debug.xcconfig */,
+				8EC604B5554D36AAEB13866A /* Pods-RHSocketKitConnectionDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -98,7 +98,7 @@
 		E6DF32215488AE51E121055A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B9DF44E68EB9D4274731D0EB /* libPods.a */,
+				7B2D7A7ECC21CC2BE859BD81 /* libPods-RHSocketKitConnectionDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -110,12 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 838F13431CAAD32500AE8BAF /* Build configuration list for PBXNativeTarget "RHSocketKitConnectionDemo" */;
 			buildPhases = (
-				E83AC46B877F9C116CD7DFDA /* Check Pods Manifest.lock */,
+				E83AC46B877F9C116CD7DFDA /* 📦 Check Pods Manifest.lock */,
 				838F13281CAAD32400AE8BAF /* Sources */,
 				838F13291CAAD32400AE8BAF /* Frameworks */,
 				838F132A1CAAD32400AE8BAF /* Resources */,
-				7386DA87E130E28D811FD7CD /* Embed Pods Frameworks */,
-				E7B67479102A01944A40D110 /* Copy Pods Resources */,
+				7386DA87E130E28D811FD7CD /* 📦 Embed Pods Frameworks */,
+				E7B67479102A01944A40D110 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -173,44 +173,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7386DA87E130E28D811FD7CD /* Embed Pods Frameworks */ = {
+		7386DA87E130E28D811FD7CD /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketKitConnectionDemo/Pods-RHSocketKitConnectionDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E7B67479102A01944A40D110 /* Copy Pods Resources */ = {
+		E7B67479102A01944A40D110 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketKitConnectionDemo/Pods-RHSocketKitConnectionDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E83AC46B877F9C116CD7DFDA /* Check Pods Manifest.lock */ = {
+		E83AC46B877F9C116CD7DFDA /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,7 +337,7 @@
 		};
 		838F13441CAAD32500AE8BAF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 586AF26498278E27D490191F /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 2435C47152A0749B7F58E25D /* Pods-RHSocketKitConnectionDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RHSocketKitConnectionDemo/Info.plist;
@@ -349,7 +349,7 @@
 		};
 		838F13451CAAD32500AE8BAF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 986F3CAAB0108D7BE0CECA19 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 8EC604B5554D36AAEB13866A /* Pods-RHSocketKitConnectionDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RHSocketKitConnectionDemo/Info.plist;

@@ -12,6 +12,8 @@
 #import "RHSocketDelimiterEncoder.h"
 #import "RHSocketDelimiterDecoder.h"
 
+#import "RHSocketUtils.h"
+
 @interface ViewController ()
 {
     UIButton *_serviceTestButton;
@@ -53,17 +55,6 @@
 {
     NSString *host = @"www.baidu.com";
     int port = 80;
-    
-    RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
-    encoder.delimiter = 0x0a;//0x0a，换行符
-    
-    RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
-    decoder.delimiter = 0x0a;//0x0a，换行符
-    
-    //完整的socket传输数据，必须有定义应用的数据传输协议，也就必须设置一个对应的编码器和解码器。
-    //这里只是初始化，对于连接测试没有实际作用。
-    [RHSocketService sharedInstance].encoder = encoder;
-    [RHSocketService sharedInstance].decoder = decoder;
     
     //连接测试，没有额外交换，
     [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
