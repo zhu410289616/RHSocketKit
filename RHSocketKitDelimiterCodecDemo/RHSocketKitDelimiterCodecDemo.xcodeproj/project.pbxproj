@@ -13,7 +13,7 @@
 		838F135D1CAADBDE00AE8BAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838F135B1CAADBDE00AE8BAF /* Main.storyboard */; };
 		838F135F1CAADBDE00AE8BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838F135E1CAADBDE00AE8BAF /* Assets.xcassets */; };
 		838F13621CAADBDE00AE8BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838F13601CAADBDE00AE8BAF /* LaunchScreen.storyboard */; };
-		987D7A0BBE995EA960155893 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F3EF3A82D9D41D4A49B05 /* libPods.a */; };
+		A56E69255D594405B75FBE39 /* libPods-RHSocketKitDelimiterCodecDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB62CBAC677FEF1201C6D82F /* libPods-RHSocketKitDelimiterCodecDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +27,9 @@
 		838F135E1CAADBDE00AE8BAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		838F13611CAADBDE00AE8BAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		838F13631CAADBDE00AE8BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B50A51DD3DD39C53143291F5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		C19F4EE4970ABC468D6D3EB2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		DC0F3EF3A82D9D41D4A49B05 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E771F058507E8AEE00C49F6D /* Pods-RHSocketKitDelimiterCodecDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RHSocketKitDelimiterCodecDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RHSocketKitDelimiterCodecDemo/Pods-RHSocketKitDelimiterCodecDemo.release.xcconfig"; sourceTree = "<group>"; };
+		EB62CBAC677FEF1201C6D82F /* libPods-RHSocketKitDelimiterCodecDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RHSocketKitDelimiterCodecDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDD618686802878F444DB2BA /* Pods-RHSocketKitDelimiterCodecDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RHSocketKitDelimiterCodecDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RHSocketKitDelimiterCodecDemo/Pods-RHSocketKitDelimiterCodecDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				987D7A0BBE995EA960155893 /* libPods.a in Frameworks */,
+				A56E69255D594405B75FBE39 /* libPods-RHSocketKitDelimiterCodecDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,7 +47,7 @@
 		1A989800C278A4020E09B9EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC0F3EF3A82D9D41D4A49B05 /* libPods.a */,
+				EB62CBAC677FEF1201C6D82F /* libPods-RHSocketKitDelimiterCodecDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,8 +97,8 @@
 		9F28AD55C9301E0723A46A4C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C19F4EE4970ABC468D6D3EB2 /* Pods.debug.xcconfig */,
-				B50A51DD3DD39C53143291F5 /* Pods.release.xcconfig */,
+				FDD618686802878F444DB2BA /* Pods-RHSocketKitDelimiterCodecDemo.debug.xcconfig */,
+				E771F058507E8AEE00C49F6D /* Pods-RHSocketKitDelimiterCodecDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -110,12 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 838F13661CAADBDE00AE8BAF /* Build configuration list for PBXNativeTarget "RHSocketKitDelimiterCodecDemo" */;
 			buildPhases = (
-				3333DB8F055077FAB9C2AB31 /* Check Pods Manifest.lock */,
+				3333DB8F055077FAB9C2AB31 /* 📦 Check Pods Manifest.lock */,
 				838F134B1CAADBDE00AE8BAF /* Sources */,
 				838F134C1CAADBDE00AE8BAF /* Frameworks */,
 				838F134D1CAADBDE00AE8BAF /* Resources */,
-				F04065F8FA2FE0360C8484E4 /* Embed Pods Frameworks */,
-				EEAEFBF84D09C7B60FD202FC /* Copy Pods Resources */,
+				F04065F8FA2FE0360C8484E4 /* 📦 Embed Pods Frameworks */,
+				EEAEFBF84D09C7B60FD202FC /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -173,14 +173,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3333DB8F055077FAB9C2AB31 /* Check Pods Manifest.lock */ = {
+		3333DB8F055077FAB9C2AB31 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,34 +188,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EEAEFBF84D09C7B60FD202FC /* Copy Pods Resources */ = {
+		EEAEFBF84D09C7B60FD202FC /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketKitDelimiterCodecDemo/Pods-RHSocketKitDelimiterCodecDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F04065F8FA2FE0360C8484E4 /* Embed Pods Frameworks */ = {
+		F04065F8FA2FE0360C8484E4 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketKitDelimiterCodecDemo/Pods-RHSocketKitDelimiterCodecDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -337,7 +337,7 @@
 		};
 		838F13671CAADBDE00AE8BAF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C19F4EE4970ABC468D6D3EB2 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = FDD618686802878F444DB2BA /* Pods-RHSocketKitDelimiterCodecDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RHSocketKitDelimiterCodecDemo/Info.plist;
@@ -349,7 +349,7 @@
 		};
 		838F13681CAADBDE00AE8BAF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B50A51DD3DD39C53143291F5 /* Pods.release.xcconfig */;
+			baseConfigurationReference = E771F058507E8AEE00C49F6D /* Pods-RHSocketKitDelimiterCodecDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RHSocketKitDelimiterCodecDemo/Info.plist;

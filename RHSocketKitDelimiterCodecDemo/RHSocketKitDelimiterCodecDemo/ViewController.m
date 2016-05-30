@@ -65,10 +65,10 @@
     int port = 20162;
     
     RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
-    encoder.delimiter = 0x0a;//0x0a，换行符
+    encoder.delimiterData = [RHSocketUtils dataFromHexString:@"0x0a"];//0x0a，换行符
     
     RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
-    decoder.delimiter = 0x0a;//0x0a，换行符
+    decoder.delimiterData = [RHSocketUtils dataFromHexString:@"0x0a"];//0x0a，换行符
     
     [RHSocketService sharedInstance].encoder = encoder;
     [RHSocketService sharedInstance].decoder = decoder;

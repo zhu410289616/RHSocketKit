@@ -1,4 +1,6 @@
 platform:ios,'7.0'
 
-pod 'RHSocketKit', '~> 2.1.0'
+target 'RHSocketKitDelimiterCodecDemo' do
+	pod 'RHSocketKit', '~> 2.1.4'
+end
 
