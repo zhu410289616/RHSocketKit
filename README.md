@@ -1,6 +1,5 @@
-[![Analytics](https://ga-beacon.appspot.com/UA-78533289-1/welcome-page)](https://github.com/zhu410289616/RHSocketKit)
+## RHSocketKit  [![Analytics](https://ga-beacon.appspot.com/UA-78533289-1/welcome-page)](https://github.com/zhu410289616/RHSocketKit) [![Build Status](https://travis-ci.org/zhu410289616/RHSocketKit.svg?branch=master)](https://travis-ci.org/zhu410289616/RHSocketKit)
 
-## RHSocketKit
 socket网络通信框架
 
 ## CocoaPods

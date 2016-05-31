@@ -2,11 +2,13 @@
 language: objective-c
 
 before_install:
-  - sudo easy_install cpp-coveralls
   - export LANG=en_US.UTF-8
 
 script:
+  - cd RHSocketKitDemo
+  - pod install --no-repo-update
   - xctool -workspace 'RHSocketKitDemo.xcworkspace' -scheme 'RHSocketKitDemo' -configuration Debug -sdk iphonesimulator8.1 clean build ARCHS=i386 VALID_ARCHS=i386 ONLY_ACTIVE_ARCH=NO
 
 after_success:
-  - ./script/coveralls.sh
+
+
