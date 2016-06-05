@@ -4,8 +4,11 @@ language: objective-c
 before_install:
   - export LANG=en_US.UTF-8
 
+install:
+  - pod install --no-repo-update
+
 script:
-  - pod lib lint 
+  - xctool -workspace ./Example.xcworkspace -scheme RHSocketKitDemo -sdk iphonesimulator -arch i386
 
 after_success:
 

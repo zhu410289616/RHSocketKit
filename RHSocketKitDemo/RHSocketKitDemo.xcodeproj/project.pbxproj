@@ -655,7 +655,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketKitDemo/Pods-RHSocketKitDemo-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-RHSocketKitDemo/Pods-RHSocketKitDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D144B7BEA97B8D9BFFDC0C17 /* 📦 Copy Pods Resources */ = {
@@ -670,7 +670,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RHSocketKitDemo/Pods-RHSocketKitDemo-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-RHSocketKitDemo/Pods-RHSocketKitDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
