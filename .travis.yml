@@ -5,7 +5,7 @@ before_install:
   - export LANG=en_US.UTF-8
 
 install:
-  - pod install --no-repo-update
+ # - pod install --no-repo-update
 
 script:
   - xctool -workspace ./Example.xcworkspace -scheme Example -sdk iphonesimulator -arch i386
