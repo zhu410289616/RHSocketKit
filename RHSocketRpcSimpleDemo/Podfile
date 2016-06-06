@@ -1,6 +1,0 @@
-platform:ios,'7.0'
-
-target 'RHSocketRpcSimpleDemo' do
-	pod 'RHSocketKit/RPC', '~> 2.1.4'
-	pod 'libextobjc/EXTScope', '~> 0.4.1'
-end

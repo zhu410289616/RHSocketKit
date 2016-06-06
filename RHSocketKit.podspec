@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RHSocketKit"
-  s.version      = "2.1.4"
+  s.version      = "2.1.5"
   s.summary      = "A socket kit based on CocoaAsyncSocket."
   s.homepage     = "https://github.com/zhu410289616/RHSocketKit"
   s.license      = { :type => "Apache", :file => "LICENSE" }
@@ -30,6 +30,12 @@ Pod::Spec.new do |s|
     cs.dependency "RHSocketKit/Core"
     cs.dependency 'MSWeakTimer', '~> 1.1.0'
     cs.source_files = "RHSocketKit/RPC/*.{h,m}", "RHSocketKit/RPC/CallReply/*.{h,m}"
+    cs.requires_arc = true
+  end
+
+  s.subspec "WebSocket" do |cs|
+    cs.dependency 'SocketRocket', '~> 0.5.1'
+    cs.source_files = "RHSocketKit/WebSocket/*.{h,m}"
     cs.requires_arc = true
   end
 
