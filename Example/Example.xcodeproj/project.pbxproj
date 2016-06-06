@@ -47,7 +47,6 @@
 		83ADFDCC1D057F6E00A6CBC3 /* RHSocketChannelProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDA61D057F6E00A6CBC3 /* RHSocketChannelProxy.m */; };
 		83ADFDCD1D057F6E00A6CBC3 /* RHSocketRpcCmdDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDA81D057F6E00A6CBC3 /* RHSocketRpcCmdDecoder.m */; };
 		83ADFDCE1D057F6E00A6CBC3 /* RHSocketRpcCmdEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDAA1D057F6E00A6CBC3 /* RHSocketRpcCmdEncoder.m */; };
-		83ADFDCF1D057F6E00A6CBC3 /* RHWebSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDAD1D057F6E00A6CBC3 /* RHWebSocketChannel.m */; };
 		83ADFDDE1D057F9700A6CBC3 /* RHSocketHttpDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDD31D057F9700A6CBC3 /* RHSocketHttpDecoder.m */; };
 		83ADFDDF1D057F9700A6CBC3 /* RHSocketHttpEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDD51D057F9700A6CBC3 /* RHSocketHttpEncoder.m */; };
 		83ADFDE01D057F9700A6CBC3 /* RHSocketHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDD71D057F9700A6CBC3 /* RHSocketHttpRequest.m */; };
@@ -135,8 +134,6 @@
 		83ADFDA81D057F6E00A6CBC3 /* RHSocketRpcCmdDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketRpcCmdDecoder.m; sourceTree = "<group>"; };
 		83ADFDA91D057F6E00A6CBC3 /* RHSocketRpcCmdEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketRpcCmdEncoder.h; sourceTree = "<group>"; };
 		83ADFDAA1D057F6E00A6CBC3 /* RHSocketRpcCmdEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketRpcCmdEncoder.m; sourceTree = "<group>"; };
-		83ADFDAC1D057F6E00A6CBC3 /* RHWebSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHWebSocketChannel.h; sourceTree = "<group>"; };
-		83ADFDAD1D057F6E00A6CBC3 /* RHWebSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHWebSocketChannel.m; sourceTree = "<group>"; };
 		83ADFDD21D057F9700A6CBC3 /* RHSocketHttpDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpDecoder.h; sourceTree = "<group>"; };
 		83ADFDD31D057F9700A6CBC3 /* RHSocketHttpDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpDecoder.m; sourceTree = "<group>"; };
 		83ADFDD41D057F9700A6CBC3 /* RHSocketHttpEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpEncoder.h; sourceTree = "<group>"; };
@@ -224,7 +221,6 @@
 				83ADFD561D057F6E00A6CBC3 /* Core */,
 				83ADFD801D057F6E00A6CBC3 /* Extend */,
 				83ADFD9A1D057F6E00A6CBC3 /* RPC */,
-				83ADFDAB1D057F6E00A6CBC3 /* WebSocket */,
 			);
 			name = RHSocketKit;
 			path = ../RHSocketKit;
@@ -431,15 +427,6 @@
 			path = CallReply;
 			sourceTree = "<group>";
 		};
-		83ADFDAB1D057F6E00A6CBC3 /* WebSocket */ = {
-			isa = PBXGroup;
-			children = (
-				83ADFDAC1D057F6E00A6CBC3 /* RHWebSocketChannel.h */,
-				83ADFDAD1D057F6E00A6CBC3 /* RHWebSocketChannel.m */,
-			);
-			path = WebSocket;
-			sourceTree = "<group>";
-		};
 		83ADFDD01D057F9700A6CBC3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -606,7 +593,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83ADFDCF1D057F6E00A6CBC3 /* RHWebSocketChannel.m in Sources */,
 				83ADFDC71D057F6E00A6CBC3 /* RHSocketService.m in Sources */,
 				83ADFDC61D057F6E00A6CBC3 /* RHSocketStringEncoder.m in Sources */,
 				83ADFDC91D057F6E00A6CBC3 /* RHConnectCallReply.m in Sources */,

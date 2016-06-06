@@ -10,7 +10,7 @@
 
 #import "RHWebSocketChannel.h"
 
-@interface ViewController () <RHWebSocketChannelDelegate>
+@interface ViewController () <SRWebSocketDelegate>
 
 @property (nonatomic, strong) RHWebSocketChannel *webSocketChannel;
 
@@ -34,27 +34,27 @@
 // or NSData if the server is using binary.
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    RHSocketLog(@"Received: %@", message);
+    NSLog(@"Received: %@", message);
 }
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
-    RHSocketLog(@"Websocket Connected ...");
+    NSLog(@"Websocket Connected ...");
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-    RHSocketLog(@":( Websocket Failed With Error %@", error);
+    NSLog(@":( Websocket Failed With Error %@", error);
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
 {
-    RHSocketLog(@"WebSocket closed: code-[%ld], reason-[%@]", code, reason);
+    NSLog(@"WebSocket closed: code-[%ld], reason-[%@]", code, reason);
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
 {
-    RHSocketLog(@"Websocket received pong");
+    NSLog(@"Websocket received pong");
 }
 
 @end

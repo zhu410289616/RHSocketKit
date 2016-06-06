@@ -14,6 +14,7 @@
 		83ADFD491D057C6F00A6CBC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83ADFD471D057C6F00A6CBC3 /* Main.storyboard */; };
 		83ADFD4B1D057C6F00A6CBC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83ADFD4A1D057C6F00A6CBC3 /* Assets.xcassets */; };
 		83ADFD4E1D057C6F00A6CBC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83ADFD4C1D057C6F00A6CBC3 /* LaunchScreen.storyboard */; };
+		83FE8BC01D059D5200E6494E /* RHWebSocketChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FE8BBF1D059D5200E6494E /* RHWebSocketChannel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		83ADFD4A1D057C6F00A6CBC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83ADFD4D1D057C6F00A6CBC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83ADFD4F1D057C6F00A6CBC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83FE8BBE1D059D5200E6494E /* RHWebSocketChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHWebSocketChannel.h; sourceTree = "<group>"; };
+		83FE8BBF1D059D5200E6494E /* RHWebSocketChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHWebSocketChannel.m; sourceTree = "<group>"; };
 		A3778A9593C4603F22B54B56 /* libPods-WebSocketDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WebSocketDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6A7BE0F4F66BE73A2A9A73C /* Pods-WebSocketDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebSocketDemo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-WebSocketDemo/Pods-WebSocketDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +76,7 @@
 		83ADFD3D1D057C6F00A6CBC3 /* WebSocketDemo */ = {
 			isa = PBXGroup;
 			children = (
+				83FE8BBD1D059D5200E6494E /* WebSocket */,
 				83ADFD411D057C6F00A6CBC3 /* AppDelegate.h */,
 				83ADFD421D057C6F00A6CBC3 /* AppDelegate.m */,
 				83ADFD441D057C6F00A6CBC3 /* ViewController.h */,
@@ -92,6 +96,15 @@
 				83ADFD3F1D057C6F00A6CBC3 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83FE8BBD1D059D5200E6494E /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				83FE8BBE1D059D5200E6494E /* RHWebSocketChannel.h */,
+				83FE8BBF1D059D5200E6494E /* RHWebSocketChannel.m */,
+			);
+			path = WebSocket;
 			sourceTree = "<group>";
 		};
 		D55F9ABB635EAF9623BE1CF0 /* Pods */ = {
@@ -225,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83ADFD461D057C6F00A6CBC3 /* ViewController.m in Sources */,
+				83FE8BC01D059D5200E6494E /* RHWebSocketChannel.m in Sources */,
 				83ADFD431D057C6F00A6CBC3 /* AppDelegate.m in Sources */,
 				83ADFD401D057C6F00A6CBC3 /* main.m in Sources */,
 			);
