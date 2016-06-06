@@ -1,4 +1,5 @@
 workspace 'Example'
+xcodeproj 'Example/Example.xcodeproj'
 
 target 'Example' do
 	platform :ios, '7.0'
