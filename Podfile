@@ -45,7 +45,6 @@ end
 target 'WebSocketDemo' do
         platform :ios, '7.0'
         project 'WebSocketDemo/WebSocketDemo.xcodeproj'
-        pod 'RHSocketKit/WebSocket', :path => './RHSocketKit.podspec'
         pod 'SocketRocket', '~> 0.5.1'
 end
 

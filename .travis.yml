@@ -8,7 +8,7 @@ install:
   - pod install --no-repo-update
 
 script:
-  - xctool -workspace ./Example.xcworkspace -scheme RHSocketKitDemo -sdk iphonesimulator -arch i386
+  - xctool -workspace ./Example.xcworkspace -scheme Example -sdk iphonesimulator -arch i386
 
 after_success:
 

@@ -50,29 +50,23 @@
 #import "RHSocketUtils.h"
 
 //
-#import "RHWebSocketChannel.h"
-
-//
 #import "RHSocketUtils+Protobuf.h"
 #import "RHProtobufVarint32LengthEncoder.h"
 #import "RHProtobufVarint32LengthDecoder.h"
 #import "RHBaseMessage.pb.h"
 
-@interface ViewController () <RHSocketChannelDelegate, SRWebSocketDelegate>
-{
-    UIButton *_channelTestButton;
-    UIButton *_serviceTestButton;
-    UIButton *_proxyTestButton;
-    
-    UIButton *_jsonTestButton;
-    UIButton *_base64TestButton;
-    UIButton *_protobufTestButton;
-    UIButton *_protobufCodecTestButton;
-    
-    RHSocketChannel *_channel;
-}
+@interface ViewController () <RHSocketChannelDelegate>
 
-@property (nonatomic, strong) RHWebSocketChannel *webSocketChannel;
+@property (nonatomic, strong) UIButton *channelTestButton;
+@property (nonatomic, strong) UIButton *serviceTestButton;
+@property (nonatomic, strong) UIButton *proxyTestButton;
+
+@property (nonatomic, strong) UIButton *jsonTestButton;
+@property (nonatomic, strong) UIButton *base64TestButton;
+@property (nonatomic, strong) UIButton *protobufTestButton;
+@property (nonatomic, strong) UIButton *protobufCodecTestButton;
+
+@property (nonatomic, strong) RHSocketChannel *channel;
 
 @end
 
@@ -235,44 +229,11 @@
     RHSocketLog(@"[person data]: %@", [person data]);
     
     //
-    _webSocketChannel = [[RHWebSocketChannel alloc] initWithURL:@"ws://115.29.193.48:8088"];
-    _webSocketChannel.delegate = self;
-    //    [_webSocketChannel openConnection];
-    
     data = [RHSocketUtils dataWithRawVarint32:300];
     RHSocketLog(@"data: %@", data);
     
     value = [RHSocketUtils valueWithVarint32Data:data];
     RHSocketLog(@"value: %ld", value);
-}
-
-#pragma mark - SRWebSocketDelegate
-
-// message will either be an NSString if the server is using text
-// or NSData if the server is using binary.
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
-{
-    RHSocketLog(@"Received: %@", message);
-}
-
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket
-{
-    RHSocketLog(@"Websocket Connected ...");
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
-{
-    RHSocketLog(@":( Websocket Failed With Error %@", error);
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
-{
-    RHSocketLog(@"WebSocket closed: code-[%ld], reason-[%@]", code, reason);
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
-{
-    RHSocketLog(@"Websocket received pong");
 }
 
 #pragma mark - channel test
@@ -301,8 +262,6 @@
     
     RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
     stringDecoder.nextDecoder = jsonDecoder;
-    
-    RHSocketBase64Decoder *base64Decoder = [[RHSocketBase64Decoder alloc] init];
     
     RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
     decoder.delimiterData = [@"aaa" dataUsingEncoding:NSUTF8StringEncoding];//[RHSocketUtils CRLFData];//回车换行符\r\n
