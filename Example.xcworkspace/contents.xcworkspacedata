@@ -25,4 +25,16 @@
    <FileRef
       location = "group:WebSocketDemo/WebSocketDemo.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:TcpEchoServerDemo/TcpEchoServerDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:UdpEchoServerDemo/UdpEchoServerDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ProtobufCodecDemo/ProtobufCodecDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:UdpClientDemo/UdpClientDemo.xcodeproj">
+   </FileRef>
 </Workspace>

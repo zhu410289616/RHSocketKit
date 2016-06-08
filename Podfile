@@ -28,6 +28,12 @@ target 'VariableLengthCodecDemo' do
         pod 'RHSocketKit', :path => './RHSocketKit.podspec'
 end
 
+target 'ProtobufCodecDemo' do
+        platform :ios, '7.0'
+        project 'ProtobufCodecDemo/ProtobufCodecDemo.xcodeproj'
+        pod 'RHSocketKit', :path => './RHSocketKit.podspec'
+end
+
 target 'CustomCodecDemo' do
         platform :ios, '7.0'
         project 'CustomCodecDemo/CustomCodecDemo.xcodeproj'
@@ -46,4 +52,25 @@ target 'WebSocketDemo' do
         project 'WebSocketDemo/WebSocketDemo.xcodeproj'
         pod 'SocketRocket', '~> 0.5.1'
 end
+
+target 'TcpEchoServerDemo' do
+        platform :osx, '10.9'
+        project 'TcpEchoServerDemo/TcpEchoServerDemo.xcodeproj'
+	pod 'CocoaAsyncSocket', '~> 7.4.3'
+end
+
+#udp
+
+target 'UdpClientDemo' do
+	platform :ios, '7.0'
+        project 'UdpClientDemo/UdpClientDemo.xcodeproj'
+	pod 'RHSocketKit/Core', :path => './RHSocketKit.podspec'
+end
+
+target 'UdpEchoServerDemo' do
+        platform :osx, '10.9'
+        project 'UdpEchoServerDemo/UdpEchoServerDemo.xcodeproj'
+	pod 'CocoaAsyncSocket', '~> 7.4.3'
+end
+
 

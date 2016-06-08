@@ -30,6 +30,7 @@ DEPENDENCIES:
   - MSWeakTimer (~> 1.1.0)
   - ProtocolBuffers (~> 1.9.9.2)
   - RHSocketKit (from `./RHSocketKit.podspec`)
+  - RHSocketKit/Core (from `./RHSocketKit.podspec`)
   - RHSocketKit/Extend (from `./RHSocketKit.podspec`)
   - RHSocketKit/RPC (from `./RHSocketKit.podspec`)
   - SocketRocket (~> 0.5.1)
@@ -46,6 +47,6 @@ SPEC CHECKSUMS:
   RHSocketKit: 02d6cd97f02813fcd81ec2e060ced2b8b8a1b33c
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 
-PODFILE CHECKSUM: 60b2ad82b3dc1c64fc4ffb320da459e4633d9dba
+PODFILE CHECKSUM: f1831ab6f4a2df9d80121561aac2f8ac320dc446
 
 COCOAPODS: 1.0.0
