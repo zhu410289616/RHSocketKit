@@ -1,6 +1,11 @@
-## RHSocketKit  [![Analytics](https://ga-beacon.appspot.com/UA-78533289-1/welcome-page)](https://github.com/zhu410289616/RHSocketKit)  [![Version Status](https://img.shields.io/cocoapods/v/RHSocketKit.svg?style=flat)](http://cocoadocs.org/docsets/RHSocketKit) [![Build Status](https://travis-ci.org/zhu410289616/RHSocketKit.svg?branch=master)](https://travis-ci.org/zhu410289616/RHSocketKit) [![Platform](http://img.shields.io/cocoapods/p/RHSocketKit.svg?style=flat)](http://cocoapods.org/?q=RHSocketKit)
+## RHSocketKit
+[![Build Status](https://travis-ci.org/zhu410289616/RHSocketKit.svg?branch=master)](https://travis-ci.org/zhu410289616/RHSocketKit)
+[![Version Status](https://img.shields.io/cocoapods/v/RHSocketKit.svg?style=flat)](http://cocoadocs.org/docsets/RHSocketKit)
+[![Analytics](https://ga-beacon.appspot.com/UA-78533289-1/welcome-page)](https://github.com/zhu410289616/RHSocketKit)
+[![Platform](http://img.shields.io/cocoapods/p/RHSocketKit.svg?style=flat)](http://cocoapods.org/?q=RHSocketKit)
+[![License](https://img.shields.io/cocoapods/l/RHSocketKit.svg)](http://cocoadocs.org/docsets/RHSocketKit)
 
-socket网络通信框架
+socket网络通信框架，专为和netty通信互通而实现。`目前已实现3个主要编解码器：1-DelimiterBasedFrame。2-LengthFieldBasedFrame。3-ProtobufVarint32Frame。`
 
 ## CocoaPods
 pod 'RHSocketKit'
