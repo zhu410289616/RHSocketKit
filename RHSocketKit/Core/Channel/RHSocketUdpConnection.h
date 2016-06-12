@@ -10,6 +10,9 @@
 
 @interface RHSocketUdpConnection : NSObject
 
-- (void)connectWithHost:(NSString *)hostName port:(int)port;
+- (void)setupUdpSocket;
+
+- (void)sendData:(NSData *)data toHost:(NSString *)host port:(int)port;
+- (void)sendData:(NSData *)data toHost:(NSString *)host port:(int)port tag:(long)tag;
 
 @end

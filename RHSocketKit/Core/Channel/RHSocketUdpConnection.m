@@ -8,11 +8,12 @@
 
 #import "RHSocketUdpConnection.h"
 #import "GCDAsyncUdpSocket.h"
+#import "RHSocketConfig.h"
 
 @interface RHSocketUdpConnection () <GCDAsyncUdpSocketDelegate>
-{
-    GCDAsyncUdpSocket *_udpSocket;
-}
+
+@property (nonatomic, strong, readonly) dispatch_queue_t udpSocketQueue;
+@property (nonatomic, strong, readonly) GCDAsyncUdpSocket *udpSocket;
 
 @end
 
@@ -21,7 +22,8 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+        _udpSocketQueue = dispatch_queue_create("com.zrh.socket.udp.queue", DISPATCH_QUEUE_SERIAL);
+        _udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:_udpSocketQueue];
     }
     return self;
 }
@@ -32,16 +34,31 @@
     _udpSocket = nil;
 }
 
-- (void)connectWithHost:(NSString *)hostName port:(int)port
+- (void)setupUdpSocket
 {
     NSError *error = nil;
-    [_udpSocket connectToHost:hostName onPort:port error:&error];
-    if (error) {
-        NSLog(@"[RHSocketConnection] connectWithHost error: %@", error.description);
-//        if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
-//            [_delegate didDisconnectWithError:error];
-//        }
+    if (![_udpSocket bindToPort:0 error:&error]) {
+        RHSocketLog(@"Error binding: %@", error);
+        return;
     }
+    
+    if (![_udpSocket beginReceiving:&error]) {
+        RHSocketLog(@"Error receiving: %@", error);
+        return;
+    }
+    
+    RHSocketLog(@"setupUdpSocket Ready");
+}
+
+- (void)sendData:(NSData *)data toHost:(NSString *)host port:(int)port
+{
+    long tag = clock();
+    [self sendData:data toHost:host port:port tag:tag];
+}
+
+- (void)sendData:(NSData *)data toHost:(NSString *)host port:(int)port tag:(long)tag
+{
+    [_udpSocket sendData:data toHost:host port:port withTimeout:-1 tag:tag];
 }
 
 #pragma mark - GCDAsyncUdpSocketDelegate
@@ -73,7 +90,10 @@
  * Called when the datagram with the given tag has been sent.
  **/
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag
-{}
+{
+    // You could add checks here
+    RHSocketLog(@"didSendDataWithTag[%ld]", tag);
+}
 
 /**
  * Called if an error occurs while trying to send a datagram.
@@ -81,6 +101,8 @@
  **/
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error
 {
+    // You could add checks here
+    RHSocketLog(@"didNotSendDataWithTag[%ld]: %@", tag, error);
 }
 
 /**
@@ -90,12 +112,16 @@
       fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
+    NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    RHSocketLog(@"RECV: %@", msg);
 }
 
 /**
  * Called when the socket is closed.
  **/
 - (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error
-{}
+{
+    RHSocketLog(@"error: %@", error);
+}
 
 @end
