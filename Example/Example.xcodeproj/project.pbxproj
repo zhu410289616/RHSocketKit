@@ -55,6 +55,8 @@
 		83ADFDE31D057F9700A6CBC3 /* Person.proto in Resources */ = {isa = PBXBuildFile; fileRef = 83ADFDDD1D057F9700A6CBC3 /* Person.proto */; };
 		83C40F8A1D1D3C4F001CBF46 /* RHSocketBaseConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C40F891D1D3C4F001CBF46 /* RHSocketBaseConnection.m */; };
 		83C40F8E1D1D4885001CBF46 /* RHSocketTLSConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C40F8D1D1D4885001CBF46 /* RHSocketTLSConnection.m */; };
+		83C40F9B1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C40F9A1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m */; };
+		83C40F9E1D1D679F001CBF46 /* RHSocketChannelDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C40F9D1D1D679F001CBF46 /* RHSocketChannelDefault.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +154,10 @@
 		83C40F8C1D1D4885001CBF46 /* RHSocketTLSConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketTLSConnection.h; sourceTree = "<group>"; };
 		83C40F8D1D1D4885001CBF46 /* RHSocketTLSConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketTLSConnection.m; sourceTree = "<group>"; };
 		83C40F921D1D4C23001CBF46 /* RHSocketConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnectionDelegate.h; sourceTree = "<group>"; };
+		83C40F991D1D655E001CBF46 /* RHSocketChannel+Heartbeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RHSocketChannel+Heartbeat.h"; sourceTree = "<group>"; };
+		83C40F9A1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RHSocketChannel+Heartbeat.m"; sourceTree = "<group>"; };
+		83C40F9C1D1D679F001CBF46 /* RHSocketChannelDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketChannelDefault.h; sourceTree = "<group>"; };
+		83C40F9D1D1D679F001CBF46 /* RHSocketChannelDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketChannelDefault.m; sourceTree = "<group>"; };
 		F4286D56B30CF5C96B040F5F /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		FBF5422378428BD615C0A864 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		FE50F885CFDFD92A62C22BB6 /* libPods-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,6 +266,10 @@
 				83C40F8C1D1D4885001CBF46 /* RHSocketTLSConnection.h */,
 				83C40F8D1D1D4885001CBF46 /* RHSocketTLSConnection.m */,
 				83C40F921D1D4C23001CBF46 /* RHSocketConnectionDelegate.h */,
+				83C40F991D1D655E001CBF46 /* RHSocketChannel+Heartbeat.h */,
+				83C40F9A1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m */,
+				83C40F9C1D1D679F001CBF46 /* RHSocketChannelDefault.h */,
+				83C40F9D1D1D679F001CBF46 /* RHSocketChannelDefault.m */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -646,6 +656,8 @@
 				83ADFDB21D057F6E00A6CBC3 /* RHSocketDelimiterEncoder.m in Sources */,
 				83C40F8E1D1D4885001CBF46 /* RHSocketTLSConnection.m in Sources */,
 				83ADFDB81D057F6E00A6CBC3 /* RHSocketUtils+Protobuf.m in Sources */,
+				83C40F9E1D1D679F001CBF46 /* RHSocketChannelDefault.m in Sources */,
+				83C40F9B1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

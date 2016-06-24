@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RHSocketChannel.h"
+#import "RHSocketChannelDefault.h"
 #import "RHSocketCodecProtocol.h"
 
 extern NSString *const kNotificationSocketServiceState;
@@ -19,7 +19,7 @@ extern NSString *const kNotificationSocketPacketResponse;
  */
 @interface RHSocketService : NSObject <RHSocketChannelDelegate>
 
-@property (nonatomic, strong, readonly) RHSocketChannel *channel;
+@property (nonatomic, strong, readonly) RHSocketChannelDefault *channel;
 @property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 @property (assign, readonly) BOOL isRunning;

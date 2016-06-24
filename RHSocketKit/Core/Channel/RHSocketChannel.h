@@ -19,7 +19,6 @@
 
 @end
 
-
 /**
  *  在RHSocketConnection基础上做封装，负责对socket中的二进制通讯数据做缓存、编码、解码处理。
  *

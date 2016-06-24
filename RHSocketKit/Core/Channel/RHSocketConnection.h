@@ -23,4 +23,9 @@
 - (void)openConnection;
 - (void)closeConnection;
 
+- (void)writeInt8:(int8_t)param;
+- (void)writeInt16:(int16_t)param;
+- (void)writeInt32:(int32_t)param;
+- (void)writeInt64:(int64_t)param;
+
 @end
