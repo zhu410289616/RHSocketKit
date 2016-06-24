@@ -6,7 +6,7 @@
 //  Copyright © 2015年 zhuruhong. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "RHSocketConnection.h"
 #import "RHSocketCodecProtocol.h"
 
 @class RHSocketChannel;
@@ -19,6 +19,7 @@
 
 @end
 
+
 /**
  *  在RHSocketConnection基础上做封装，负责对socket中的二进制通讯数据做缓存、编码、解码处理。
  *
@@ -27,27 +28,15 @@
  *  2-内部带有一个数据缓存，用于对数据的拼包。
  *  发送网络数据时，一条数据会被切成多个网络包［不是我们上层协议中的概念］，需要对收到的数据做合并，完整后才能正常解码。
  */
-@interface RHSocketChannel : NSObject
-
-@property (nonatomic, copy) NSString *host;
-@property (nonatomic, assign) int port;
-
-/**
- *  tls/ssl
- */
-@property (nonatomic, assign) BOOL useSecureConnection;
-@property (nonatomic, strong) NSDictionary *tlsSettings;
+@interface RHSocketChannel : RHSocketConnection
 
 @property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 
+/**
+ *  socket connection的回调代理，查看RHSocketConnectionDelegate
+ */
 @property (nonatomic, weak) id<RHSocketChannelDelegate> delegate;
-
-- (instancetype)initWithHost:(NSString *)host port:(int)port;
-
-- (void)openConnection;
-- (void)closeConnection;
-- (BOOL)isConnected;
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;
 

@@ -7,111 +7,31 @@
 //
 
 #import "RHSocketConnection.h"
-#import "GCDAsyncSocket.h"
-
-@interface RHSocketConnection () <GCDAsyncSocketDelegate>
-{
-    GCDAsyncSocket *_asyncSocket;
-}
-
-@end
 
 @implementation RHSocketConnection
 
-- (instancetype)init
+- (instancetype)initWithHost:(NSString *)host port:(int)port
 {
     if (self = [super init]) {
-        _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-        [_asyncSocket setIPv4PreferredOverIPv6:NO];
+        _host = host;
+        _port = port;
     }
     return self;
 }
 
-- (void)dealloc
+- (void)openConnection
 {
-    _asyncSocket.delegate = nil;
-    _asyncSocket = nil;
+    @synchronized(self) {
+        [self closeConnection];
+        [self connectWithHost:self.host port:self.port];
+    }//@synchronized
 }
 
-- (void)connectWithHost:(NSString *)hostName port:(int)port
+- (void)closeConnection
 {
-    NSError *error = nil;
-    [_asyncSocket connectToHost:hostName onPort:port error:&error];
-    if (error) {
-        RHSocketLog(@"[RHSocketConnection] connectWithHost error: %@", error.description);
-        if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
-            [_delegate didDisconnectWithError:error];
-        }
-    }
-}
-
-- (void)disconnect
-{
-    [_asyncSocket disconnect];
-}
-
-- (BOOL)isConnected
-{
-    return [_asyncSocket isConnected];
-}
-
-- (void)readDataWithTimeout:(NSTimeInterval)timeout tag:(long)tag
-{
-    [_asyncSocket readDataWithTimeout:timeout tag:tag];
-}
-
-- (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
-{
-    [_asyncSocket writeData:data withTimeout:timeout tag:tag];
-}
-
-#pragma mark -
-#pragma mark GCDAsyncSocketDelegate method
-
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
-{
-    RHSocketLog(@"[RHSocketConnection] didDisconnect...%@", err.description);
-    if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectWithError:)]) {
-        [_delegate didDisconnectWithError:err];
-    }
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
-{
-    RHSocketLog(@"[RHSocketConnection] didConnectToHost: %@, port: %d", host, port);
-    
-    if (_useSecureConnection) {
-        RHSocketLog(@"[RHSocketConnection] _useSecureConnection: %i, _tlsSettings: %@", _useSecureConnection, _tlsSettings);
-        [sock startTLS:_tlsSettings];
-        return;
-    }
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(didConnectToHost:port:)]) {
-        [_delegate didConnectToHost:host port:port];
-    }
-}
-
-- (void)socketDidSecure:(GCDAsyncSocket *)sock
-{
-    RHSocketLog(@"[RHSocketConnection] socketDidSecure...");
-    if (_delegate && [_delegate respondsToSelector:@selector(didConnectToHost:port:)]) {
-        [_delegate didConnectToHost:sock.connectedHost port:sock.connectedPort];
-    }
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-    RHSocketLog(@"[RHSocketConnection] didReadData length: %lu, tag: %ld", (unsigned long)data.length, tag);
-    if (_delegate && [_delegate respondsToSelector:@selector(didReceiveData:tag:)]) {
-        [_delegate didReceiveData:data tag:tag];
-    }
-    [sock readDataWithTimeout:-1 tag:tag];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    RHSocketLog(@"[RHSocketConnection] didWriteDataWithTag: %ld", tag);
-    [sock readDataWithTimeout:-1 tag:tag];
+    @synchronized(self) {
+        [self disconnect];
+    }//synchronized
 }
 
 @end

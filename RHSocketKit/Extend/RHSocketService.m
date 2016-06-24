@@ -13,10 +13,10 @@ NSString *const kNotificationSocketPacketRequest = @"kNotificationSocketPacketRe
 NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketResponse";
 
 @interface RHSocketService ()
-{
-    NSString *_host;
-    int _port;
-}
+
+@property (nonatomic, strong) NSString *host;
+@property (nonatomic, assign) int port;
+@property (nonatomic, strong) NSDictionary *tlsSettings;
 
 @end
 
@@ -47,12 +47,18 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 
 - (void)startServiceWithHost:(NSString *)host port:(int)port
 {
+    [self startServiceWithHost:host port:port tlsSettings:nil];
+}
+
+- (void)startServiceWithHost:(NSString *)host port:(int)port tlsSettings:(NSDictionary *)tlsSettings
+{
     if (_isRunning) {
         return;
     }
     
     _host = host;
     _port = port;
+    _tlsSettings = tlsSettings;
     
     [self openConnection];
 }
@@ -90,6 +96,8 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
     [self closeConnection];
     _channel = [[RHSocketChannel alloc] initWithHost:_host port:_port];
     _channel.delegate = self;
+    _channel.useSecureConnection = (nil != _tlsSettings);
+    _channel.tlsSettings = _tlsSettings;
     _channel.encoder = _encoder;
     _channel.decoder = _decoder;
     [_channel openConnection];

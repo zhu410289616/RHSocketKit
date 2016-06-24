@@ -7,17 +7,13 @@
 //
 
 #import "RHSocketChannel.h"
-#import "RHSocketConnection.h"
 #import "RHSocketException.h"
 #import "RHSocketPacketContext.h"
 
-@interface RHSocketChannel () <RHSocketConnectionDelegate, RHSocketEncoderOutputProtocol, RHSocketDecoderOutputProtocol>
-{
-    RHSocketConnection *_connection;
-    //
-    NSMutableData *_receiveDataBuffer;
-    RHSocketPacketResponse *_downstreamContext;
-}
+@interface RHSocketChannel () <RHSocketEncoderOutputProtocol, RHSocketDecoderOutputProtocol>
+
+@property (nonatomic, strong) NSMutableData *receiveDataBuffer;
+@property (nonatomic, strong) RHSocketPacketResponse *downstreamContext;
 
 @end
 
@@ -25,56 +21,16 @@
 
 - (instancetype)init
 {
-    if (self = [super init]) {
-        _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamContext = [[RHSocketPacketResponse alloc] init];
-    }
-    return self;
+    return [self initWithHost:nil port:0];
 }
 
 - (instancetype)initWithHost:(NSString *)host port:(int)port
 {
-    if (self = [super init]) {
+    if (self = [super initWithHost:host port:port]) {
         _receiveDataBuffer = [[NSMutableData alloc] init];
         _downstreamContext = [[RHSocketPacketResponse alloc] init];
-        _host = host;
-        _port = port;
     }
     return self;
-}
-
-- (void)openConnection
-{
-    @synchronized(self) {
-        [self closeConnection];
-        _connection = [[RHSocketConnection alloc] init];
-        _connection.delegate = self;
-        _connection.tlsSettings = _tlsSettings;
-        _connection.useSecureConnection = _useSecureConnection;
-        if (_useSecureConnection && (nil == _tlsSettings)) {
-            // Configure SSL/TLS settings
-            NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
-            settings[(NSString *)kCFStreamSSLPeerName] = _host;
-            _connection.tlsSettings = settings;
-        }
-        [_connection connectWithHost:_host port:_port];
-    }//@synchronized
-}
-
-- (void)closeConnection
-{
-    @synchronized(self) {
-        if (_connection) {
-            _connection.delegate = nil;
-            [_connection disconnect];
-            _connection = nil;
-        }
-    }//synchronized
-}
-
-- (BOOL)isConnected
-{
-    return [_connection isConnected];
 }
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
@@ -86,21 +42,21 @@
     [_encoder encode:packet output:self];
 }
 
-#pragma mark RHSocketConnectionDelegate method
+#pragma mark - RHSocketConnectionDelegate
 
-- (void)didDisconnectWithError:(NSError *)error
+- (void)didDisconnect:(id<RHSocketConnectionDelegate>)con withError:(NSError *)err
 {
-    [_delegate channelClosed:self error:error];
+    [self.delegate channelClosed:self error:err];
 }
 
-- (void)didConnectToHost:(NSString *)host port:(UInt16)port
+- (void)didConnect:(id<RHSocketConnectionDelegate>)con toHost:(NSString *)host port:(uint16_t)port
 {
-    [_delegate channelOpened:self host:host port:port];
+    [self.delegate channelOpened:self host:host port:port];
 }
 
-- (void)didReceiveData:(NSData *)data tag:(long)tag
+- (void)didRead:(id<RHSocketConnectionDelegate>)con withData:(NSData *)data tag:(long)tag
 {
-    if (data.length < 1) {
+    if (data.length == 0) {
         return;
     }
     
@@ -129,21 +85,28 @@
     }//@synchronized
 }
 
+- (void)didReceived:(id<RHSocketConnectionDelegate>)con withPacket:(id<RHDownstreamPacket>)packet
+{
+    if ([self.delegate respondsToSelector:@selector(channel:received:)]) {
+        [self.delegate channel:self received:packet];
+    }
+}
+
 #pragma mark - RHSocketEncoderOutputProtocol
 
 - (void)didEncode:(NSData *)data timeout:(NSTimeInterval)timeout
 {
-    if (data.length < 1) {
+    if (data.length == 0) {
         return;
     }
-    [_connection writeData:data timeout:timeout tag:0];
+    [self writeData:data timeout:timeout tag:0];
 }
 
 #pragma mark - RHSocketDecoderOutputProtocol
 
 - (void)didDecode:(id<RHDownstreamPacket>)packet
 {
-    [_delegate channel:self received:packet];
+    [self didReceived:self withPacket:packet];
 }
 
 @end

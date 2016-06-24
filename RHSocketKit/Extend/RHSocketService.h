@@ -27,6 +27,7 @@ extern NSString *const kNotificationSocketPacketResponse;
 + (instancetype)sharedInstance;
 
 - (void)startServiceWithHost:(NSString *)host port:(int)port;
+- (void)startServiceWithHost:(NSString *)host port:(int)port tlsSettings:(NSDictionary *)tlsSettings;
 - (void)stopService;
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;
