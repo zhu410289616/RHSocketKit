@@ -32,6 +32,12 @@
 @property (nonatomic, copy) NSString *host;
 @property (nonatomic, assign) int port;
 
+/**
+ *  tls/ssl
+ */
+@property (nonatomic, assign) BOOL useSecureConnection;
+@property (nonatomic, strong) NSDictionary *tlsSettings;
+
 @property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 

@@ -49,6 +49,14 @@
         [self closeConnection];
         _connection = [[RHSocketConnection alloc] init];
         _connection.delegate = self;
+        _connection.tlsSettings = _tlsSettings;
+        _connection.useSecureConnection = _useSecureConnection;
+        if (_useSecureConnection && (nil == _tlsSettings)) {
+            // Configure SSL/TLS settings
+            NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
+            settings[(NSString *)kCFStreamSSLPeerName] = _host;
+            _connection.tlsSettings = settings;
+        }
         [_connection connectWithHost:_host port:_port];
     }//@synchronized
 }

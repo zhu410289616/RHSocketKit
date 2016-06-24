@@ -79,8 +79,23 @@
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     RHSocketLog(@"[RHSocketConnection] didConnectToHost: %@, port: %d", host, port);
+    
+    if (_useSecureConnection) {
+        RHSocketLog(@"[RHSocketConnection] _useSecureConnection: %i, _tlsSettings: %@", _useSecureConnection, _tlsSettings);
+        [sock startTLS:_tlsSettings];
+        return;
+    }
+    
     if (_delegate && [_delegate respondsToSelector:@selector(didConnectToHost:port:)]) {
         [_delegate didConnectToHost:host port:port];
+    }
+}
+
+- (void)socketDidSecure:(GCDAsyncSocket *)sock
+{
+    RHSocketLog(@"[RHSocketConnection] socketDidSecure...");
+    if (_delegate && [_delegate respondsToSelector:@selector(didConnectToHost:port:)]) {
+        [_delegate didConnectToHost:sock.connectedHost port:sock.connectedPort];
     }
 }
 

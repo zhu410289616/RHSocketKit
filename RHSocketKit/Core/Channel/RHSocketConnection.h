@@ -46,6 +46,9 @@
  */
 @interface RHSocketConnection : NSObject
 
+@property (nonatomic, assign) BOOL useSecureConnection;
+@property (nonatomic, strong) NSDictionary *tlsSettings;
+
 /**
 *  socket connection的回调代理，查看RHSocketConnectionDelegate
 */
