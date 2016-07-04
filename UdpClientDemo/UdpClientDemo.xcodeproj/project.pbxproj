@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		446C4A8CBC31A3C6D48DD02D /* libPods-UdpClientDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBCC8AE0AD76CC17F2CD8938 /* libPods-UdpClientDemo.a */; };
+		831F4A3C1D2A8DA700918CF9 /* RHSocketUdpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 831F4A3B1D2A8DA700918CF9 /* RHSocketUdpConnection.m */; };
 		83B1CC4A1D080BBE003DD77A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC491D080BBE003DD77A /* main.m */; };
 		83B1CC4D1D080BBE003DD77A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC4C1D080BBE003DD77A /* AppDelegate.m */; };
 		83B1CC501D080BBE003DD77A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC4F1D080BBE003DD77A /* ViewController.m */; };
@@ -19,6 +20,8 @@
 /* Begin PBXFileReference section */
 		61A8AA17358DAD29F24BB3DB /* Pods-UdpClientDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UdpClientDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-UdpClientDemo/Pods-UdpClientDemo.release.xcconfig"; sourceTree = "<group>"; };
 		659130FBD88636CF9CAE289A /* Pods-UdpClientDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UdpClientDemo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-UdpClientDemo/Pods-UdpClientDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		831F4A3A1D2A8DA700918CF9 /* RHSocketUdpConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketUdpConnection.h; sourceTree = "<group>"; };
+		831F4A3B1D2A8DA700918CF9 /* RHSocketUdpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketUdpConnection.m; sourceTree = "<group>"; };
 		83B1CC451D080BBE003DD77A /* UdpClientDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UdpClientDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B1CC491D080BBE003DD77A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83B1CC4B1D080BBE003DD77A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -65,6 +68,8 @@
 		83B1CC471D080BBE003DD77A /* UdpClientDemo */ = {
 			isa = PBXGroup;
 			children = (
+				831F4A3A1D2A8DA700918CF9 /* RHSocketUdpConnection.h */,
+				831F4A3B1D2A8DA700918CF9 /* RHSocketUdpConnection.m */,
 				83B1CC4B1D080BBE003DD77A /* AppDelegate.h */,
 				83B1CC4C1D080BBE003DD77A /* AppDelegate.m */,
 				83B1CC4E1D080BBE003DD77A /* ViewController.h */,
@@ -226,6 +231,7 @@
 			files = (
 				83B1CC501D080BBE003DD77A /* ViewController.m in Sources */,
 				83B1CC4D1D080BBE003DD77A /* AppDelegate.m in Sources */,
+				831F4A3C1D2A8DA700918CF9 /* RHSocketUdpConnection.m in Sources */,
 				83B1CC4A1D080BBE003DD77A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

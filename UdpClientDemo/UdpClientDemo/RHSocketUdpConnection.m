@@ -112,8 +112,7 @@
       fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
-    NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    RHSocketLog(@"RECV: %@", msg);
+    RHSocketLog(@"RECV: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 }
 
 /**

@@ -64,7 +64,8 @@ end
 target 'UdpClientDemo' do
 	platform :ios, '7.0'
         project 'UdpClientDemo/UdpClientDemo.xcodeproj'
-	pod 'RHSocketKit/Core', :path => './RHSocketKit.podspec'
+	pod 'CocoaAsyncSocket', '~> 7.4.3'
+	#pod 'RHSocketKit/Core', :path => './RHSocketKit.podspec'
 end
 
 target 'UdpEchoServerDemo' do

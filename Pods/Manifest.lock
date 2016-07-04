@@ -11,15 +11,15 @@ PODS:
   - libextobjc/RuntimeExtensions (0.4.1)
   - MSWeakTimer (1.1.0)
   - ProtocolBuffers (1.9.9.2)
-  - RHSocketKit (2.1.4):
-    - RHSocketKit/Core (= 2.1.4)
-    - RHSocketKit/Extend (= 2.1.4)
-  - RHSocketKit/Core (2.1.4):
+  - RHSocketKit (2.1.6):
+    - RHSocketKit/Core (= 2.1.6)
+    - RHSocketKit/Extend (= 2.1.6)
+  - RHSocketKit/Core (2.1.6):
     - CocoaAsyncSocket (~> 7.4.3)
     - ProtocolBuffers (~> 1.9.9.2)
-  - RHSocketKit/Extend (2.1.4):
+  - RHSocketKit/Extend (2.1.6):
     - RHSocketKit/Core
-  - RHSocketKit/RPC (2.1.4):
+  - RHSocketKit/RPC (2.1.6):
     - MSWeakTimer (~> 1.1.0)
     - RHSocketKit/Core
   - SocketRocket (0.5.1)
@@ -30,7 +30,6 @@ DEPENDENCIES:
   - MSWeakTimer (~> 1.1.0)
   - ProtocolBuffers (~> 1.9.9.2)
   - RHSocketKit (from `./RHSocketKit.podspec`)
-  - RHSocketKit/Core (from `./RHSocketKit.podspec`)
   - RHSocketKit/Extend (from `./RHSocketKit.podspec`)
   - RHSocketKit/RPC (from `./RHSocketKit.podspec`)
   - SocketRocket (~> 0.5.1)
@@ -44,9 +43,9 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   MSWeakTimer: 9426150f933b80ed3acf3f6d228e4b61f0e303c8
   ProtocolBuffers: 7111461618460961e6b7469177ec45ee551b4f0e
-  RHSocketKit: 02d6cd97f02813fcd81ec2e060ced2b8b8a1b33c
+  RHSocketKit: a398bd12b32ab5d1e01a864139236c87ad65f789
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 
-PODFILE CHECKSUM: f1831ab6f4a2df9d80121561aac2f8ac320dc446
+PODFILE CHECKSUM: 2301b1307ed0530b5b895a0bf1888be1a2c72e94
 
 COCOAPODS: 1.0.0
