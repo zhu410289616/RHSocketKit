@@ -7,6 +7,11 @@
 //
 
 #import "RHSocketBaseConnection.h"
+#import "GCDAsyncSocket.h"
+
+@interface RHSocketBaseConnection () <GCDAsyncSocketDelegate>
+
+@end
 
 @implementation RHSocketBaseConnection
 
@@ -15,6 +20,13 @@
 - (void)connectWithHost:(NSString *)hostName port:(int)port
 {
     [self disconnect];
+    
+    if (_useSecureConnection && (nil == _tlsSettings)) {
+        // Configure SSL/TLS settings
+        NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
+        settings[(NSString *)kCFStreamSSLPeerName] = hostName;
+        _tlsSettings= settings;
+    }
     
     _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     [_asyncSocket setIPv4PreferredOverIPv6:NO];
@@ -79,7 +91,20 @@
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     RHSocketLog(@"didConnectToHost: %@, port: %d", host, port);
+    
+    if (_useSecureConnection) {
+        RHSocketLog(@"_useSecureConnection: %i, _tlsSettings: %@", _useSecureConnection, _tlsSettings);
+        [sock startTLS:_tlsSettings];
+        return;
+    }
+    
     [self didConnect:self toHost:host port:port];
+}
+
+- (void)socketDidSecure:(GCDAsyncSocket *)sock
+{
+    RHSocketLog(@"socketDidSecure...");
+    [self didConnect:self toHost:sock.connectedHost port:sock.connectedPort];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag

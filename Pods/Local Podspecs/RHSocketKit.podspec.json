@@ -1,6 +1,6 @@
 {
   "name": "RHSocketKit",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "summary": "A socket kit based on CocoaAsyncSocket.",
   "homepage": "https://github.com/zhu410289616/RHSocketKit",
   "license": {
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/zhu410289616/RHSocketKit.git",
-    "tag": "2.1.6"
+    "tag": "2.1.7"
   },
   "default_subspecs": [
     "Core",

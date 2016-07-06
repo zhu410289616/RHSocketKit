@@ -13,7 +13,7 @@
  *  1-只公开GCDAsyncSocket的主要方法，增加使用的便捷性。
  *  2-封装的另一个目的是，易于后续更新调整。如果不想使用GCDAsyncSocket，只想修改内部实现即可，对外不产生影响。
  */
-@interface RHSocketConnection : RHSocketTLSConnection
+@interface RHSocketConnection : RHSocketBaseConnection
 
 @property (nonatomic, copy) NSString *host;
 @property (nonatomic, assign) int port;
