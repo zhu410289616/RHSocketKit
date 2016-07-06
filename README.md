@@ -13,9 +13,15 @@ socket网络通信框架</br>
 pod 'RHSocketKit'
 
 ## Log
+### 2016-07-06
+1－增加tls连接设置。</br>
+2－增加`心跳`接口和`断线重连`策略逻辑。</br>
+3－udp逻辑从框架移除，单独demo展示。</br>
+4－pod版本更新（`pod 'RHSocketKit', '~> 2.1.7'`）。
+
 ### 2016-06-12
 1－server代码也统一管理。</br>
-2-增加protobuf编解码器的使用demo。</br>
+2－增加protobuf编解码器的使用demo。</br>
 3－增加udp测试。</br>
 4－增加socket中的tls测试。
 
