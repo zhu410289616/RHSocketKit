@@ -25,12 +25,6 @@
   "subspecs": [
     {
       "name": "Core",
-      "source_files": [
-        "RHSocketKit/Core/*.{h,m}",
-        "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils}/*.{h,m}",
-        "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}"
-      ],
-      "requires_arc": true,
       "dependencies": {
         "CocoaAsyncSocket": [
           "~> 7.4.3"
@@ -38,7 +32,13 @@
         "ProtocolBuffers": [
           "~> 1.9.9.2"
         ]
-      }
+      },
+      "source_files": [
+        "RHSocketKit/Core/*.{h,m}",
+        "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils}/*.{h,m}",
+        "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}"
+      ],
+      "requires_arc": true
     },
     {
       "name": "Extend",
