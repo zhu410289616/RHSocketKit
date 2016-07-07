@@ -12,86 +12,11 @@ socket网络通信框架</br>
 ## CocoaPods
 pod 'RHSocketKit'
 
-## Log
-### 2016-07-06
-1－增加tls连接设置。</br>
-2－增加`心跳`接口和`断线重连`策略逻辑。</br>
-3－udp逻辑从框架移除，单独demo展示。</br>
-4－pod版本更新（`pod 'RHSocketKit', '~> 2.1.7'`）。
-
-### 2016-06-12
-1－server代码也统一管理。</br>
-2－增加protobuf编解码器的使用demo。</br>
-3－增加udp测试。</br>
-4－增加socket中的tls测试。
-
-### 2016-05-27
-1－增加针对net的protobuf编码器／解码器。</br>
-2－pod版本更新（`pod 'RHSocketKit', '~> 2.1.4'`）。
-
-### 2016-05-20
-1－RHSocketConnection增加ipv6的设置，在ipv4和ipv6都存在时，优选ipv6。<br/>
-2－pod版本更新（`pod 'RHSocketKit', '~> 2.1.3'`）。
-
-### 2016-05-19
-1－修改分隔符编解码器的字节数，可以使用多个字节作为分隔符。<br/>
-2－修改RHSocketUtils中的部分转换方法。<br/>
-3－pod版本更新（`pod 'RHSocketKit', '~> 2.1.2'`）。
-
-### 2016-04-05
-####下面的3和4是最基本，最简单的使用了。2相对要求高点，需要理解应用中传输协议的内容，需要懂得把场景需求转化为传输编码。1是高层级的封装，还是看源码吧。
-1－增加rpc使用demo，里面有写调用过程的说明和日志。<br/>
-2－增加自定义编码器和解码器的使用demo。<br/>
-3－增加变长编码解码器的使用demo。<br/>
-4－增加分隔符编码解码器的使用demo。<br/>
-5－增加RHSocketKit连接服务器的demo。
-
-### 2016-03-17
-1－针对rpc的场景，增加命令字段编码解码，处理rpc的call和reply的数据一一对应<br/>
-2－修正底层通道中的粘包bug。非常感谢网友［狙击手］的反馈，不愧为狙击手。<br/>
-3－pod版本更新（`pod 'RHSocketKit', '~> 2.1.0'`）。
-
-### 2016-02-23
-1－增加异常输出信息，明确输出异常原因。<br/>
-2－使用责任链模式，调整codec的逻辑，方便编解码的分工协作。增加的编解码包括：**`字符串编解码，json编解码，base64编解码，protobuf编解码`**。<br/>
-3－增加编解码的测试用例和配套的echo服务器demo。<br/>
-4－pod版本更新（`pod 'RHSocketKit', '~> 2.0.8'`）。<br/>
-5－protobuf使用：<http://blog.csdn.net/zhu410289616/article/details/50739164>
-
-### 2016-01-28
-1－应网友要求，`对core中的核心类增加注释说明`。<br/>
-2－数据传输过程中，经常有不同数据类型和字节之间的转换，盗用他人转换方法，并增加可以动态调整字节长度的方法。<br/>
-3－调整可变长度的编码解码器，使用新的数值／字节转换方法，`可以调整头部长度字节的个数`。<br/>
-4－增加RPC的注释说明，并**`明确codec编码解码器和netty中解码器的对应关系`**，降低网友疑虑。<br/>
-5－调整RPC的回调方法，使用block实现，方便逻辑调用处理。<br/>
-6－pod版本更新（`pod 'RHSocketKit', '~> 2.0.3'`）。
-
-### 2015-12-23
-1-增加数值和字节互相转换的方法。<br/>
-2-修改可变长度解码的bug。<br/>
-3-调整rpc框架的目录结构，防止无效引入。<br/>
-4-提交2.0.1版本。通过pod 'RHSocketKit', '~> 2.0.1'时，默认只包含Core和Extend。rpc框架引入方式：pod 'RHSocketKit/RPC', '~> 2.0.1'。
-
-### 2015-12-22
-1-对调整后的框架做扩展，增加rpc处理逻辑。<br/>
-2-整理测试代码。<br/>
-3-增加tag，提交2.0.0版本（pod 'RHSocketKit', '~> 2.0.0'）。<br/>
-
-### 2015-12-18
-1-原有框架中，编码器和解码器在不同的文件中，虽然成对，但是不够一目了然，统一整合到编码解码器codec中。<br/>
-2-去除packet中的tag，替换为pid，避免和socket中的tag混淆，为后面的roc做准备。<br/>
-3-在connection基础上做一次chanenl封装，将原来拼包的内容，放到channel的buffer中，使得编码解码器更单一，只需要关心编码和解码。<br/>
-4-文件命名和结构调整，整体框架看起来更加清晰。<br/>
-
-### 2015-08-24
-tag－1.0.7，已经保留在分支中
-
-
-## Features
+## Features [Log](https://github.com/zhu410289616/RHSocketKit/blob/master/Log.md)
 框架的设计运用了一些设计模式，通过组合和协议编程，灵活多变，扩展方便。</br>
 `目前框架的核心在core目录中，主要组件有connection，channel，packet，codec，exception，utils，其中codec的实现是业务重点。`</br>
 另外，RHSocketService是一个单例实现，方便直接调用。RPC是一个深度封装的内容，需要理解框架才能使用。
-
+![image](https://raw.githubusercontent.com/zhu410289616/RHSocketKit/master/Docs/RHSocketUML.png)
 
 ### RHSocketConnection
 ```
@@ -293,3 +218,8 @@ socket网络连接对象，只负责socket网络的连接通信，内部使用GC
 qq:        410289616<br/>
 email:     <zhu410289616@163.com><br/>
 qq群:      330585393<br/>
+
+如果觉得我的源码对您有帮助，请点击`star`和`fork`。</br>
+如果您正好有余粮，欢迎随意打赏。</br>
+您的奖励是给予我莫大的鼓励和支持！
+![image](https://raw.githubusercontent.com/zhu410289616/RHSocketKit/master/Docs/wechat_pay.jpg)
