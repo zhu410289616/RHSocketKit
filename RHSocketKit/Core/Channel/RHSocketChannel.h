@@ -37,11 +37,6 @@
  */
 @property (nonatomic, weak) id<RHSocketChannelDelegate> delegate;
 
-//@property (nonatomic, copy) NSString *host;
-//@property (nonatomic, assign) int port;
-//
-//- (instancetype)initWithHost:(NSString *)host port:(int)port;
-
 - (void)openConnection;
 - (void)closeConnection;
 

@@ -8,14 +8,36 @@
 
 #import "RHSocketChannelDefault.h"
 
+#define kConnectMaxCount            1000    //tcp断开重连次数
+#define kConnectTimerInterval       5       //单位秒s
+
+@interface RHSocketChannelDefault ()
+
+/**
+ *  自动重连使用的计时器
+ */
+@property (nonatomic, strong, readonly) NSTimer *connectTimer;
+
+/**
+ *  开始自动重连后，尝试重连次数，默认为500次
+ */
+@property (nonatomic, assign, readonly) NSInteger connectCount;
+
+/**
+ *  开始自动重连后，首次重连时间间隔，默认为5秒，后面每常识重连10次增加5秒
+ */
+@property (nonatomic, assign, readonly) NSTimeInterval connectTimerInterval;
+
+@end
+
 @implementation RHSocketChannelDefault
 
 - (instancetype)initWithHost:(NSString *)host port:(int)port
 {
     if (self = [super initWithHost:host port:port]) {
         _autoReconnect = NO;
-        _connectCount = 500;
-        _connectTimerInterval = 5;
+        _connectCount = 0;
+        _connectTimerInterval = kConnectTimerInterval;
     }
     return self;
 }
@@ -30,9 +52,11 @@
 
 - (void)startConnectTimer:(NSTimeInterval)interval
 {
-    NSTimeInterval minInterval = MIN(5, interval);
+    NSTimeInterval minInterval = MAX(5, interval);
+    RHSocketLog(@"minInterval: %f", minInterval);
+    
     [self stopConnectTimer];
-    _connectTimer = [NSTimer scheduledTimerWithTimeInterval:minInterval target:self selector:@selector(connectTimerFunction) userInfo:nil repeats:YES];
+    _connectTimer = [NSTimer scheduledTimerWithTimeInterval:minInterval target:self selector:@selector(connectTimerFunction) userInfo:nil repeats:NO];
 }
 
 - (void)connectTimerFunction
@@ -43,7 +67,7 @@
     }
     
     //重连次数超过最大尝试次数，停止
-    if (_connectCount > 500) {
+    if (_connectCount > kConnectMaxCount) {
         [self stopConnectTimer];
         return;
     }
@@ -52,10 +76,13 @@
     
     //重连时间策略
     if (_connectCount % 10 == 0) {
-        _connectTimerInterval += 5;
+        _connectTimerInterval += kConnectTimerInterval;
         [self startConnectTimer:_connectTimerInterval];
     }
     
+    if ([self isConnected]) {
+        return;
+    }
     [self openConnection];
 }
 
@@ -64,14 +91,17 @@
     [super didDisconnect:con withError:err];
     
     if (_autoReconnect) {
-        [self startConnectTimer:_connectTimerInterval];
+        __weak __typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, _connectTimerInterval), dispatch_get_main_queue(), ^{
+            [weakSelf startConnectTimer:weakSelf.connectTimerInterval];
+        });
     }
 }
 
 - (void)didConnect:(id<RHSocketConnectionDelegate>)con toHost:(NSString *)host port:(uint16_t)port
 {
-    _connectCount = 500;
-    _connectTimerInterval = 5;
+    _connectCount = 0;
+    _connectTimerInterval = kConnectMaxCount;
     [self stopConnectTimer];
     
     [super didConnect:con toHost:host port:port];

@@ -66,7 +66,7 @@
 @property (nonatomic, strong) UIButton *protobufTestButton;
 @property (nonatomic, strong) UIButton *protobufCodecTestButton;
 
-@property (nonatomic, strong) RHSocketChannel *channel;
+@property (nonatomic, strong) RHSocketChannelDefault *channel;
 
 @end
 
@@ -268,10 +268,11 @@
     decoder.nextDecoder = stringDecoder;//base64Decoder;
     
     //
-    _channel = [[RHSocketChannel alloc] initWithHost:host port:port];
+    _channel = [[RHSocketChannelDefault alloc] initWithHost:host port:port];
     _channel.delegate = self;
     _channel.encoder = jsonEncoder;//base64Encoder;//stringEncoder;
     _channel.decoder = decoder;
+    _channel.autoReconnect = YES;
     [_channel openConnection];
     
 }
