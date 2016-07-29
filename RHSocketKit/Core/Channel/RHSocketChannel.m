@@ -51,6 +51,11 @@
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
+    if (nil == packet) {
+        RHSocketLog(@"Warning: RHSocket asyncSendPacket packet is nil ...");
+        return;
+    };
+    
     if (nil == _encoder) {
         RHSocketLog(@"RHSocket Encoder should not be nil ...");
         return;

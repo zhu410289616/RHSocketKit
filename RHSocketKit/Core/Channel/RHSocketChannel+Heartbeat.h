@@ -10,7 +10,14 @@
 
 @interface RHSocketChannel (Heartbeat)
 
+/**
+ *  固定心跳包
+ */
 @property (nonatomic, strong) id<RHUpstreamPacket> heartbeat;
+
+/**
+ *  心跳定时器，这里使用的是NSTimer，在断开连接后，需要手动停止心跳定时器(使用MSWeakTimer更好)
+ */
 @property (nonatomic, strong) NSTimer *heartbeatTimer;
 
 - (void)stopHeartbeatTimer;

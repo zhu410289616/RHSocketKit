@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "RHSocketChannel.h"
+#import "RHSocketChannel+Heartbeat.h"
 
 #import "RHSocketStringEncoder.h"
 #import "RHSocketStringDecoder.h"
@@ -292,6 +293,13 @@
     req = [[RHSocketPacketRequest alloc] init];
     req.object = @{@"key":@"RHSocketJSONSerializationEncoder"};
     [channel asyncSendPacket:req];
+    
+    /**
+     *  哎～ 不测试提交代码 就是问题多多 :(
+     *  测试心跳方法，断开连接后，记得调用stopHeartbeatTimer和清理heartbeat
+     */
+    channel.heartbeat = req;
+    [channel startHeartbeatTimer:30];
 }
 
 - (void)channelClosed:(RHSocketChannel *)channel error:(NSError *)error
