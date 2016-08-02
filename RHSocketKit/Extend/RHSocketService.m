@@ -65,6 +65,7 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 
 - (void)stopService
 {
+    _autoReconnect = NO;
     _isRunning = NO;
     [self closeConnection];
 }
@@ -100,6 +101,8 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
     _channel.tlsSettings = _tlsSettings;
     _channel.encoder = _encoder;
     _channel.decoder = _decoder;
+    _channel.autoReconnect = _autoReconnect;
+    _channel.heartbeat = _heartbeat;
     [_channel openConnection];
 }
 

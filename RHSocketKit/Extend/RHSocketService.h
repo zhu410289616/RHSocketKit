@@ -24,6 +24,16 @@ extern NSString *const kNotificationSocketPacketResponse;
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 @property (assign, readonly) BOOL isRunning;
 
+/**
+ *  固定心跳包 (设置心跳包，在连接成功后，开启心态定时器)
+ */
+@property (nonatomic, strong) id<RHUpstreamPacket> heartbeat;
+
+/**
+ *  断开连接后，是否自动重连，默认为no
+ */
+@property (nonatomic, assign) BOOL autoReconnect;
+
 + (instancetype)sharedInstance;
 
 - (void)startServiceWithHost:(NSString *)host port:(int)port;
