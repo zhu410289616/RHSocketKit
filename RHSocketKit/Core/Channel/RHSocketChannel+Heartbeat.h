@@ -11,7 +11,7 @@
 @interface RHSocketChannel (Heartbeat)
 
 /**
- *  固定心跳包
+ *  固定心跳包 (设置心跳包，在连接成功后，开启心态定时器)
  */
 @property (nonatomic, strong) id<RHUpstreamPacket> heartbeat;
 

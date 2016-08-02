@@ -35,11 +35,21 @@
 - (instancetype)initWithHost:(NSString *)host port:(int)port
 {
     if (self = [super initWithHost:host port:port]) {
+        _heartbeatInterval = 20;
         _autoReconnect = NO;
+        //初始化自动重连参数
         _connectCount = 0;
         _connectTimerInterval = kConnectTimerInterval;
     }
     return self;
+}
+
+- (void)closeConnection
+{
+    [super closeConnection];
+    
+    [self stopConnectTimer];
+    [self stopHeartbeatTimer];
 }
 
 - (void)stopConnectTimer
@@ -90,6 +100,8 @@
 {
     [super didDisconnect:con withError:err];
     
+    [self stopConnectTimer];
+    
     if (_autoReconnect) {
         __weak __typeof(self) weakSelf = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, _connectTimerInterval), dispatch_get_main_queue(), ^{
@@ -100,11 +112,16 @@
 
 - (void)didConnect:(id<RHSocketConnectionDelegate>)con toHost:(NSString *)host port:(uint16_t)port
 {
+    //连接成功后，重置自动重连参数
     _connectCount = 0;
-    _connectTimerInterval = kConnectMaxCount;
+    _connectTimerInterval = kConnectTimerInterval;
+    
     [self stopConnectTimer];
     
     [super didConnect:con toHost:host port:port];
+    
+    //连接成功后，开启心跳定时器 [设置了心跳包 channel.heartbeat = req]
+    [self startHeartbeatTimer:_heartbeatInterval];
 }
 
 @end
