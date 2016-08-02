@@ -269,11 +269,27 @@
     decoder.nextDecoder = stringDecoder;//base64Decoder;
     
     //
+    if (_channel) {
+        [_channel closeConnection];
+        _channel = nil;
+    }
+    //
     _channel = [[RHSocketChannelDefault alloc] initWithHost:host port:port];
     _channel.delegate = self;
     _channel.encoder = jsonEncoder;//base64Encoder;//stringEncoder;
     _channel.decoder = decoder;
     _channel.autoReconnect = YES;
+    _channel.heartbeatInterval = 10;//设置心跳间隔10秒
+    
+    /**
+     设置心跳包
+     (有人问，我这里的object为什么是json格式，其他格式就发送失败。那是因为我上面设置的encoder和decoder组合参数)
+     协议不同，传递的数据不同的。可以学习DelimiterCodecDemo和VariableLengthCodecDemo的心跳设置。
+     */
+    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+    req.object = [@"{\"key\":\"Heartbeat\"}" dataUsingEncoding:NSUTF8StringEncoding];
+    _channel.heartbeat = req;
+    
     [_channel openConnection];
     
 }
@@ -293,13 +309,6 @@
     req = [[RHSocketPacketRequest alloc] init];
     req.object = @{@"key":@"RHSocketJSONSerializationEncoder"};
     [channel asyncSendPacket:req];
-    
-    /**
-     *  哎～ 不测试提交代码 就是问题多多 :(
-     *  测试心跳方法，断开连接后，记得调用stopHeartbeatTimer和清理heartbeat
-     */
-    channel.heartbeat = req;
-    [channel startHeartbeatTimer:30];
 }
 
 - (void)channelClosed:(RHSocketChannel *)channel error:(NSError *)error

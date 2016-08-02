@@ -67,6 +67,14 @@
     [RHSocketService sharedInstance].encoder = encoder;
     [RHSocketService sharedInstance].decoder = decoder;
     
+    //设置心跳包，这里的object数据，和服务端约定好
+    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+    req.object = [@"Heartbeat" dataUsingEncoding:NSUTF8StringEncoding];
+    [RHSocketService sharedInstance].heartbeat = req;
+    
+    //设置短线后是否自动重连
+    [RHSocketService sharedInstance].autoReconnect = YES;
+    
     [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
 }
 
