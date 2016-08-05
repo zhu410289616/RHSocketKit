@@ -10,6 +10,8 @@
 #import "RHSocketConnectionDelegate.h"
 #import "RHSocketConfig.h"
 
+extern NSString * const RHSocketQueueSpecific;
+
 /**
  *  socket网络连接对象，只负责socket网络的连接通信，内部使用GCDAsyncSocket。
  *  1-只公开GCDAsyncSocket的主要方法，增加使用的便捷性。
@@ -24,5 +26,9 @@
 @property (nonatomic, assign) int port;
 
 - (instancetype)initWithHost:(NSString *)host port:(int)port;
+
+#pragma mark - queue
+
+- (void)dispatchOnSocketQueue:(dispatch_block_t)block async:(BOOL)async;
 
 @end

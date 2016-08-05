@@ -36,17 +36,16 @@
 
 - (void)openConnection
 {
-    @synchronized(self) {
-        [self closeConnection];
-        [self connectWithHost:self.host port:self.port];
-    }//@synchronized
+    if ([self isConnected]) {
+        return;
+    }
+    [self closeConnection];
+    [self connectWithHost:self.host port:self.port];
 }
 
 - (void)closeConnection
 {
-    @synchronized(self) {
-        [self disconnect];
-    }//synchronized
+    [self disconnect];
 }
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
@@ -91,12 +90,16 @@
 
 - (void)didDisconnect:(id<RHSocketConnectionDelegate>)con withError:(NSError *)err
 {
-    [self.delegate channelClosed:self error:err];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate channelClosed:self error:err];
+    });
 }
 
 - (void)didConnect:(id<RHSocketConnectionDelegate>)con toHost:(NSString *)host port:(uint16_t)port
 {
-    [self.delegate channelOpened:self host:host port:port];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate channelOpened:self host:host port:port];
+    });
 }
 
 - (void)didRead:(id<RHSocketConnectionDelegate>)con withData:(NSData *)data tag:(long)tag
@@ -132,9 +135,9 @@
 
 - (void)didReceived:(id<RHSocketConnectionDelegate>)con withPacket:(id<RHDownstreamPacket>)packet
 {
-    if ([self.delegate respondsToSelector:@selector(channel:received:)]) {
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate channel:self received:packet];
-    }
+    });
 }
 
 #pragma mark - RHSocketEncoderOutputProtocol
