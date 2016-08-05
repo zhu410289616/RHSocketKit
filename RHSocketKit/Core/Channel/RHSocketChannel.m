@@ -59,7 +59,11 @@
         RHSocketLog(@"RHSocket Encoder should not be nil ...");
         return;
     }
-    [_encoder encode:packet output:self];
+    
+    [self dispatchOnSocketQueue:^{
+        [_encoder encode:packet output:self];
+    } async:YES];
+    
 }
 
 - (void)writeInt8:(int8_t)param

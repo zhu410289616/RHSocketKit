@@ -116,12 +116,13 @@
     _connectCount = 0;
     _connectTimerInterval = kConnectTimerInterval;
     
-    [self stopConnectTimer];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self stopConnectTimer];
+        //连接成功后，开启心跳定时器 [设置了心跳包 channel.heartbeat = req]
+        [self startHeartbeatTimer:_heartbeatInterval];
+    });
     
     [super didConnect:con toHost:host port:port];
-    
-    //连接成功后，开启心跳定时器 [设置了心跳包 channel.heartbeat = req]
-    [self startHeartbeatTimer:_heartbeatInterval];
 }
 
 @end
