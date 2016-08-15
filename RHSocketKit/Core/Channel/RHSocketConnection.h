@@ -19,13 +19,9 @@ extern NSString * const RHSocketQueueSpecific;
  */
 @interface RHSocketConnection : NSObject <RHSocketConnectionDelegate>
 
-@property (nonatomic, assign) BOOL useSecureConnection;
-@property (nonatomic, strong) NSDictionary *tlsSettings;
+@property (nonatomic, strong) RHSocketConnectParam *connectParam;
 
-@property (nonatomic, copy) NSString *host;
-@property (nonatomic, assign) int port;
-
-- (instancetype)initWithHost:(NSString *)host port:(int)port;
+- (instancetype)initWithConnectParam:(RHSocketConnectParam *)connectParam;
 
 #pragma mark - queue
 

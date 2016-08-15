@@ -123,12 +123,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83ADFD521D057C6F00A6CBC3 /* Build configuration list for PBXNativeTarget "WebSocketDemo" */;
 			buildPhases = (
-				6001A975F31319AB1E8EA337 /* 📦 Check Pods Manifest.lock */,
+				6001A975F31319AB1E8EA337 /* [CP] Check Pods Manifest.lock */,
 				83ADFD371D057C6F00A6CBC3 /* Sources */,
 				83ADFD381D057C6F00A6CBC3 /* Frameworks */,
 				83ADFD391D057C6F00A6CBC3 /* Resources */,
-				95047922F6E1D8818A15F345 /* 📦 Embed Pods Frameworks */,
-				A6F07D7E9C3D1AAEF7BF024B /* 📦 Copy Pods Resources */,
+				95047922F6E1D8818A15F345 /* [CP] Embed Pods Frameworks */,
+				A6F07D7E9C3D1AAEF7BF024B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,14 +185,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6001A975F31319AB1E8EA337 /* 📦 Check Pods Manifest.lock */ = {
+		6001A975F31319AB1E8EA337 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,14 +200,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		95047922F6E1D8818A15F345 /* 📦 Embed Pods Frameworks */ = {
+		95047922F6E1D8818A15F345 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,14 +215,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-WebSocketDemo/Pods-WebSocketDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A6F07D7E9C3D1AAEF7BF024B /* 📦 Copy Pods Resources */ = {
+		A6F07D7E9C3D1AAEF7BF024B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

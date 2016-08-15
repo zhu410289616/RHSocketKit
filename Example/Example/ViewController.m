@@ -274,12 +274,16 @@
         _channel = nil;
     }
     //
-    _channel = [[RHSocketChannelDefault alloc] initWithHost:host port:port];
+    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
+    connectParam.host = host;
+    connectParam.port = port;
+    connectParam.autoReconnect = YES;
+    connectParam.heartbeatInterval = 10;//设置心跳间隔10秒
+    
+    _channel = [[RHSocketChannelDefault alloc] initWithConnectParam:connectParam];
     _channel.delegate = self;
     _channel.encoder = jsonEncoder;//base64Encoder;//stringEncoder;
     _channel.decoder = decoder;
-    _channel.autoReconnect = YES;
-    _channel.heartbeatInterval = 10;//设置心跳间隔10秒
     
     /**
      设置心跳包

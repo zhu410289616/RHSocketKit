@@ -127,12 +127,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83B1CC7F1D080C10003DD77A /* Build configuration list for PBXNativeTarget "ProtobufCodecDemo" */;
 			buildPhases = (
-				69B249B34C0F98EADB56DE0B /* 📦 Check Pods Manifest.lock */,
+				69B249B34C0F98EADB56DE0B /* [CP] Check Pods Manifest.lock */,
 				83B1CC641D080C10003DD77A /* Sources */,
 				83B1CC651D080C10003DD77A /* Frameworks */,
 				83B1CC661D080C10003DD77A /* Resources */,
-				B3B2023460D87FAE0C9DBDF4 /* 📦 Embed Pods Frameworks */,
-				D17E989627FCC5480F5D9F33 /* 📦 Copy Pods Resources */,
+				B3B2023460D87FAE0C9DBDF4 /* [CP] Embed Pods Frameworks */,
+				D17E989627FCC5480F5D9F33 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,14 +190,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		69B249B34C0F98EADB56DE0B /* 📦 Check Pods Manifest.lock */ = {
+		69B249B34C0F98EADB56DE0B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,14 +205,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		B3B2023460D87FAE0C9DBDF4 /* 📦 Embed Pods Frameworks */ = {
+		B3B2023460D87FAE0C9DBDF4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,14 +220,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ProtobufCodecDemo/Pods-ProtobufCodecDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D17E989627FCC5480F5D9F33 /* 📦 Copy Pods Resources */ = {
+		D17E989627FCC5480F5D9F33 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

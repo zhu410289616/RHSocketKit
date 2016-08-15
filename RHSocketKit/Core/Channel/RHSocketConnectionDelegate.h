@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RHSocketPacket.h"
+#import "RHSocketConnectParam.h"
 
 /**
  *  socket connection的回调代理协议
@@ -17,12 +18,11 @@
 @required
 
 /**
- *  触发连接socket服务器
+ *  连接socket服务器
  *
- *  @param hostName socket服务器ip或域名
- *  @param port     socket服务器端口port
+ *  @param connectParam 连接相关的参数[服务器ip或域名、port、timeout等等]
  */
-- (void)connectWithHost:(NSString *)hostName port:(int)port;
+- (void)connectWithParam:(RHSocketConnectParam *)connectParam;
 
 /**
  *  主动断开socket服务器连接

@@ -22,16 +22,7 @@
 
 - (instancetype)init
 {
-    return [self initWithHost:nil port:0];
-}
-
-- (instancetype)initWithHost:(NSString *)host port:(int)port
-{
-    if (self = [super initWithHost:host port:port]) {
-        _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamContext = [[RHSocketPacketResponse alloc] init];
-    }
-    return self;
+    return [self initWithConnectParam:nil];
 }
 
 - (void)openConnection
@@ -40,7 +31,7 @@
         return;
     }
     [self closeConnection];
-    [self connectWithHost:self.host port:self.port];
+    [self connectWithParam:self.connectParam];
 }
 
 - (void)closeConnection
@@ -60,6 +51,7 @@
         return;
     }
     
+    //发送数据，将编码放入 串行队列 异步处理
     [self dispatchOnSocketQueue:^{
         [_encoder encode:packet output:self];
     } async:YES];
@@ -92,8 +84,18 @@
 
 #pragma mark - RHSocketConnectionDelegate
 
+- (instancetype)initWithConnectParam:(RHSocketConnectParam *)connectParam
+{
+    if (self = [super initWithConnectParam:connectParam]) {
+        _receiveDataBuffer = [[NSMutableData alloc] init];
+        _downstreamContext = [[RHSocketPacketResponse alloc] init];
+    }
+    return self;
+}
+
 - (void)didDisconnect:(id<RHSocketConnectionDelegate>)con withError:(NSError *)err
 {
+    //回调上层处理时，切换回主线程 [发送数据，接收数据，解码数据 都是在socket线程中处理]
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate channelClosed:self error:err];
     });
@@ -101,6 +103,7 @@
 
 - (void)didConnect:(id<RHSocketConnectionDelegate>)con toHost:(NSString *)host port:(uint16_t)port
 {
+    //回调上层处理时，切换回主线程 [发送数据，接收数据，解码数据 都是在socket线程中处理]
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate channelOpened:self host:host port:port];
     });
@@ -139,6 +142,7 @@
 
 - (void)didReceived:(id<RHSocketConnectionDelegate>)con withPacket:(id<RHDownstreamPacket>)packet
 {
+    //回调上层处理时，切换回主线程 [发送数据，接收数据，解码数据 都是在socket线程中处理]
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate channel:self received:packet];
     });

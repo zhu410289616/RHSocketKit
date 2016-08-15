@@ -32,17 +32,27 @@
 
 @implementation RHSocketChannelDefault
 
-- (instancetype)initWithHost:(NSString *)host port:(int)port
+- (instancetype)initWithConnectParam:(RHSocketConnectParam *)connectParam
 {
-    if (self = [super initWithHost:host port:port]) {
-        _heartbeatInterval = 20;
-        _autoReconnect = NO;
+    if (self = [super initWithConnectParam:connectParam]) {
         //初始化自动重连参数
         _connectCount = 0;
         _connectTimerInterval = kConnectTimerInterval;
     }
     return self;
 }
+
+//- (instancetype)initWithHost:(NSString *)host port:(int)port
+//{
+//    if (self = [super initWithHost:host port:port]) {
+//        _heartbeatInterval = 20;
+//        _autoReconnect = NO;
+//        //初始化自动重连参数
+//        _connectCount = 0;
+//        _connectTimerInterval = kConnectTimerInterval;
+//    }
+//    return self;
+//}
 
 - (void)closeConnection
 {
@@ -71,7 +81,7 @@
 
 - (void)connectTimerFunction
 {
-    if (!_autoReconnect) {
+    if (!self.connectParam.autoReconnect) {
         [self stopConnectTimer];
         return;
     }
@@ -100,9 +110,7 @@
 {
     [super didDisconnect:con withError:err];
     
-    [self stopConnectTimer];
-    
-    if (_autoReconnect) {
+    if (self.connectParam.autoReconnect) {
         __weak __typeof(self) weakSelf = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, _connectTimerInterval), dispatch_get_main_queue(), ^{
             [weakSelf startConnectTimer:weakSelf.connectTimerInterval];
@@ -116,10 +124,11 @@
     _connectCount = 0;
     _connectTimerInterval = kConnectTimerInterval;
     
+    //连接方法都在 串行队列 异步执行，定时器需要在主线程中执行
     dispatch_async(dispatch_get_main_queue(), ^{
         [self stopConnectTimer];
         //连接成功后，开启心跳定时器 [设置了心跳包 channel.heartbeat = req]
-        [self startHeartbeatTimer:_heartbeatInterval];
+        [self startHeartbeatTimer:self.connectParam.heartbeatInterval];
     });
     
     [super didConnect:con toHost:host port:port];

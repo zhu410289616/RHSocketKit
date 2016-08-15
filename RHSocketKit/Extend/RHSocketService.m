@@ -95,13 +95,16 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 - (void)openConnection
 {
     [self closeConnection];
-    _channel = [[RHSocketChannelDefault alloc] initWithHost:_host port:_port];
+    
+    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
+    connectParam.host = _host;
+    connectParam.port = _port;
+    connectParam.autoReconnect = _autoReconnect;
+    
+    _channel = [[RHSocketChannelDefault alloc] initWithConnectParam:connectParam];
     _channel.delegate = self;
-    _channel.useSecureConnection = (nil != _tlsSettings);
-    _channel.tlsSettings = _tlsSettings;
     _channel.encoder = _encoder;
     _channel.decoder = _decoder;
-    _channel.autoReconnect = _autoReconnect;
     _channel.heartbeat = _heartbeat;
     [_channel openConnection];
 }

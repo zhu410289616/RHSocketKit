@@ -22,7 +22,7 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 
 @implementation RHSocketConnection
 
-- (instancetype)initWithHost:(NSString *)host port:(int)port
+- (instancetype)initWithConnectParam:(RHSocketConnectParam *)connectParam
 {
     if (self = [super init]) {
         //queue
@@ -32,9 +32,8 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
         void *nonNullUnusedPointer = (__bridge void *)self;
         dispatch_queue_set_specific(_socketQueue, _IsOnSocketQueueOrTargetQueueKey, nonNullUnusedPointer, NULL);
         
-        //
-        _host = host;
-        _port = port;
+        //connect param
+        _connectParam = connectParam;
     }
     return self;
 }
@@ -73,25 +72,21 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 
 #pragma mark - RHSocketConnection protocol
 
-- (void)connectWithHost:(NSString *)hostName port:(int)port
+- (void)connectWithParam:(RHSocketConnectParam *)connectParam
 {
+    NSAssert(connectParam.host.length > 0, @"host is nil");
+    NSAssert(connectParam.port > 0, @"port is 0");
+    
     [self dispatchOnSocketQueue:^{
         [self disconnect];
         
-        if (self.useSecureConnection && (nil == self.tlsSettings)) {
-            // Configure SSL/TLS settings
-            NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
-            settings[(NSString *)kCFStreamSSLPeerName] = hostName;
-            self.tlsSettings= settings;
-        }
-        
-        self.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:_socketQueue];
+        self.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
         [self.asyncSocket setIPv4PreferredOverIPv6:NO];
         
-        NSError *err = nil;
-        [self.asyncSocket connectToHost:hostName onPort:port error:&err];
-        if (err) {
-            [self didDisconnect:self withError:err];
+        NSError *error = nil;
+        [self.asyncSocket connectToHost:connectParam.host onPort:connectParam.port withTimeout:connectParam.timeout error:&error];
+        if (error) {
+            [self didDisconnect:self withError:error];
         }
     } async:YES];
 }
@@ -160,9 +155,9 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 {
     RHSocketLog(@"didConnectToHost: %@, port: %d", host, port);
     
-    if (_useSecureConnection) {
-        RHSocketLog(@"_useSecureConnection: %i, _tlsSettings: %@", _useSecureConnection, _tlsSettings);
-        [sock startTLS:_tlsSettings];
+    if (self.connectParam.useSecureConnection) {
+        RHSocketLog(@"_useSecureConnection: %i", self.connectParam.useSecureConnection);
+        [sock startTLS:self.connectParam.tlsSettings];
         return;
     }
     

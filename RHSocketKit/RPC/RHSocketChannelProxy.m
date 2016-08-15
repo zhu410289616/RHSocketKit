@@ -67,7 +67,12 @@
 - (void)openConnection
 {
     [self closeConnection];
-    _channel = [[RHSocketChannel alloc] initWithHost:_connectCallReply.host port:_connectCallReply.port];
+    
+    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
+    connectParam.host = _connectCallReply.host;
+    connectParam.port = _connectCallReply.port;
+    
+    _channel = [[RHSocketChannel alloc] initWithConnectParam:connectParam];
     _channel.delegate = self;
     _channel.encoder = _encoder;
     _channel.decoder = _decoder;
