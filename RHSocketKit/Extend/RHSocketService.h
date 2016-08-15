@@ -30,14 +30,14 @@ extern NSString *const kNotificationSocketPacketResponse;
 @property (nonatomic, strong) id<RHUpstreamPacket> heartbeat;
 
 /**
- *  断开连接后，是否自动重连，默认为no
+ *  连接相关参数
  */
-@property (nonatomic, assign) BOOL autoReconnect;
+@property (nonatomic, strong) RHSocketConnectParam *connectParam;
 
 + (instancetype)sharedInstance;
 
 - (void)startServiceWithHost:(NSString *)host port:(int)port;
-- (void)startServiceWithHost:(NSString *)host port:(int)port tlsSettings:(NSDictionary *)tlsSettings;
+- (void)startServiceWithConnectParam:(RHSocketConnectParam *)connectParam;
 - (void)stopService;
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;

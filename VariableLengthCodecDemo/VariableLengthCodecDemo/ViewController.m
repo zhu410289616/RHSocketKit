@@ -60,6 +60,16 @@
     NSString *host = @"127.0.0.1";
     int port = 20162;
     
+    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
+    connectParam.host = host;
+    connectParam.port = port;
+    
+    //设置心跳定时器间隔15秒
+    connectParam.heartbeatInterval = 15;
+    
+    //设置短线后是否自动重连
+    connectParam.autoReconnect = YES;
+    
     //变长编解码。包体＝包头（包体的长度）＋包体数据
     RHSocketVariableLengthEncoder *encoder = [[RHSocketVariableLengthEncoder alloc] init];
     RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
@@ -72,10 +82,7 @@
     req.object = [@"Heartbeat" dataUsingEncoding:NSUTF8StringEncoding];
     [RHSocketService sharedInstance].heartbeat = req;
     
-    //设置短线后是否自动重连
-    [RHSocketService sharedInstance].autoReconnect = YES;
-    
-    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+    [[RHSocketService sharedInstance] startServiceWithConnectParam:connectParam];
 }
 
 - (void)detectSocketServiceState:(NSNotification *)notif

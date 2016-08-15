@@ -47,25 +47,25 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 
 - (void)startServiceWithHost:(NSString *)host port:(int)port
 {
-    [self startServiceWithHost:host port:port tlsSettings:nil];
+    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
+    connectParam.host = _host;
+    connectParam.port = _port;
+    [self startServiceWithConnectParam:connectParam];
 }
 
-- (void)startServiceWithHost:(NSString *)host port:(int)port tlsSettings:(NSDictionary *)tlsSettings
+- (void)startServiceWithConnectParam:(RHSocketConnectParam *)connectParam
 {
     if (_isRunning) {
         return;
     }
     
-    _host = host;
-    _port = port;
-    _tlsSettings = tlsSettings;
-    
+    _connectParam = connectParam;
     [self openConnection];
 }
 
 - (void)stopService
 {
-    _autoReconnect = NO;
+    _connectParam.autoReconnect = NO;
     _isRunning = NO;
     [self closeConnection];
 }
@@ -96,12 +96,7 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 {
     [self closeConnection];
     
-    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
-    connectParam.host = _host;
-    connectParam.port = _port;
-    connectParam.autoReconnect = _autoReconnect;
-    
-    _channel = [[RHSocketChannelDefault alloc] initWithConnectParam:connectParam];
+    _channel = [[RHSocketChannelDefault alloc] initWithConnectParam:_connectParam];
     _channel.delegate = self;
     _channel.encoder = _encoder;
     _channel.decoder = _decoder;

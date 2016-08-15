@@ -60,6 +60,13 @@
     NSString *host = @"127.0.0.1";
     int port = 20162;
     
+    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
+    connectParam.host = host;
+    connectParam.port = port;
+    
+    //设置短线后是否自动重连
+    connectParam.autoReconnect = YES;
+    
     RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
     encoder.delimiterData = [RHSocketUtils dataFromHexString:@"0x0a"];//0x0a，换行符
     
@@ -74,10 +81,7 @@
     req.object = [@"Heartbeat" dataUsingEncoding:NSUTF8StringEncoding];
     [RHSocketService sharedInstance].heartbeat = req;
     
-    //设置短线后是否自动重连
-    [RHSocketService sharedInstance].autoReconnect = YES;
-    
-    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+    [[RHSocketService sharedInstance] startServiceWithConnectParam:connectParam];
 }
 
 - (void)detectSocketServiceState:(NSNotification *)notif

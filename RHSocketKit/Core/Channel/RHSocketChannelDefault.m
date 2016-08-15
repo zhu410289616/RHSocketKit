@@ -42,18 +42,6 @@
     return self;
 }
 
-//- (instancetype)initWithHost:(NSString *)host port:(int)port
-//{
-//    if (self = [super initWithHost:host port:port]) {
-//        _heartbeatInterval = 20;
-//        _autoReconnect = NO;
-//        //初始化自动重连参数
-//        _connectCount = 0;
-//        _connectTimerInterval = kConnectTimerInterval;
-//    }
-//    return self;
-//}
-
 - (void)closeConnection
 {
     [super closeConnection];
