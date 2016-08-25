@@ -19,8 +19,19 @@ extern NSString *const kNotificationSocketPacketResponse;
  */
 @interface RHSocketService : NSObject <RHSocketChannelDelegate>
 
+/**
+ *  tcp连接的传输通道
+ */
 @property (nonatomic, strong, readonly) RHSocketChannelDefault *channel;
+
+/**
+ *  数据发送时使用的编码器
+ */
 @property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
+
+/**
+ *  数据接收后处理的解码器
+ */
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
 @property (assign, readonly) BOOL isRunning;
 
@@ -28,11 +39,6 @@ extern NSString *const kNotificationSocketPacketResponse;
  *  固定心跳包 (设置心跳包，在连接成功后，开启心态定时器)
  */
 @property (nonatomic, strong) id<RHUpstreamPacket> heartbeat;
-
-/**
- *  连接相关参数
- */
-@property (nonatomic, strong) RHSocketConnectParam *connectParam;
 
 + (instancetype)sharedInstance;
 

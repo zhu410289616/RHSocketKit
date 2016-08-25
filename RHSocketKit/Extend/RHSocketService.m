@@ -14,9 +14,7 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 
 @interface RHSocketService ()
 
-@property (nonatomic, strong) NSString *host;
-@property (nonatomic, assign) int port;
-@property (nonatomic, strong) NSDictionary *tlsSettings;
+@property (nonatomic, strong) RHSocketConnectParam *connectParam;
 
 @end
 
@@ -48,8 +46,8 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 - (void)startServiceWithHost:(NSString *)host port:(int)port
 {
     RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
-    connectParam.host = _host;
-    connectParam.port = _port;
+    connectParam.host = host;
+    connectParam.port = port;
     [self startServiceWithConnectParam:connectParam];
 }
 
