@@ -53,6 +53,7 @@
 		83ADFDE21D057F9700A6CBC3 /* Person.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFDDC1D057F9700A6CBC3 /* Person.pb.m */; };
 		83ADFDE31D057F9700A6CBC3 /* Person.proto in Resources */ = {isa = PBXBuildFile; fileRef = 83ADFDDD1D057F9700A6CBC3 /* Person.proto */; };
 		83AF71141D61C27300DEC61B /* RHSocketConnectParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AF71131D61C27300DEC61B /* RHSocketConnectParam.m */; };
+		83B215061D672127007EEDDC /* RHSocketByteBuf.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B215051D672127007EEDDC /* RHSocketByteBuf.m */; };
 		83C40F9B1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C40F9A1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m */; };
 		83C40F9E1D1D679F001CBF46 /* RHSocketChannelDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C40F9D1D1D679F001CBF46 /* RHSocketChannelDefault.m */; };
 /* End PBXBuildFile section */
@@ -147,6 +148,8 @@
 		83ADFDDD1D057F9700A6CBC3 /* Person.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Person.proto; sourceTree = "<group>"; };
 		83AF71121D61C27300DEC61B /* RHSocketConnectParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnectParam.h; sourceTree = "<group>"; };
 		83AF71131D61C27300DEC61B /* RHSocketConnectParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketConnectParam.m; sourceTree = "<group>"; };
+		83B215041D672127007EEDDC /* RHSocketByteBuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketByteBuf.h; sourceTree = "<group>"; };
+		83B215051D672127007EEDDC /* RHSocketByteBuf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketByteBuf.m; sourceTree = "<group>"; };
 		83C40F921D1D4C23001CBF46 /* RHSocketConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketConnectionDelegate.h; sourceTree = "<group>"; };
 		83C40F991D1D655E001CBF46 /* RHSocketChannel+Heartbeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RHSocketChannel+Heartbeat.h"; sourceTree = "<group>"; };
 		83C40F9A1D1D655E001CBF46 /* RHSocketChannel+Heartbeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RHSocketChannel+Heartbeat.m"; sourceTree = "<group>"; };
@@ -236,6 +239,7 @@
 		83ADFD561D057F6E00A6CBC3 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				83B215031D672100007EEDDC /* Buffer */,
 				83ADFD571D057F6E00A6CBC3 /* Channel */,
 				83ADFD5E1D057F6E00A6CBC3 /* Codec */,
 				83ADFD751D057F6E00A6CBC3 /* Exception */,
@@ -473,6 +477,15 @@
 			path = Proto;
 			sourceTree = "<group>";
 		};
+		83B215031D672100007EEDDC /* Buffer */ = {
+			isa = PBXGroup;
+			children = (
+				83B215041D672127007EEDDC /* RHSocketByteBuf.h */,
+				83B215051D672127007EEDDC /* RHSocketByteBuf.m */,
+			);
+			path = Buffer;
+			sourceTree = "<group>";
+		};
 		D0B32E32F2B244B997B05274 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +654,7 @@
 				83ADFBE31D05698000A6CBC3 /* main.m in Sources */,
 				83ADFDB71D057F6E00A6CBC3 /* RHProtobufVarint32LengthEncoder.m in Sources */,
 				83ADFDBA1D057F6E00A6CBC3 /* RHSocketVariableLengthEncoder.m in Sources */,
+				83B215061D672127007EEDDC /* RHSocketByteBuf.m in Sources */,
 				83ADFDC51D057F6E00A6CBC3 /* RHSocketStringDecoder.m in Sources */,
 				83ADFDB21D057F6E00A6CBC3 /* RHSocketDelimiterEncoder.m in Sources */,
 				83ADFDB81D057F6E00A6CBC3 /* RHSocketUtils+Protobuf.m in Sources */,

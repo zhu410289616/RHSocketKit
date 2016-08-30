@@ -33,12 +33,18 @@ extern NSString *const kNotificationSocketPacketResponse;
  *  数据接收后处理的解码器
  */
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
+
+/**
+ *  service是否在运行中
+ */
 @property (assign, readonly) BOOL isRunning;
 
 /**
  *  固定心跳包 (设置心跳包，在连接成功后，开启心态定时器)
  */
 @property (nonatomic, strong) id<RHUpstreamPacket> heartbeat;
+
+@property (nonatomic, strong, readonly) RHSocketConnectParam *connectParam;
 
 + (instancetype)sharedInstance;
 

@@ -14,8 +14,6 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 
 @interface RHSocketService ()
 
-@property (nonatomic, strong) RHSocketConnectParam *connectParam;
-
 @end
 
 @implementation RHSocketService

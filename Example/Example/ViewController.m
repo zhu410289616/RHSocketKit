@@ -51,6 +51,9 @@
 #import "RHSocketUtils.h"
 
 //
+#import "RHSocketByteBuf.h"
+
+//
 #import "RHSocketUtils+Protobuf.h"
 #import "RHProtobufVarint32LengthEncoder.h"
 #import "RHProtobufVarint32LengthDecoder.h"
@@ -235,6 +238,26 @@
     
     value = [RHSocketUtils valueWithVarint32Data:data];
     RHSocketLog(@"value: %ld", value);
+    
+    //
+    RHSocketByteBuf *byteBuf = [[RHSocketByteBuf alloc] init];
+    [byteBuf writeInt16:data.length];
+    [byteBuf writeData:data];
+    RHSocketLog(@"[byteBuf data]: %@", [byteBuf data]);
+    [byteBuf writeInt16:hexString.length];
+    [byteBuf writeString:hexString];
+    RHSocketLog(@"[byteBuf data]: %@", [byteBuf data]);
+    
+    int16_t len0 = [byteBuf readInt16:0];
+    NSData *data0 = [byteBuf readData:2 length:len0];
+    RHSocketLog(@"len0: %d, data0: %@", len0, data0);
+    int16_t len1 = [byteBuf readInt16:2 + len0];
+    NSData *data1 = [byteBuf readData:2 + len0 + 2 length:len1];
+    RHSocketLog(@"len1: %d, data1: %@", len1, data1);
+    int16_t len2 = [byteBuf readInt16:2 + len0];
+    NSString *str2 = [byteBuf readString:2 + len0 + 2 length:len1];
+    RHSocketLog(@"len2: %d, data2: %@", len2, str2);
+    
 }
 
 #pragma mark - channel test
