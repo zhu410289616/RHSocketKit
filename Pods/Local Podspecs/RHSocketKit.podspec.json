@@ -35,7 +35,7 @@
       },
       "source_files": [
         "RHSocketKit/Core/*.{h,m}",
-        "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils}/*.{h,m}",
+        "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils,Buffer}/*.{h,m}",
         "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}"
       ],
       "requires_arc": true

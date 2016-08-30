@@ -10,6 +10,7 @@
 #import "RHSocketException.h"
 #import "RHSocketUtils.h"
 #import "RHSocketCustomRequest.h"
+#import "RHSocketByteBuf.h"
 
 @implementation RHSocketCustom0330Encoder
 
@@ -29,20 +30,33 @@
     RHSocketCustomRequest *req = (RHSocketCustomRequest *)upstreamPacket;
     NSUInteger dataLen = data.length;
     
-    NSMutableData *sendData = [[NSMutableData alloc] init];
+    RHSocketByteBuf *buffer = [[RHSocketByteBuf alloc] init];
     //分隔符 2个字节
-    [sendData appendData:[RHSocketUtils bytesFromInt16:req.fenGeFu]];
+    [buffer writeInt16:req.fenGeFu];
     //数据包类型 2个字节
-    [sendData appendData:[RHSocketUtils bytesFromInt16:req.dataType]];
+    [buffer writeInt16:req.dataType];
     //长度（不含包头长度） 4个字节
-    [sendData appendData:[RHSocketUtils bytesFromInt32:(uint32_t)dataLen]];
+    [buffer writeInt32:(uint32_t)dataLen];
     //数据包 dataLen个字节
-    [sendData appendData:data];
+    [buffer writeData:data];
+    
+//    NSMutableData *sendData = [[NSMutableData alloc] init];
+//    //分隔符 2个字节
+//    [sendData appendData:[RHSocketUtils bytesFromInt16:req.fenGeFu]];
+//    //数据包类型 2个字节
+//    [sendData appendData:[RHSocketUtils bytesFromInt16:req.dataType]];
+//    //长度（不含包头长度） 4个字节
+//    [sendData appendData:[RHSocketUtils bytesFromInt32:(uint32_t)dataLen]];
+//    //数据包 dataLen个字节
+//    [sendData appendData:data];
     
     NSTimeInterval timeout = [upstreamPacket timeout];
     
-    RHSocketLog(@"timeout: %f, sendData: %@", timeout, sendData);
-    [output didEncode:sendData timeout:timeout];
+//    RHSocketLog(@"timeout: %f, sendData: %@", timeout, sendData);
+//    [output didEncode:sendData timeout:timeout];
+    
+    RHSocketLog(@"timeout: %f, sendData: %@", timeout, [buffer data]);
+    [output didEncode:[buffer data] timeout:timeout];
 }
 
 @end
