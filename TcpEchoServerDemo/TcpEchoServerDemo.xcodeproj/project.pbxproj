@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0DFF3D97B3526AE7C2791DA6 /* libPods-TcpEchoServerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 190FAF70149830CB97D2C488 /* libPods-TcpEchoServerDemo.a */; };
+		838C12E21D7EDFD10041DD2A /* RHSocketServerConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838C12E11D7EDFD10041DD2A /* RHSocketServerConnection.m */; };
 		83B1CC0A1D08035B003DD77A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC091D08035B003DD77A /* AppDelegate.m */; };
 		83B1CC0D1D08035B003DD77A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC0C1D08035B003DD77A /* main.m */; };
 		83B1CC0F1D08035B003DD77A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B1CC0E1D08035B003DD77A /* Assets.xcassets */; };
@@ -17,6 +18,8 @@
 /* Begin PBXFileReference section */
 		190FAF70149830CB97D2C488 /* libPods-TcpEchoServerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TcpEchoServerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		259F1D3935E0002023050C7C /* Pods-TcpEchoServerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TcpEchoServerDemo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-TcpEchoServerDemo/Pods-TcpEchoServerDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		838C12E01D7EDFD10041DD2A /* RHSocketServerConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketServerConnection.h; sourceTree = "<group>"; };
+		838C12E11D7EDFD10041DD2A /* RHSocketServerConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketServerConnection.m; sourceTree = "<group>"; };
 		83B1CC051D08035B003DD77A /* TcpEchoServerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TcpEchoServerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B1CC081D08035B003DD77A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		83B1CC091D08035B003DD77A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -83,6 +86,8 @@
 				83B1CC101D08035B003DD77A /* MainMenu.xib */,
 				83B1CC131D08035B003DD77A /* Info.plist */,
 				83B1CC0B1D08035B003DD77A /* Supporting Files */,
+				838C12E01D7EDFD10041DD2A /* RHSocketServerConnection.h */,
+				838C12E11D7EDFD10041DD2A /* RHSocketServerConnection.m */,
 			);
 			path = TcpEchoServerDemo;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 			files = (
 				83B1CC0D1D08035B003DD77A /* main.m in Sources */,
 				83B1CC0A1D08035B003DD77A /* AppDelegate.m in Sources */,
+				838C12E21D7EDFD10041DD2A /* RHSocketServerConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

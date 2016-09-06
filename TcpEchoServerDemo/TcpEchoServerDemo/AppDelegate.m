@@ -8,11 +8,9 @@
 
 #import "AppDelegate.h"
 #import "GCDAsyncSocket.h"
+#import "RHSocketServerConnection.h"
 
-#define READ_TIMEOUT 15.0
-#define READ_TIMEOUT_EXTENSION 10.0
-
-@interface AppDelegate () <GCDAsyncSocketDelegate>
+@interface AppDelegate () <GCDAsyncSocketDelegate, RHSocketServerConnectionDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 
@@ -63,45 +61,19 @@
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
     @synchronized(_connectedSockets) {
-        [_connectedSockets addObject:newSocket];
+        RHSocketServerConnection *con = [[RHSocketServerConnection alloc] initWithAsyncSocket:newSocket configuration:self.socketQueue];
+        con.delegate = self;
+        [_connectedSockets addObject:con];
+        [con start];
     }
-    
-    NSString *host = [newSocket connectedHost];
-    UInt16 port = [newSocket connectedPort];
-    NSLog(@"Accepted client %@:%hu", host, port);
-    
-    [newSocket readDataWithTimeout:-1 tag:0];
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    [sock readDataWithTimeout:-1 tag:0];
-}
+#pragma mark - RHSocketServerConnectionDelegate
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+- (void)didDisconnect:(RHSocketServerConnection *)con withError:(NSError *)err
 {
-    NSLog(@"didReadData: [%ld] - %@", tag, data);
-    
-    // Echo message back to client
-    [sock writeData:data withTimeout:-1 tag:0];
-}
-
-- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag elapsed:(NSTimeInterval)elapsed bytesDone:(NSUInteger)length
-{
-    if (elapsed <= READ_TIMEOUT) {
-        return 0.0;
-    }
-    
-    return 0.0;
-}
-
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
-{
-    if (sock != _tcpSocket) {
-        NSLog(@"Client Disconnected");
-        @synchronized(_connectedSockets) {
-            [_connectedSockets removeObject:sock];
-        }
+    @synchronized(_connectedSockets) {
+        [_connectedSockets removeObject:con];
     }
 }
 
