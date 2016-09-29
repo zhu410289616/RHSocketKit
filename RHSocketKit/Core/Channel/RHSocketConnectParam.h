@@ -36,6 +36,11 @@
 @property (nonatomic, assign) NSTimeInterval timeout;
 
 /**
+ *  连接后是否自动开启心跳，默认为YES
+ */
+@property (nonatomic, assign) BOOL heartbeatEnabled;
+
+/**
  *  心跳定时间隔，默认为20秒
  */
 @property (nonatomic, assign) NSTimeInterval heartbeatInterval;

@@ -15,6 +15,7 @@
     if (self = [super init]) {
         _useSecureConnection = NO;
         _timeout = 15;
+        _heartbeatEnabled = YES;
         _heartbeatInterval = 20;
         _autoReconnect = NO;
     }

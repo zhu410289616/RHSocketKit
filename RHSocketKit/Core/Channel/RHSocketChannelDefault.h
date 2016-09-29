@@ -11,16 +11,6 @@
 
 @interface RHSocketChannelDefault : RHSocketChannel
 
-/**
- *  心跳定时间隔，默认为20秒
- */
-//@property (nonatomic, assign) NSTimeInterval heartbeatInterval;
-
-/**
- *  断开连接后，是否自动重连，默认为no
- */
-//@property (nonatomic, assign) BOOL autoReconnect;
-
 - (void)stopConnectTimer;
 - (void)startConnectTimer:(NSTimeInterval)interval;
 - (void)connectTimerFunction;
