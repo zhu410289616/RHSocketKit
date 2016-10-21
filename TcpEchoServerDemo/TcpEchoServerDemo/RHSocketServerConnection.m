@@ -40,15 +40,17 @@
     UInt16 port = [self.asyncSocket connectedPort];
     NSLog(@"RHSocketServerConnection start %@:%hu", host, port);
     
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [self.asyncSocket readDataWithTimeout:-1 tag:0];
+        [weakSelf.asyncSocket readDataWithTimeout:-1 tag:0];
     } async:YES];
 }
 
 - (void)stop
 {
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [self.asyncSocket disconnect];
+        [weakSelf.asyncSocket disconnect];
     } async:YES];
 }
 

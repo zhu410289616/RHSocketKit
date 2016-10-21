@@ -52,8 +52,9 @@
     }
     
     //发送数据，将编码放入 串行队列 异步处理
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [_encoder encode:packet output:self];
+        [weakSelf.encoder encode:packet output:weakSelf];
     } async:YES];
     
 }

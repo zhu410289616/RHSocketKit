@@ -77,37 +77,40 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
     NSAssert(connectParam.host.length > 0, @"host is nil");
     NSAssert(connectParam.port > 0, @"port is 0");
     
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [self disconnect];
+        [weakSelf disconnect];
         
-        self.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
-        [self.asyncSocket setIPv4PreferredOverIPv6:NO];
+        weakSelf.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:weakSelf delegateQueue:weakSelf.socketQueue];
+        [weakSelf.asyncSocket setIPv4PreferredOverIPv6:NO];
         
         NSError *error = nil;
-        [self.asyncSocket connectToHost:connectParam.host onPort:connectParam.port withTimeout:connectParam.timeout error:&error];
+        [weakSelf.asyncSocket connectToHost:connectParam.host onPort:connectParam.port withTimeout:connectParam.timeout error:&error];
         if (error) {
-            [self didDisconnect:self withError:error];
+            [weakSelf didDisconnect:weakSelf withError:error];
         }
     } async:YES];
 }
 
 - (void)disconnect
 {
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        if (nil == self.asyncSocket) {
+        if (nil == weakSelf.asyncSocket) {
             return;
         }
-        [self.asyncSocket disconnect];
-        self.asyncSocket.delegate = nil;
-        self.asyncSocket = nil;
+        [weakSelf.asyncSocket disconnect];
+        weakSelf.asyncSocket.delegate = nil;
+        weakSelf.asyncSocket = nil;
     } async:YES];
 }
 
 - (BOOL)isConnected
 {
     __block BOOL result = NO;
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        result = [self.asyncSocket isConnected];
+        result = [weakSelf.asyncSocket isConnected];
     } async:NO];
     return result;
 }
@@ -131,15 +134,17 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 
 - (void)readDataWithTimeout:(NSTimeInterval)timeout tag:(long)tag
 {
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [self.asyncSocket readDataWithTimeout:timeout tag:tag];
+        [weakSelf.asyncSocket readDataWithTimeout:timeout tag:tag];
     } async:YES];
 }
 
 - (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
 {
+    __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [self.asyncSocket writeData:data withTimeout:timeout tag:tag];
+        [weakSelf.asyncSocket writeData:data withTimeout:timeout tag:tag];
     } async:YES];
 }
 
