@@ -362,7 +362,13 @@
     
     [RHSocketService sharedInstance].encoder = [[RHSocketHttpEncoder alloc] init];
     [RHSocketService sharedInstance].decoder = decoder;
-    [[RHSocketService sharedInstance] startServiceWithHost:host port:port];
+    
+    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
+    connectParam.host = host;
+    connectParam.port = port;
+    connectParam.heartbeatEnabled = NO;
+    
+    [[RHSocketService sharedInstance] startServiceWithConnectParam:connectParam];
 }
 
 - (void)detectSocketServiceState:(NSNotification *)notif
