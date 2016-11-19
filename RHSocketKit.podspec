@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.9"
   s.source       = { :git => "https://github.com/zhu410289616/RHSocketKit.git", :tag => s.version.to_s }
 
-  s.default_subspec = "Core", "Extend"
+  s.default_subspec = "Core"
 
   s.subspec "Core" do |cs|
     cs.dependency 'CocoaAsyncSocket', '~> 7.4.3'

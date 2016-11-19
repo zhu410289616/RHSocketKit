@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		834AB9D51DE087DD00E91042 /* proto_shell.sh in Resources */ = {isa = PBXBuildFile; fileRef = 834AB9D11DE087DD00E91042 /* proto_shell.sh */; };
+		834AB9D61DE087DD00E91042 /* RHBaseMessage.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 834AB9D31DE087DD00E91042 /* RHBaseMessage.pb.m */; };
+		834AB9D71DE087DD00E91042 /* RHBaseMessage.proto in Resources */ = {isa = PBXBuildFile; fileRef = 834AB9D41DE087DD00E91042 /* RHBaseMessage.proto */; };
 		83B1CC6D1D080C10003DD77A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC6C1D080C10003DD77A /* main.m */; };
 		83B1CC701D080C10003DD77A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC6F1D080C10003DD77A /* AppDelegate.m */; };
 		83B1CC731D080C10003DD77A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1CC721D080C10003DD77A /* ViewController.m */; };
@@ -20,6 +23,10 @@
 
 /* Begin PBXFileReference section */
 		33C1FC25060F225F2FE80D71 /* libPods-ProtobufCodecDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProtobufCodecDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		834AB9D11DE087DD00E91042 /* proto_shell.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = proto_shell.sh; sourceTree = "<group>"; };
+		834AB9D21DE087DD00E91042 /* RHBaseMessage.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHBaseMessage.pb.h; sourceTree = "<group>"; };
+		834AB9D31DE087DD00E91042 /* RHBaseMessage.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHBaseMessage.pb.m; sourceTree = "<group>"; };
+		834AB9D41DE087DD00E91042 /* RHBaseMessage.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RHBaseMessage.proto; sourceTree = "<group>"; };
 		83B1CC681D080C10003DD77A /* ProtobufCodecDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProtobufCodecDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B1CC6C1D080C10003DD77A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83B1CC6E1D080C10003DD77A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -95,6 +102,10 @@
 		83B1CC821D080F22003DD77A /* Proto */ = {
 			isa = PBXGroup;
 			children = (
+				834AB9D11DE087DD00E91042 /* proto_shell.sh */,
+				834AB9D21DE087DD00E91042 /* RHBaseMessage.pb.h */,
+				834AB9D31DE087DD00E91042 /* RHBaseMessage.pb.m */,
+				834AB9D41DE087DD00E91042 /* RHBaseMessage.proto */,
 				83B1CC831D080F22003DD77A /* Person.pb.h */,
 				83B1CC841D080F22003DD77A /* Person.pb.m */,
 				83B1CC851D080F22003DD77A /* Person.proto */,
@@ -181,6 +192,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B1CC7B1D080C10003DD77A /* LaunchScreen.storyboard in Resources */,
+				834AB9D71DE087DD00E91042 /* RHBaseMessage.proto in Resources */,
+				834AB9D51DE087DD00E91042 /* proto_shell.sh in Resources */,
 				83B1CC871D080F22003DD77A /* Person.proto in Resources */,
 				83B1CC781D080C10003DD77A /* Assets.xcassets in Resources */,
 				83B1CC761D080C10003DD77A /* Main.storyboard in Resources */,
@@ -246,6 +259,7 @@
 				83B1CC861D080F22003DD77A /* Person.pb.m in Sources */,
 				83B1CC701D080C10003DD77A /* AppDelegate.m in Sources */,
 				83B1CC6D1D080C10003DD77A /* main.m in Sources */,
+				834AB9D61DE087DD00E91042 /* RHBaseMessage.pb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,10 +18,7 @@
     "git": "https://github.com/zhu410289616/RHSocketKit.git",
     "tag": "2.2.0"
   },
-  "default_subspecs": [
-    "Core",
-    "Extend"
-  ],
+  "default_subspecs": "Core",
   "subspecs": [
     {
       "name": "Core",

@@ -19,25 +19,25 @@ end
 target 'DelimiterCodecDemo' do
         platform :ios, '7.0'
         project 'DelimiterCodecDemo/DelimiterCodecDemo.xcodeproj'
-        pod 'RHSocketKit', :path => './RHSocketKit.podspec'
+        pod 'RHSocketKit/Extend', :path => './RHSocketKit.podspec'
 end
 
 target 'VariableLengthCodecDemo' do
         platform :ios, '7.0'
         project 'VariableLengthCodecDemo/VariableLengthCodecDemo.xcodeproj'
-        pod 'RHSocketKit', :path => './RHSocketKit.podspec'
+        pod 'RHSocketKit/Extend', :path => './RHSocketKit.podspec'
 end
 
 target 'ProtobufCodecDemo' do
         platform :ios, '7.0'
         project 'ProtobufCodecDemo/ProtobufCodecDemo.xcodeproj'
-        pod 'RHSocketKit', :path => './RHSocketKit.podspec'
+        pod 'RHSocketKit/Extend', :path => './RHSocketKit.podspec'
 end
 
 target 'CustomCodecDemo' do
         platform :ios, '7.0'
         project 'CustomCodecDemo/CustomCodecDemo.xcodeproj'
-        pod 'RHSocketKit', :path => './RHSocketKit.podspec'
+        pod 'RHSocketKit/Extend', :path => './RHSocketKit.podspec'
 end
 
 target 'RpcDemo' do
@@ -65,7 +65,6 @@ target 'UdpClientDemo' do
 	platform :ios, '7.0'
         project 'UdpClientDemo/UdpClientDemo.xcodeproj'
 	pod 'CocoaAsyncSocket', '~> 7.4.3'
-	#pod 'RHSocketKit/Core', :path => './RHSocketKit.podspec'
 end
 
 target 'UdpEchoServerDemo' do
