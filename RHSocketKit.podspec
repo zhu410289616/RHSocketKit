@@ -15,13 +15,13 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |cs|
     cs.dependency 'CocoaAsyncSocket', '~> 7.4.3'
-    cs.dependency 'ProtocolBuffers', '~> 1.9.9.2'
     cs.source_files  = "RHSocketKit/Core/*.{h,m}", "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils,Buffer}/*.{h,m}", "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}" 
     cs.requires_arc = true
   end
 
   s.subspec "Extend" do |cs|
     cs.dependency "RHSocketKit/Core"
+    cs.dependency 'ProtocolBuffers', '~> 1.9.9.2'
     cs.source_files = "RHSocketKit/Extend/*.{h,m}", "RHSocketKit/Extend/Codec/{Base64Codec,ProtobufCodec,SerializationCodec,StringCodec}/*.{h,m}"
     cs.requires_arc = true 
   end
