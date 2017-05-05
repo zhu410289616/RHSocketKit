@@ -47,8 +47,8 @@
 /**
  *  编码器
  *
- *  @param packet 待发送的数据包
- *  @param output 数据编码后，分发对象
+ *  @param upstreamPacket   待发送的数据包
+ *  @param output           数据编码后，分发对象
  */
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output;
 

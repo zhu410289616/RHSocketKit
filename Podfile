@@ -32,6 +32,7 @@ target 'ProtobufCodecDemo' do
         platform :ios, '7.0'
         project 'ProtobufCodecDemo/ProtobufCodecDemo.xcodeproj'
         pod 'RHSocketKit/Extend', :path => './RHSocketKit.podspec'
+	pod 'ProtocolBuffers', '~> 1.9.9.2'
 end
 
 target 'CustomCodecDemo' do

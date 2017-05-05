@@ -28,7 +28,7 @@
 - (instancetype)initWithConnectParam:(RHSocketConnectParam *)connectParam
 {
     if (self = [super initWithConnectParam:connectParam]) {
-        _delegateMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsWeakMemory];
+        _delegateMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory];
         _receiveDataBuffer = [[NSMutableData alloc] init];
         _downstreamContext = [[RHSocketPacketResponse alloc] init];
     }
