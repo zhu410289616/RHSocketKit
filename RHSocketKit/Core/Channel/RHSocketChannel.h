@@ -37,13 +37,25 @@
 
 /**
  *  socket connection的回调代理，查看RHSocketConnectionDelegate
+ *  已经被addDelegate／removeDelegate替代
  */
-@property (nonatomic, weak) id<RHSocketChannelDelegate> delegate;
+@property (nonatomic, weak) id<RHSocketChannelDelegate> delegate DEPRECATED_ATTRIBUTE;
+@property (nonatomic, strong, readonly) NSMapTable *delegateMap;
+
+/**
+ *  替换setDelegate方法，可以同时注册多个监听
+ */
+- (void)addDelegate:(id<RHSocketChannelDelegate>)delegate;
+- (void)removeDelegate:(id<RHSocketChannelDelegate>)delegate;
 
 - (void)openConnection;
 - (void)closeConnection;
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;
+
+@end
+
+@interface RHSocketChannel (WriteInt)
 
 - (void)writeInt8:(int8_t)param;
 - (void)writeInt16:(int16_t)param;

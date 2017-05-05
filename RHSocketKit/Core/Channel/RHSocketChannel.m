@@ -25,6 +25,34 @@
     return [self initWithConnectParam:nil];
 }
 
+- (instancetype)initWithConnectParam:(RHSocketConnectParam *)connectParam
+{
+    if (self = [super initWithConnectParam:connectParam]) {
+        _delegateMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsWeakMemory];
+        _receiveDataBuffer = [[NSMutableData alloc] init];
+        _downstreamContext = [[RHSocketPacketResponse alloc] init];
+    }
+    return self;
+}
+
+- (void)setDelegate:(id<RHSocketChannelDelegate>)delegate
+{
+    _delegate = delegate;
+    [self addDelegate:delegate];
+}
+
+- (void)addDelegate:(id<RHSocketChannelDelegate>)delegate
+{
+    NSString *key = NSStringFromClass([delegate class]);
+    [self.delegateMap setObject:delegate forKey:key];
+}
+
+- (void)removeDelegate:(id<RHSocketChannelDelegate>)delegate
+{
+    NSString *key = NSStringFromClass([delegate class]);
+    [self.delegateMap removeObjectForKey:key];
+}
+
 - (void)openConnection
 {
     if ([self isConnected]) {
@@ -59,46 +87,17 @@
     
 }
 
-- (void)writeInt8:(int8_t)param
-{
-    NSData *data = [RHSocketUtils byteFromInt8:param];
-    [self writeData:data timeout:-1 tag:0];
-}
-
-- (void)writeInt16:(int16_t)param
-{
-    NSData *data = [RHSocketUtils bytesFromInt16:param];
-    [self writeData:data timeout:-1 tag:0];
-}
-
-- (void)writeInt32:(int32_t)param
-{
-    NSData *data = [RHSocketUtils bytesFromInt32:param];
-    [self writeData:data timeout:-1 tag:0];
-}
-
-- (void)writeInt64:(int64_t)param
-{
-    NSData *data = [RHSocketUtils bytesFromInt64:param];
-    [self writeData:data timeout:-1 tag:0];
-}
-
 #pragma mark - RHSocketConnectionDelegate
-
-- (instancetype)initWithConnectParam:(RHSocketConnectParam *)connectParam
-{
-    if (self = [super initWithConnectParam:connectParam]) {
-        _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamContext = [[RHSocketPacketResponse alloc] init];
-    }
-    return self;
-}
 
 - (void)didDisconnect:(id<RHSocketConnectionDelegate>)con withError:(NSError *)err
 {
     //回调上层处理时，切换回主线程 [发送数据，接收数据，解码数据 都是在socket线程中处理]
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate channelClosed:self error:err];
+        NSEnumerator *objectEnumerator = [self.delegateMap objectEnumerator];
+        id<RHSocketChannelDelegate> delegate = nil;
+        while (delegate = [objectEnumerator nextObject]) {
+            [delegate channelClosed:self error:err];
+        }
     });
 }
 
@@ -106,7 +105,11 @@
 {
     //回调上层处理时，切换回主线程 [发送数据，接收数据，解码数据 都是在socket线程中处理]
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate channelOpened:self host:host port:port];
+        NSEnumerator *objectEnumerator = [self.delegateMap objectEnumerator];
+        id<RHSocketChannelDelegate> delegate = nil;
+        while (delegate = [objectEnumerator nextObject]) {
+            [delegate channelOpened:self host:host port:port];
+        }
     });
 }
 
@@ -145,7 +148,11 @@
 {
     //回调上层处理时，切换回主线程 [发送数据，接收数据，解码数据 都是在socket线程中处理]
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate channel:self received:packet];
+        NSEnumerator *objectEnumerator = [self.delegateMap objectEnumerator];
+        id<RHSocketChannelDelegate> delegate = nil;
+        while (delegate = [objectEnumerator nextObject]) {
+            [delegate channel:self received:packet];
+        }
     });
 }
 
@@ -164,6 +171,34 @@
 - (void)didDecode:(id<RHDownstreamPacket>)packet
 {
     [self didReceived:self withPacket:packet];
+}
+
+@end
+
+@implementation RHSocketChannel (WriteInt)
+
+- (void)writeInt8:(int8_t)param
+{
+    NSData *data = [RHSocketUtils byteFromInt8:param];
+    [self writeData:data timeout:-1 tag:0];
+}
+
+- (void)writeInt16:(int16_t)param
+{
+    NSData *data = [RHSocketUtils bytesFromInt16:param];
+    [self writeData:data timeout:-1 tag:0];
+}
+
+- (void)writeInt32:(int32_t)param
+{
+    NSData *data = [RHSocketUtils bytesFromInt32:param];
+    [self writeData:data timeout:-1 tag:0];
+}
+
+- (void)writeInt64:(int64_t)param
+{
+    NSData *data = [RHSocketUtils bytesFromInt64:param];
+    [self writeData:data timeout:-1 tag:0];
 }
 
 @end

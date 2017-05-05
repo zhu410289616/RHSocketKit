@@ -304,7 +304,7 @@
     connectParam.heartbeatInterval = 10;//设置心跳间隔10秒
     
     _channel = [[RHSocketChannelDefault alloc] initWithConnectParam:connectParam];
-    _channel.delegate = self;
+    [_channel addDelegate:self];
     _channel.encoder = jsonEncoder;//base64Encoder;//stringEncoder;
     _channel.decoder = decoder;
     

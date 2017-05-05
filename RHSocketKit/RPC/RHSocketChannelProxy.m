@@ -73,7 +73,7 @@
     connectParam.port = _connectCallReply.port;
     
     _channel = [[RHSocketChannel alloc] initWithConnectParam:connectParam];
-    _channel.delegate = self;
+    [_channel addDelegate:self];
     _channel.encoder = _encoder;
     _channel.decoder = _decoder;
     [_channel openConnection];
@@ -83,7 +83,7 @@
 {
     if (_channel) {
         [_channel closeConnection];
-        _channel.delegate = nil;
+        [_channel removeDelegate:self];
         _channel = nil;
     }
 }

@@ -93,7 +93,7 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
     [self closeConnection];
     
     _channel = [[RHSocketChannelDefault alloc] initWithConnectParam:_connectParam];
-    _channel.delegate = self;
+    [_channel addDelegate:self];
     _channel.encoder = _encoder;
     _channel.decoder = _decoder;
     _channel.heartbeat = _heartbeat;
@@ -104,7 +104,7 @@ NSString *const kNotificationSocketPacketResponse = @"kNotificationSocketPacketR
 {
     if (_channel) {
         [_channel closeConnection];
-        _channel.delegate = nil;
+        [_channel removeDelegate:self];
         _channel = nil;
     }
 }
