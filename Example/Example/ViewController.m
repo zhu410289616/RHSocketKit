@@ -19,8 +19,6 @@
 #import "RHSocketJSONSerializationEncoder.h"
 #import "RHSocketJSONSerializationDecoder.h"
 
-#import "RHSocketProtobufEncoder.h"
-#import "RHSocketProtobufDecoder.h"
 #import "Person.pb.h"
 
 #import "RHSocketDelimiterEncoder.h"
@@ -580,19 +578,14 @@
     RHSocketRpcCmdEncoder *cmdEncoder = [[RHSocketRpcCmdEncoder alloc] init];
     cmdEncoder.nextEncoder = encoder;
     
-    RHSocketProtobufEncoder *protobufEncoder = [[RHSocketProtobufEncoder alloc] init];
-    protobufEncoder.nextEncoder = cmdEncoder;
-    
     //VariableLengthDecoder -> cmdDecoder -> protobufDecoder
-    RHSocketProtobufDecoder *protobufDecoder = [[RHSocketProtobufDecoder alloc] init];
     
     RHSocketRpcCmdDecoder *cmdDecoder = [[RHSocketRpcCmdDecoder alloc] init];
-    cmdDecoder.nextDecoder = protobufDecoder;
     
     RHSocketVariableLengthDecoder *decoder = [[RHSocketVariableLengthDecoder alloc] init];
     decoder.nextDecoder = cmdDecoder;
     
-    [RHSocketChannelProxy sharedInstance].encoder = protobufEncoder;
+    [RHSocketChannelProxy sharedInstance].encoder = cmdEncoder;
     [RHSocketChannelProxy sharedInstance].decoder = decoder;
     
     //
@@ -615,7 +608,7 @@
     
     RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
     req.pid = 999;
-    req.object = person;
+    req.object = [person data];
     
     RHSocketCallReply *callReply = [[RHSocketCallReply alloc] init];
     callReply.request = req;

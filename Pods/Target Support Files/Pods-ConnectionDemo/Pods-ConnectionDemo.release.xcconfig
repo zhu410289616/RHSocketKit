@@ -1,8 +1,9 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CocoaAsyncSocket" "${PODS_ROOT}/Headers/Public/MSWeakTimer" "${PODS_ROOT}/Headers/Public/ProtocolBuffers" "${PODS_ROOT}/Headers/Public/RHSocketKit" "${PODS_ROOT}/Headers/Public/SocketRocket" "${PODS_ROOT}/Headers/Public/libextobjc"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/CocoaAsyncSocket-iOS" "$PODS_CONFIGURATION_BUILD_DIR/ProtocolBuffers" "$PODS_CONFIGURATION_BUILD_DIR/RHSocketKit-Core-Extend"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/CocoaAsyncSocket-iOS" "$PODS_CONFIGURATION_BUILD_DIR/RHSocketKit-Core-Extend"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/CocoaAsyncSocket" -isystem "${PODS_ROOT}/Headers/Public/MSWeakTimer" -isystem "${PODS_ROOT}/Headers/Public/ProtocolBuffers" -isystem "${PODS_ROOT}/Headers/Public/RHSocketKit" -isystem "${PODS_ROOT}/Headers/Public/SocketRocket" -isystem "${PODS_ROOT}/Headers/Public/libextobjc"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"CocoaAsyncSocket-iOS" -l"ProtocolBuffers" -l"RHSocketKit-Core-Extend" -framework "CFNetwork" -framework "Foundation" -framework "Security"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"CocoaAsyncSocket-iOS" -l"RHSocketKit-Core-Extend" -framework "CFNetwork" -framework "Security"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/..
 PODS_ROOT = ${SRCROOT}/../Pods
