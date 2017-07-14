@@ -111,6 +111,9 @@
             [delegate channelOpened:self host:host port:port];
         }
     });
+    
+    //有些应用是在连接服务器后直接读取一个返回值，这里需要做一次读取操作
+    [self readDataWithTimeout:-1 tag:0];
 }
 
 - (void)didRead:(id<RHSocketConnectionDelegate>)con withData:(NSData *)data tag:(long)tag
