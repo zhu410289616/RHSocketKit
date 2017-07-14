@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RHSocketKit"
-  s.version      = "2.2.2"
+  s.version      = "2.2.3"
   s.summary      = "A socket kit based on CocoaAsyncSocket."
   s.homepage     = "https://github.com/zhu410289616/RHSocketKit"
   s.license      = { :type => "Apache", :file => "LICENSE" }
