@@ -10,7 +10,14 @@ socket网络通信框架</br>
 为了减少调整消耗的时间，对tcp模块中相关的内容进行拆分实现。</br>`其中专为和netty通信互通而实现了3个主要编解码器：1-DelimiterBasedFrame。2-LengthFieldBasedFrame。3-ProtobufVarint32Frame。`
 
 ## CocoaPods
+`
 pod 'RHSocketKit'
+`
+
+如果需要RHSocketService等对象，可以通过下面的方式使用
+`
+pod 'RHSocketKit/Extend'
+`
 
 ## Features [Log](https://github.com/zhu410289616/RHSocketKit/blob/master/Log.md)
 框架的设计运用了一些设计模式，通过组合和协议编程，灵活多变，扩展方便。</br>
