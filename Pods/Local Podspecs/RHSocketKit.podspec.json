@@ -41,10 +41,17 @@
 
         ]
       },
-      "source_files": [
-        "RHSocketKit/Extend/*.{h,m}",
-        "RHSocketKit/Extend/Codec/{Base64Codec,SerializationCodec,StringCodec}/*.{h,m}"
-      ],
+      "source_files": "RHSocketKit/Extend/*.{h,m}",
+      "requires_arc": true
+    },
+    {
+      "name": "CodecExt",
+      "dependencies": {
+        "RHSocketKit/Extend": [
+
+        ]
+      },
+      "source_files": "RHSocketKit/Extend/Codec/{Base64Codec,SerializationCodec,StringCodec}/*.{h,m}",
       "requires_arc": true
     },
     {

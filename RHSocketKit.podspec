@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RHSocketKit"
-  s.version      = "2.2.3"
+  s.version      = "2.2.3.1"
   s.summary      = "A socket kit based on CocoaAsyncSocket."
   s.homepage     = "https://github.com/zhu410289616/RHSocketKit"
   s.license      = { :type => "Apache", :file => "LICENSE" }
@@ -21,8 +21,14 @@ Pod::Spec.new do |s|
 
   s.subspec "Extend" do |cs|
     cs.dependency "RHSocketKit/Core"
-    cs.source_files = "RHSocketKit/Extend/*.{h,m}", "RHSocketKit/Extend/Codec/{Base64Codec,SerializationCodec,StringCodec}/*.{h,m}"
+    cs.source_files = "RHSocketKit/Extend/*.{h,m}"
     cs.requires_arc = true 
+  end
+
+  s.subspec "CodecExt" do |cs|
+    cs.dependency "RHSocketKit/Extend"
+    cs.source_files = "RHSocketKit/Extend/Codec/{Base64Codec,SerializationCodec,StringCodec}/*.{h,m}"
+    cs.requires_arc = true
   end
 
   s.subspec "RPC" do |cs|
