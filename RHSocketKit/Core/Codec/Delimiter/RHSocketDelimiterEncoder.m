@@ -33,17 +33,17 @@
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output
 {
     NSData *data = [upstreamPacket dataWithPacket];
-    if (data.length == 0) {
-        RHSocketLog(@"[Encode] object data is nil ...");
-        return;
-    }//
     
     if (data.length >= _maxFrameSize - 1) {
         [RHSocketException raiseWithReason:@"[Encode] Too Long Frame ..."];
         return;
     }
     
-    NSMutableData *sendData = [NSMutableData dataWithData:data];
+    NSMutableData *sendData = [[NSMutableData alloc] init];
+    
+    if (data.length > 0) {
+        [sendData appendData:data];
+    }
     [sendData appendData:_delimiterData];//在上行数据的末尾加上分隔符标记
     NSTimeInterval timeout = [upstreamPacket timeout];
     

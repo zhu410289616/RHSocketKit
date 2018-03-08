@@ -25,10 +25,6 @@
 - (void)encode:(id<RHUpstreamPacket>)upstreamPacket output:(id<RHSocketEncoderOutputProtocol>)output
 {
     NSData *data = [upstreamPacket dataWithPacket];
-    if (data.length == 0) {
-        RHSocketLog(@"[Encode] object data is nil ...");
-        return;
-    }//
     
     if (data.length >= _maxFrameSize - _countOfLengthByte) {
         [RHSocketException raiseWithReason:@"[Encode] Too Long Frame ..."];
@@ -42,7 +38,9 @@
     //将数据长度转换为长度字节，写入到数据块中。这里根据head占的字节个数转换data长度，默认为2个字节
     NSData *headData = [RHSocketUtils bytesFromValue:dataLen byteCount:_countOfLengthByte reverse:_reverseOfLengthByte];
     [sendData appendData:headData];
-    [sendData appendData:data];
+    if (data.length > 0) {
+        [sendData appendData:data];
+    }
     NSTimeInterval timeout = [upstreamPacket timeout];
     
     RHSocketLog(@"timeout: %f, sendData: %@", timeout, sendData);
