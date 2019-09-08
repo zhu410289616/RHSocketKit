@@ -1,0 +1,14 @@
+platform:ios,'9.0'
+
+target 'Pipeline' do
+
+	pod 'RHSocketKit', :path => '../RHSocketKit.podspec'
+
+	pod 'CocoaAsyncSocket', '~> 7.4.3'
+	pod 'ProtocolBuffers', '~> 1.9.9.2'
+
+	pod 'Masonry', '0.6.3'
+	pod 'QMUIKit', '~> 3.2.1'
+end
+
+

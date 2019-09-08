@@ -11,6 +11,9 @@
 		834AB9CE1DE081CD00E91042 /* proto_shell.sh in Resources */ = {isa = PBXBuildFile; fileRef = 834AB9CA1DE081CD00E91042 /* proto_shell.sh */; };
 		834AB9CF1DE081CD00E91042 /* RHBaseMessage.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 834AB9CC1DE081CD00E91042 /* RHBaseMessage.pb.m */; };
 		834AB9D01DE081CD00E91042 /* RHBaseMessage.proto in Resources */ = {isa = PBXBuildFile; fileRef = 834AB9CD1DE081CD00E91042 /* RHBaseMessage.proto */; };
+		8363233D232503810010DF86 /* RHUpstreamBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363233C232503810010DF86 /* RHUpstreamBuffer.m */; };
+		83632340232503900010DF86 /* RHDownstreamBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363233F232503900010DF86 /* RHDownstreamBuffer.m */; };
+		83632343232503CC0010DF86 /* RHSocketHeartbeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 83632342232503CC0010DF86 /* RHSocketHeartbeat.m */; };
 		83ADFBE31D05698000A6CBC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFBE21D05698000A6CBC3 /* main.m */; };
 		83ADFBE61D05698000A6CBC3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFBE51D05698000A6CBC3 /* AppDelegate.m */; };
 		83ADFBE91D05698000A6CBC3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83ADFBE81D05698000A6CBC3 /* ViewController.m */; };
@@ -61,6 +64,13 @@
 		834AB9CB1DE081CD00E91042 /* RHBaseMessage.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHBaseMessage.pb.h; sourceTree = "<group>"; };
 		834AB9CC1DE081CD00E91042 /* RHBaseMessage.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHBaseMessage.pb.m; sourceTree = "<group>"; };
 		834AB9CD1DE081CD00E91042 /* RHBaseMessage.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RHBaseMessage.proto; sourceTree = "<group>"; };
+		8363233B232503810010DF86 /* RHUpstreamBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHUpstreamBuffer.h; sourceTree = "<group>"; };
+		8363233C232503810010DF86 /* RHUpstreamBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHUpstreamBuffer.m; sourceTree = "<group>"; };
+		8363233E232503900010DF86 /* RHDownstreamBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHDownstreamBuffer.h; sourceTree = "<group>"; };
+		8363233F232503900010DF86 /* RHDownstreamBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHDownstreamBuffer.m; sourceTree = "<group>"; };
+		83632341232503CC0010DF86 /* RHSocketHeartbeat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHSocketHeartbeat.h; sourceTree = "<group>"; };
+		83632342232503CC0010DF86 /* RHSocketHeartbeat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHSocketHeartbeat.m; sourceTree = "<group>"; };
+		83632346232510FA0010DF86 /* RHSocketMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHSocketMacros.h; sourceTree = "<group>"; };
 		83ADFBDE1D05698000A6CBC3 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83ADFBE21D05698000A6CBC3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83ADFBE41D05698000A6CBC3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -258,6 +268,8 @@
 				83C40F9D1D1D679F001CBF46 /* RHSocketChannelDefault.m */,
 				83AF71121D61C27300DEC61B /* RHSocketConnectParam.h */,
 				83AF71131D61C27300DEC61B /* RHSocketConnectParam.m */,
+				83632341232503CC0010DF86 /* RHSocketHeartbeat.h */,
+				83632342232503CC0010DF86 /* RHSocketHeartbeat.m */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -332,6 +344,7 @@
 			children = (
 				83ADFD7E1D057F6E00A6CBC3 /* RHSocketUtils.h */,
 				83ADFD7F1D057F6E00A6CBC3 /* RHSocketUtils.m */,
+				83632346232510FA0010DF86 /* RHSocketMacros.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -464,6 +477,10 @@
 			children = (
 				83B215041D672127007EEDDC /* RHSocketByteBuf.h */,
 				83B215051D672127007EEDDC /* RHSocketByteBuf.m */,
+				8363233B232503810010DF86 /* RHUpstreamBuffer.h */,
+				8363233C232503810010DF86 /* RHUpstreamBuffer.m */,
+				8363233E232503900010DF86 /* RHDownstreamBuffer.h */,
+				8363233F232503900010DF86 /* RHDownstreamBuffer.m */,
 			);
 			path = Buffer;
 			sourceTree = "<group>";
@@ -584,13 +601,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -603,6 +623,7 @@
 				83ADFDC71D057F6E00A6CBC3 /* RHSocketService.m in Sources */,
 				83ADFDC61D057F6E00A6CBC3 /* RHSocketStringEncoder.m in Sources */,
 				83ADFDC91D057F6E00A6CBC3 /* RHConnectCallReply.m in Sources */,
+				83632340232503900010DF86 /* RHDownstreamBuffer.m in Sources */,
 				83ADFDCB1D057F6E00A6CBC3 /* RHSocketCallReplyManager.m in Sources */,
 				83ADFDAE1D057F6E00A6CBC3 /* RHSocketChannel.m in Sources */,
 				83ADFDE11D057F9700A6CBC3 /* RHSocketHttpResponse.m in Sources */,
@@ -612,6 +633,7 @@
 				83ADFDDE1D057F9700A6CBC3 /* RHSocketHttpDecoder.m in Sources */,
 				83ADFDBF1D057F6E00A6CBC3 /* RHSocketBase64Encoder.m in Sources */,
 				83ADFDCE1D057F6E00A6CBC3 /* RHSocketRpcCmdEncoder.m in Sources */,
+				8363233D232503810010DF86 /* RHUpstreamBuffer.m in Sources */,
 				83AF71141D61C27300DEC61B /* RHSocketConnectParam.m in Sources */,
 				83ADFDBC1D057F6E00A6CBC3 /* RHSocketPacketContext.m in Sources */,
 				83ADFDE01D057F9700A6CBC3 /* RHSocketHttpRequest.m in Sources */,
@@ -621,6 +643,7 @@
 				83ADFDCC1D057F6E00A6CBC3 /* RHSocketChannelProxy.m in Sources */,
 				83ADFDBB1D057F6E00A6CBC3 /* RHSocketException.m in Sources */,
 				83ADFBE61D05698000A6CBC3 /* AppDelegate.m in Sources */,
+				83632343232503CC0010DF86 /* RHSocketHeartbeat.m in Sources */,
 				83ADFDBE1D057F6E00A6CBC3 /* RHSocketBase64Decoder.m in Sources */,
 				83ADFDC31D057F6E00A6CBC3 /* RHSocketJSONSerializationDecoder.m in Sources */,
 				83ADFDC21D057F6E00A6CBC3 /* NSDictionary+RHSocket.m in Sources */,
