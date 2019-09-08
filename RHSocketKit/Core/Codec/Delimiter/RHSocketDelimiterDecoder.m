@@ -31,6 +31,38 @@
     return self;
 }
 
+- (NSInteger)decodeData:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output
+{
+    NSUInteger dataLen = downstreamData.length;
+    NSUInteger headIndex = 0;
+    
+    while (YES) {
+        //根据分隔符，获取一块数据包，类似得到一句完整的句子。然后output，触发上层逻辑
+        NSRange range = NSMakeRange(headIndex, dataLen - headIndex);
+        NSRange resultRange = [downstreamData rangeOfData:_delimiterData options:0 range:range];
+        if (resultRange.length == 0) {
+            break;
+        }
+        
+        //去除分隔符后的数据包
+        NSInteger frameLen = resultRange.location - headIndex;
+        NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, frameLen)];
+        
+        //责任链模式，丢给下一个处理器
+        if (_nextDecoder) {
+            [_nextDecoder decodeData:frameData output:output];
+        } else {
+            RHSocketPacketResponse *ctx = [[RHSocketPacketResponse alloc] init];
+            ctx.object = frameData;
+            [output didDecode:ctx];
+        }
+        
+        //
+        headIndex = resultRange.location + resultRange.length;
+    }//while
+    return headIndex;
+}
+
 - (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output
 {
     id object = [downstreamPacket object];

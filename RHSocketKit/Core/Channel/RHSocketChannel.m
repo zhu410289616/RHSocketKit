@@ -7,14 +7,20 @@
 //
 
 #import "RHSocketChannel.h"
+#import "RHDownstreamBuffer.h"
 #import "RHSocketException.h"
 #import "RHSocketPacketContext.h"
 #import "RHSocketUtils.h"
+#import "RHSocketMacros.h"
 
-@interface RHSocketChannel () <RHSocketEncoderOutputProtocol, RHSocketDecoderOutputProtocol>
+@interface RHSocketChannel ()
+<
+RHSocketEncoderOutputProtocol,
+RHDownstreamBufferProtocol,
+RHSocketDecoderOutputProtocol
+>
 
-@property (nonatomic, strong, readonly) NSMutableData *receiveDataBuffer;
-@property (nonatomic, strong, readonly) RHSocketPacketResponse *downstreamContext;
+@property (nonatomic, strong, readonly) RHDownstreamBuffer *downstreamBuffer;
 
 @end
 
@@ -29,8 +35,8 @@
 {
     if (self = [super initWithConnectParam:connectParam]) {
         _delegateMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory];
-        _receiveDataBuffer = [[NSMutableData alloc] init];
-        _downstreamContext = [[RHSocketPacketResponse alloc] init];
+        _downstreamBuffer = [[RHDownstreamBuffer alloc] init];
+        _downstreamBuffer.delegate = self;
     }
     return self;
 }
@@ -118,33 +124,7 @@
 
 - (void)didRead:(id<RHSocketConnectionDelegate>)con withData:(NSData *)data tag:(long)tag
 {
-    if (data.length == 0) {
-        return;
-    }
-    
-    if (nil == _decoder) {
-        RHSocketLog(@"RHSocket Decoder should not be nil ...");
-        return;
-    }
-    
-    @synchronized(self) {
-        [_receiveDataBuffer appendData:data];
-        
-        _downstreamContext.object = _receiveDataBuffer;
-        NSInteger decodedLength = [_decoder decode:_downstreamContext output:self];
-        
-        if (decodedLength < 0) {
-            [RHSocketException raiseWithReason:@"Decode Failed ..."];
-            [self closeConnection];
-            return;
-        }//if
-        
-        if (decodedLength > 0) {
-            NSUInteger remainLength = _receiveDataBuffer.length - decodedLength;
-            NSData *remainData = [_receiveDataBuffer subdataWithRange:NSMakeRange(decodedLength, remainLength)];
-            [_receiveDataBuffer setData:remainData];
-        }//if
-    }//@synchronized
+    [_downstreamBuffer appendReceiveData:data];
 }
 
 - (void)didReceived:(id<RHSocketConnectionDelegate>)con withPacket:(id<RHDownstreamPacket>)packet
@@ -167,6 +147,47 @@
         return;
     }
     [self writeData:data timeout:timeout tag:0];
+}
+
+#pragma mark - RHDownstreamBufferProtocol
+
+/**
+ * 解码前数据缓存块
+ * bufferData：待解码数据块
+ * return：已经解码数据块大小
+ */
+- (NSInteger)dataWillDecode:(NSData *)bufferData
+{
+    //2.3.0版本开始
+    if ([_decoder respondsToSelector:@selector(decodeData:output:)]) {
+        return [_decoder decodeData:bufferData output:self];
+    }
+    
+    RHSocketPacketResponse *ctx = [[RHSocketPacketResponse alloc] init];
+    ctx.object = bufferData;
+    return [_decoder decode:ctx output:self];
+}
+
+/**
+ * 数据未被正常解码消费，缓冲区溢出
+ * bufferData：当前缓冲区数据
+ */
+- (void)bufferOverflow:(NSData *)bufferData
+{
+#ifdef DEBUG
+    NSAssert(YES, @"[Error]: buffer overflow，please check data and decoder");
+#endif
+    [self closeConnection];
+}
+
+/**
+ * 解码后剩余数据缓存块
+ * bufferData：剩余数据块
+ * decodedSize：本次解码数据块大小
+ */
+- (void)dataDidDecode:(NSInteger)remainDataSize
+{
+    RHSocketLog(@"[Log]: remain data size: %ld", remainDataSize);
 }
 
 #pragma mark - RHSocketDecoderOutputProtocol

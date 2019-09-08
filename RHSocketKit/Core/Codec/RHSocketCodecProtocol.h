@@ -62,6 +62,16 @@
 @protocol RHSocketDecoderProtocol <NSObject>
 
 /**
+ *  解码器 2.3.0
+ *
+ *  @param downstreamData   接收到的原始数据
+ *  @param output           数据解码后，分发对象
+ *
+ *  @return -1解码异常; 0数据不完整，等待数据包; >0解码正常，为已解码数据长度
+ */
+- (NSInteger)decodeData:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output;
+
+/**
  *  解码器
  *
  *  @param downstreamPacket 接收到的原始数据
@@ -69,7 +79,7 @@
  *
  *  @return -1解码异常，断开连接; 0数据不完整，等待数据包; >0解码正常，为已解码数据长度
  */
-- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output;
+- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output;//准备废弃 DEPRECATED_ATTRIBUTE
 
 @end
 
