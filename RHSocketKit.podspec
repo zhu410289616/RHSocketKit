@@ -15,7 +15,8 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |cs|
     cs.dependency 'CocoaAsyncSocket', '~> 7.4.3'
-    cs.source_files  = "RHSocketKit/Core/*.{h,m}", "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils,Buffer}/*.{h,m}", "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}" 
+    #cs.source_files  = "RHSocketKit/Core/*.{h,m}", "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils,Buffer}/*.{h,m}", "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}"
+    cs.source_files = "RHSocketKit/Core/**/*" 
     cs.requires_arc = true
   end
 
