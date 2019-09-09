@@ -21,15 +21,8 @@
     return self;
 }
 
-- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output
+- (NSInteger)decodeData:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output
 {
-    id object = [downstreamPacket object];
-    if (![object isKindOfClass:[NSData class]]) {
-        [RHSocketException raiseWithReason:@"[Decode] object should be NSData ..."];
-        return -1;
-    }
-    
-    NSData *downstreamData = object;
     NSUInteger headIndex = 0;
     
     //先读区2个字节的协议长度 (前2个字节为数据包的长度)
@@ -73,6 +66,17 @@
         headIndex += frameData.length;
     }//while
     return headIndex;
+}
+
+- (NSInteger)decode:(id<RHDownstreamPacket>)downstreamPacket output:(id<RHSocketDecoderOutputProtocol>)output
+{
+    id object = [downstreamPacket object];
+    if (![object isKindOfClass:[NSData class]]) {
+        [RHSocketException raiseWithReason:@"[Decode] object should be NSData ..."];
+        return -1;
+    }
+    
+    return [self decodeData:object output:output];
 }
 
 @end

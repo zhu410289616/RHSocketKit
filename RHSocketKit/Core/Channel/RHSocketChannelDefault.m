@@ -7,6 +7,7 @@
 //
 
 #import "RHSocketChannelDefault.h"
+#import "RHSocketHeartbeat.h"
 
 #define kConnectMaxCount            1000    //tcp断开重连次数
 #define kConnectTimerInterval       5       //单位秒s

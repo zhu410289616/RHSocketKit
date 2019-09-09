@@ -71,6 +71,8 @@
  */
 - (NSInteger)decodeData:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output;
 
+@optional
+
 /**
  *  解码器
  *
