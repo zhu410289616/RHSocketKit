@@ -15,6 +15,10 @@
 		8363236023252EDD0010DF86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8363235E23252EDD0010DF86 /* LaunchScreen.storyboard */; };
 		8363236323252EDD0010DF86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363236223252EDD0010DF86 /* main.m */; };
 		8363236C232546460010DF86 /* RHTcpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363236B232546460010DF86 /* RHTcpServer.m */; };
+		83632372232689EC0010DF86 /* RHTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83632371232689EC0010DF86 /* RHTabBarViewController.m */; };
+		8363237523268BCB0010DF86 /* RHHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363237423268BCB0010DF86 /* RHHomeViewController.m */; };
+		8363237823268BDF0010DF86 /* RHAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363237723268BDF0010DF86 /* RHAboutViewController.m */; };
+		836323892327A1120010DF86 /* RHClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836323882327A1120010DF86 /* RHClientViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,15 @@
 		8363236223252EDD0010DF86 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8363236A232546460010DF86 /* RHTcpServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHTcpServer.h; sourceTree = "<group>"; };
 		8363236B232546460010DF86 /* RHTcpServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHTcpServer.m; sourceTree = "<group>"; };
+		83632370232689EC0010DF86 /* RHTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHTabBarViewController.h; sourceTree = "<group>"; };
+		83632371232689EC0010DF86 /* RHTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHTabBarViewController.m; sourceTree = "<group>"; };
+		8363237323268BCB0010DF86 /* RHHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHHomeViewController.h; sourceTree = "<group>"; };
+		8363237423268BCB0010DF86 /* RHHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHHomeViewController.m; sourceTree = "<group>"; };
+		8363237623268BDF0010DF86 /* RHAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHAboutViewController.h; sourceTree = "<group>"; };
+		8363237723268BDF0010DF86 /* RHAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHAboutViewController.m; sourceTree = "<group>"; };
+		8363237E232798030010DF86 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		836323872327A1120010DF86 /* RHClientViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHClientViewController.h; sourceTree = "<group>"; };
+		836323882327A1120010DF86 /* RHClientViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHClientViewController.m; sourceTree = "<group>"; };
 		CA7E9B7CE34973C7A4D8116B /* Pods-Pipeline.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pipeline.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pipeline/Pods-Pipeline.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +81,9 @@
 		8363235223252EDC0010DF86 /* Pipeline */ = {
 			isa = PBXGroup;
 			children = (
+				836323862327A0950010DF86 /* Client */,
+				8363236E232688950010DF86 /* About */,
+				8363236F232688960010DF86 /* Home */,
 				83632369232546290010DF86 /* Server */,
 				8363235323252EDC0010DF86 /* AppDelegate.h */,
 				8363235423252EDC0010DF86 /* AppDelegate.m */,
@@ -78,6 +94,9 @@
 				8363235E23252EDD0010DF86 /* LaunchScreen.storyboard */,
 				8363236123252EDD0010DF86 /* Info.plist */,
 				8363236223252EDD0010DF86 /* main.m */,
+				83632370232689EC0010DF86 /* RHTabBarViewController.h */,
+				83632371232689EC0010DF86 /* RHTabBarViewController.m */,
+				8363237E232798030010DF86 /* PrefixHeader.pch */,
 			);
 			path = Pipeline;
 			sourceTree = "<group>";
@@ -89,6 +108,33 @@
 				8363236B232546460010DF86 /* RHTcpServer.m */,
 			);
 			path = Server;
+			sourceTree = "<group>";
+		};
+		8363236E232688950010DF86 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				8363237623268BDF0010DF86 /* RHAboutViewController.h */,
+				8363237723268BDF0010DF86 /* RHAboutViewController.m */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
+		8363236F232688960010DF86 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				8363237323268BCB0010DF86 /* RHHomeViewController.h */,
+				8363237423268BCB0010DF86 /* RHHomeViewController.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		836323862327A0950010DF86 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				836323872327A1120010DF86 /* RHClientViewController.h */,
+				836323882327A1120010DF86 /* RHClientViewController.m */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 		8AD4633DA433C4E99996BFEC /* Pods */ = {
@@ -233,7 +279,6 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -249,8 +294,12 @@
 			files = (
 				8363236C232546460010DF86 /* RHTcpServer.m in Sources */,
 				8363235823252EDC0010DF86 /* ViewController.m in Sources */,
+				83632372232689EC0010DF86 /* RHTabBarViewController.m in Sources */,
+				836323892327A1120010DF86 /* RHClientViewController.m in Sources */,
 				8363236323252EDD0010DF86 /* main.m in Sources */,
 				8363235523252EDC0010DF86 /* AppDelegate.m in Sources */,
+				8363237823268BDF0010DF86 /* RHAboutViewController.m in Sources */,
+				8363237523268BCB0010DF86 /* RHHomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +445,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = Pipeline/PrefixHeader.pch;
 				INFOPLIST_FILE = Pipeline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -416,6 +466,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = Pipeline/PrefixHeader.pch;
 				INFOPLIST_FILE = Pipeline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

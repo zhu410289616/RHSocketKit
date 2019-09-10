@@ -10,6 +10,10 @@
 
 #import "RHTcpServer.h"
 
+#import "RHTabBarViewController.h"
+#import "RHHomeViewController.h"
+#import "RHAboutViewController.h"
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) RHTcpServer *echoServer;
@@ -24,9 +28,35 @@
     
     _echoServer = [[RHTcpServer alloc] init];
     
+    // 界面
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self createTabBarController];
+    
     return YES;
 }
 
+- (void)createTabBarController {
+    RHTabBarViewController *tabBarViewController = [[RHTabBarViewController alloc] init];
+
+    // home
+    RHHomeViewController *home = [[RHHomeViewController alloc] init];
+    QMUINavigationController *homeNav = [[QMUINavigationController alloc] initWithRootViewController:home];
+    homeNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
+    homeNav.tabBarItem.selectedImage = UIImageMake(@"icon_tabbar_lab_selected");
+    AddAccessibilityHint(homeNav.tabBarItem, @"测试 RHSocketKit 含有的功能");
+    
+    // about
+    RHAboutViewController *about = [[RHAboutViewController alloc] init];
+    QMUINavigationController *aboutNav = [[QMUINavigationController alloc] initWithRootViewController:about];
+    aboutNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"About" image:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
+    aboutNav.tabBarItem.selectedImage = UIImageMake(@"icon_tabbar_component_selected");
+    AddAccessibilityHint(aboutNav.tabBarItem, @"和 RHSocketKit 相关的介绍");
+
+    // window root controller
+    tabBarViewController.viewControllers = @[homeNav, aboutNav];
+    self.window.rootViewController = tabBarViewController;
+    [self.window makeKeyAndVisible];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

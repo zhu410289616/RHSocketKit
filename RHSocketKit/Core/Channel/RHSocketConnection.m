@@ -152,16 +152,16 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    RHSocketLog(@"socketDidDisconnect: %@", err.description);
+    RHSocketLog(@"[Log]: socketDidDisconnect: %@", err.description);
     [self didDisconnect:self withError:err];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    RHSocketLog(@"didConnectToHost: %@, port: %d", host, port);
+    RHSocketLog(@"[Log]: didConnectToHost: %@, port: %d", host, port);
     
     if (self.connectParam.useSecureConnection) {
-        RHSocketLog(@"_useSecureConnection: %i", self.connectParam.useSecureConnection);
+        RHSocketLog(@"[Log]: _useSecureConnection: %i", self.connectParam.useSecureConnection);
         [sock startTLS:self.connectParam.tlsSettings];
         return;
     }
@@ -171,20 +171,20 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 
 - (void)socketDidSecure:(GCDAsyncSocket *)sock
 {
-    RHSocketLog(@"socketDidSecure...");
+    RHSocketLog(@"[Log]: socketDidSecure...");
     [self didConnect:self toHost:sock.connectedHost port:sock.connectedPort];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    RHSocketLog(@"didReadData length: %lu, tag: %ld", (unsigned long)data.length, tag);
+    RHSocketLog(@"[Log]: didReadData length: %lu, tag: %ld", (unsigned long)data.length, tag);
     [self didRead:self withData:data tag:tag];
     [sock readDataWithTimeout:-1 tag:tag];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    RHSocketLog(@"didWriteDataWithTag: %ld", tag);
+    RHSocketLog(@"[Log]: didWriteDataWithTag: %ld", tag);
     [sock readDataWithTimeout:-1 tag:tag];
 }
 

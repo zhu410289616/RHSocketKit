@@ -7,6 +7,7 @@
 //
 
 #import "RHSocketChannel.h"
+#import "RHUpstreamBuffer.h"
 #import "RHDownstreamBuffer.h"
 #import "RHSocketException.h"
 #import "RHSocketPacketContext.h"
@@ -15,12 +16,11 @@
 
 @interface RHSocketChannel ()
 <
+RHUpstreamBufferDelegate,
 RHSocketEncoderOutputProtocol,
-RHDownstreamBufferProtocol,
+RHDownstreamBufferDelegate,
 RHSocketDecoderOutputProtocol
 >
-
-@property (nonatomic, strong, readonly) RHDownstreamBuffer *downstreamBuffer;
 
 @end
 
@@ -35,6 +35,9 @@ RHSocketDecoderOutputProtocol
 {
     if (self = [super initWithConnectParam:connectParam]) {
         _delegateMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory];
+        
+        _upstreamBuffer = [[RHUpstreamBuffer alloc] init];
+        _upstreamBuffer.delegate = self;
         _downstreamBuffer = [[RHDownstreamBuffer alloc] init];
         _downstreamBuffer.delegate = self;
     }
@@ -75,22 +78,21 @@ RHSocketDecoderOutputProtocol
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
-    if (nil == packet) {
-        RHSocketLog(@"Warning: RHSocket asyncSendPacket packet is nil ...");
-        return;
-    };
-    
-    if (nil == _encoder) {
-        RHSocketLog(@"RHSocket Encoder should not be nil ...");
-        return;
-    }
+    [_upstreamBuffer appendSendPacket:packet];
+}
+
+- (void)flushSendPackets
+{
+    NSArray *thePackets = [_upstreamBuffer packetsForFlush];
     
     //发送数据，将编码放入 串行队列 异步处理
     __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [weakSelf.encoder encode:packet output:weakSelf];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        for (id<RHUpstreamPacket> packet in thePackets) {
+            [strongSelf.encoder encode:packet output:strongSelf];
+        }
     } async:YES];
-    
 }
 
 #pragma mark - RHSocketConnectionDelegate
@@ -139,6 +141,34 @@ RHSocketDecoderOutputProtocol
     });
 }
 
+#pragma mark - RHUpstreamBufferDelegate
+
+- (void)packetWillEncode:(NSMutableArray *)packets
+{
+    if (![self isConnected]) {
+        return;
+    }
+    
+    NSArray *thePackets = [packets mutableCopy];
+    [packets removeAllObjects];
+    
+    //发送数据，将编码放入 串行队列 异步处理
+    __weak typeof(self) weakSelf = self;
+    [self dispatchOnSocketQueue:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        for (id<RHUpstreamPacket> packet in thePackets) {
+            [strongSelf.encoder encode:packet output:strongSelf];
+        }
+    } async:YES];
+}
+
+- (void)upstreamBufferOverflow:(id<RHUpstreamBuffer>)upstreamBuffer
+{
+#ifdef DEBUG
+    NSAssert(YES, @"[Error]: upstream buffer overflow :(");
+#endif
+}
+
 #pragma mark - RHSocketEncoderOutputProtocol
 
 - (void)didEncode:(NSData *)data timeout:(NSTimeInterval)timeout
@@ -149,7 +179,7 @@ RHSocketDecoderOutputProtocol
     [self writeData:data timeout:timeout tag:0];
 }
 
-#pragma mark - RHDownstreamBufferProtocol
+#pragma mark - RHDownstreamBufferDelegate
 
 /**
  * 解码前数据缓存块
@@ -172,10 +202,10 @@ RHSocketDecoderOutputProtocol
  * 数据未被正常解码消费，缓冲区溢出
  * bufferData：当前缓冲区数据
  */
-- (void)bufferOverflow:(NSData *)bufferData
+- (void)downstreamBufferOverflow:(NSData *)bufferData
 {
 #ifdef DEBUG
-    NSAssert(YES, @"[Error]: buffer overflow，please check data and decoder");
+    NSAssert(YES, @"[Error]: downstream buffer overflow :(");
 #endif
     [self closeConnection];
 }

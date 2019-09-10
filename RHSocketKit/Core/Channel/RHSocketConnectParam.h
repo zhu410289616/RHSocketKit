@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+/** 建立socket连接所需参数 */
 @interface RHSocketConnectParam : NSObject
 
 /**

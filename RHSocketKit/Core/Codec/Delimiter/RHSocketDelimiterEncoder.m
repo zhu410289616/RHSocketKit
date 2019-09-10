@@ -47,7 +47,7 @@
     [sendData appendData:_delimiterData];//在上行数据的末尾加上分隔符标记
     NSTimeInterval timeout = [upstreamPacket timeout];
     
-    RHSocketLog(@"timeout: %f, sendData: %@", timeout, sendData);
+    RHSocketLog(@"[Log]: timeout: %f, sendData: %@", timeout, sendData);
     [output didEncode:sendData timeout:timeout];
 }
 

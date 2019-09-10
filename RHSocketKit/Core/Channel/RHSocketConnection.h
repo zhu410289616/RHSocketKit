@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RHSocketConnectionDelegate.h"
-#import "RHSocketConfig.h"
+#import "RHSocketMacros.h"
 
 extern NSString * const RHSocketQueueSpecific;
 

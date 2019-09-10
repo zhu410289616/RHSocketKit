@@ -1,21 +1,20 @@
 //
-//  RHSocketHeartbeat.m
-//  Example
+//  RHChannelBeats.m
+//  Pods
 //
-//  Created by zhuruhong on 2019/9/8.
-//  Copyright © 2019年 zhuruhong. All rights reserved.
+//  Created by zhuruhong on 2019/9/10.
 //
 
-#import "RHSocketHeartbeat.h"
+#import "RHChannelBeats.h"
 #import "RHSocketMacros.h"
 
-@interface RHSocketHeartbeat ()
+@interface RHChannelBeats ()
 
 @property (nonatomic, strong) NSTimer *beatsTimer;
 
 @end
 
-@implementation RHSocketHeartbeat
+@implementation RHChannelBeats
 
 - (instancetype)init
 {
@@ -54,7 +53,7 @@
     [self stopBeatsTimer];
     
     _beatsTimer = [NSTimer timerWithTimeInterval:interval target:self selector:@selector(doBeatsTimerFunction) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.beatsTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:_beatsTimer forMode:NSRunLoopCommonModes];
 }
 
 - (void)doBeatsTimerFunction

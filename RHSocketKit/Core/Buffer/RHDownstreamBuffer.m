@@ -48,7 +48,7 @@
         }
         
         if (_dataBuffer.length > _maxBufferSize) {
-            [_delegate bufferOverflow:_dataBuffer];
+            [_delegate downstreamBufferOverflow:self];
         }
     }
 }

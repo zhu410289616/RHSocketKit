@@ -43,7 +43,7 @@
     }
     NSTimeInterval timeout = [upstreamPacket timeout];
     
-    RHSocketLog(@"timeout: %f, sendData: %@", timeout, sendData);
+    RHSocketLog(@"[Log]: timeout: %f, sendData: %@", timeout, sendData);
     [output didEncode:sendData timeout:timeout];
 }
 

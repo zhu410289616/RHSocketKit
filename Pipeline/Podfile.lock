@@ -6,15 +6,43 @@ PODS:
     - CocoaAsyncSocket/RunLoop
   - CocoaAsyncSocket/GCD (7.4.3)
   - CocoaAsyncSocket/RunLoop (7.4.3)
+  - libextobjc (0.6):
+    - libextobjc/EXTADT (= 0.6)
+    - libextobjc/EXTConcreteProtocol (= 0.6)
+    - libextobjc/EXTKeyPathCoding (= 0.6)
+    - libextobjc/EXTNil (= 0.6)
+    - libextobjc/EXTSafeCategory (= 0.6)
+    - libextobjc/EXTScope (= 0.6)
+    - libextobjc/EXTSelectorChecking (= 0.6)
+    - libextobjc/EXTSynthesize (= 0.6)
+    - libextobjc/NSInvocation+EXT (= 0.6)
+    - libextobjc/NSMethodSignature+EXT (= 0.6)
+    - libextobjc/RuntimeExtensions (= 0.6)
+    - libextobjc/UmbrellaHeader (= 0.6)
+  - libextobjc/EXTADT (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTConcreteProtocol (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTKeyPathCoding (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTNil (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSafeCategory (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTScope (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSelectorChecking (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSynthesize (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSInvocation+EXT (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSMethodSignature+EXT (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.6)
+  - libextobjc/UmbrellaHeader (0.6)
   - Masonry (0.6.3)
   - ProtocolBuffers (1.9.9.2)
-  - QMUIKit (3.2.1):
-    - QMUIKit/QMUIComponents (= 3.2.1)
-    - QMUIKit/QMUICore (= 3.2.1)
-    - QMUIKit/QMUILog (= 3.2.1)
-    - QMUIKit/QMUIMainFrame (= 3.2.1)
-    - QMUIKit/QMUIResources (= 3.2.1)
-    - QMUIKit/QMUIWeakObjectContainer (= 3.2.1)
   - QMUIKit/QMUIComponents (3.2.1):
     - QMUIKit/QMUIComponents/NavigationBarTransition (= 3.2.1)
     - QMUIKit/QMUIComponents/QMUIAlertController (= 3.2.1)
@@ -281,9 +309,10 @@ PODS:
 
 DEPENDENCIES:
   - CocoaAsyncSocket (~> 7.4.3)
+  - libextobjc (~> 0.6)
   - Masonry (= 0.6.3)
   - ProtocolBuffers (~> 1.9.9.2)
-  - QMUIKit (~> 3.2.1)
+  - QMUIKit/QMUIComponents (~> 3.2.1)
   - RHSocketKit (from `../RHSocketKit.podspec`)
 
 EXTERNAL SOURCES:
@@ -292,11 +321,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: a18c75dca4b08723628a0bacca6e94803d90be91
+  libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   ProtocolBuffers: 7111461618460961e6b7469177ec45ee551b4f0e
   QMUIKit: a3af645843b9558eb7aaf407b320eaeb45ab6144
-  RHSocketKit: 3cdaabb6cb281139ea1e059f75fd5560326180f2
+  RHSocketKit: ff83f68b719cde2133ebb5aa8fc3a1e6a70563eb
 
-PODFILE CHECKSUM: 5e1ffeff5d30b1b38eea653d927472f45c06025c
+PODFILE CHECKSUM: 2559952657dfea0dcb891f65713473ccdb2bd7f1
 
 COCOAPODS: 1.3.1
