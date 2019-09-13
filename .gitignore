@@ -25,6 +25,7 @@ DerivedData
 #
 #Pods/
 #*.lock
+Pipeline/Pods/
 
 .DS_Store
 #*.xcworkspace

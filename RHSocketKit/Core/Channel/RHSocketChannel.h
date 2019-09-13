@@ -32,6 +32,12 @@
  *  3-发送数据，接收数据，解码数据 都是在socket线程中处理。回调上层处理时，切换回主线程。
  */
 @interface RHSocketChannel : RHSocketConnection
+<
+RHUpstreamBufferDelegate,
+RHSocketEncoderOutputProtocol,
+RHDownstreamBufferDelegate,
+RHSocketDecoderOutputProtocol
+>
 
 /** 上行数据包缓存 */
 @property (nonatomic, strong) id<RHUpstreamBuffer> upstreamBuffer;

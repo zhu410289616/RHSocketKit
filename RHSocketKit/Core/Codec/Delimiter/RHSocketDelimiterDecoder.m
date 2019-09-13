@@ -52,6 +52,7 @@
         //去除分隔符后的数据包
         NSInteger frameLen = resultRange.location - headIndex;
         NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, frameLen)];
+        RHSocketLog(@"[Log]: frameData: %@", frameData);
         
         RHSocketPacketResponse *ctx = [[RHSocketPacketResponse alloc] init];
         ctx.object = frameData;

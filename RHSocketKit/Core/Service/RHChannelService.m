@@ -14,7 +14,7 @@
 @interface RHChannelService ()
 
 @property (nonatomic, strong) RHSocketChannel *channel;
-@property (nonatomic, strong) RHChannelBeats *channelBeats;
+@property (nonatomic, strong) RHChannelConfig *config;
 @property (nonatomic, strong) RHChannelReconnect *channelReconnect;
 
 @end
@@ -31,14 +31,6 @@
     return _channel;
 }
 
-- (RHChannelBeats *)channelBeats
-{
-    if (nil == _channelBeats) {
-        _channelBeats = [[RHChannelBeats alloc] init];
-    }
-    return _channelBeats;
-}
-
 - (RHChannelReconnect *)channelReconnect
 {
     if (nil == _channelReconnect) {
@@ -49,85 +41,43 @@
 
 #pragma mark -
 
-- (void)startServiceWithHost:(NSString *)host port:(int)port
+- (void)startWithConfig:(void (^)(RHChannelConfig *config))configBlock
 {
-    RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
-    connectParam.host = host;
-    connectParam.port = port;
-    [self startServiceWithConnectParam:connectParam];
-}
-
-- (void)startServiceWithConnectParam:(RHSocketConnectParam *)connectParam
-{
-    if (_isRunning) {
-        return;
-    }
+    //配置channel必要参数
+    RHChannelConfig *config = [[RHChannelConfig alloc] init];
+    configBlock(config);
+    self.config = config;
+    [self.config setup:self.channel];
     
     __weak typeof(self) weakSelf = self;
-    
     //重连
     [self.channelReconnect stop];
     self.channelReconnect.connectBlock = ^(RHChannelReconnect *reconnect) {
         //触发重连
         RHSocketLog(@"[Log]: channel reconnect");
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf openConnection];
+        [strongSelf.channel openConnection];
     };
     self.channelReconnect.overBlock = ^(RHChannelReconnect *reconnect) {
         RHSocketLog(@"[Log]: channel reconnect over");
     };
     
-    //心跳
-    [self.channelBeats stop];
-    self.channelBeats.interval = connectParam.heartbeatInterval;
-    self.channelBeats.beatBlock = ^(RHChannelBeats *channelBeats) {
-        //发送心跳包
-        RHSocketLog(@"[Log]: channel beats");
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf asyncSendPacket:strongSelf.heartbeat];
-    };
-    self.channelBeats.overBlock = ^(RHChannelBeats *channelBeats) {
-        RHSocketLog(@"[Log]: channel beats over");
-    };
-    
-    _connectParam = connectParam;
-    [self openConnection];
+    [self.channel addDelegate:self];
+    [self.channel openConnection];
 }
 
 - (void)stopService
 {
-    _connectParam.heartbeatEnabled = NO;
-    _connectParam.autoReconnect = NO;
+    [self.channelReconnect stop];
+    [self.channel closeConnection];
+    [self.channel removeDelegate:self];
     _isRunning = NO;
-    [self closeConnection];
 }
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
     RHSocketLog(@"[Log]: upstream packet %@", [packet stringWithPacket]);
     [self.channel asyncSendPacket:packet];
-}
-
-#pragma mark -
-#pragma mark RHSocketConnection method
-
-- (void)openConnection
-{
-    [self closeConnection];
-    
-    self.channel.connectParam = _connectParam;
-    [self.channel addDelegate:self];
-    self.channel.encoder = _encoder;
-    self.channel.decoder = _decoder;
-    [self.channel openConnection];
-}
-
-- (void)closeConnection
-{
-    if (self.channel) {
-        [self.channel closeConnection];
-        [self.channel removeDelegate:self];
-    }
 }
 
 #pragma mark - RHSocketChannelDelegate
@@ -143,8 +93,8 @@
      * 测试场景：连接后直接发起心跳
      * 正常场景：连接后，有用户校验等逻辑，需要在可以通信后开启心跳逻辑
      */
-    if (self.connectParam.heartbeatEnabled) {
-        [self.channelBeats start];
+    if (self.config.connectParam.heartbeatEnabled) {
+        [self.config.channelBeats start];
     }
 }
 
@@ -152,14 +102,12 @@
 {
     _isRunning = NO;
     
-    /** 停止心跳 */
-    [self.channelBeats stop];
     /**
      * 开启重连逻辑
      * 断开场景：开始重连
      * 连接失败：开始重连
      */
-    if (self.connectParam.autoReconnect) {
+    if (self.config.connectParam.autoReconnect) {
         [self.channelReconnect start];
     }
 }

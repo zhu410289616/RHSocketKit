@@ -43,6 +43,7 @@
         }
         //数据包(长度＋内容)
         NSData *frameData = [downstreamData subdataWithRange:NSMakeRange(headIndex, _countOfLengthByte + frameLen)];
+        RHSocketLog(@"[Log]: frameData: %@", frameData);
         
         //去除数据长度后的数据内容
         RHSocketPacketResponse *ctx = [[RHSocketPacketResponse alloc] init];

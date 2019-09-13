@@ -7,20 +7,12 @@
 //
 
 #import "RHSocketChannel.h"
-#import "RHUpstreamBuffer.h"
-#import "RHDownstreamBuffer.h"
 #import "RHSocketException.h"
 #import "RHSocketPacketContext.h"
 #import "RHSocketUtils.h"
 #import "RHSocketMacros.h"
 
 @interface RHSocketChannel ()
-<
-RHUpstreamBufferDelegate,
-RHSocketEncoderOutputProtocol,
-RHDownstreamBufferDelegate,
-RHSocketDecoderOutputProtocol
->
 
 @end
 
@@ -35,11 +27,6 @@ RHSocketDecoderOutputProtocol
 {
     if (self = [super initWithConnectParam:connectParam]) {
         _delegateMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory];
-        
-        _upstreamBuffer = [[RHUpstreamBuffer alloc] init];
-        _upstreamBuffer.delegate = self;
-        _downstreamBuffer = [[RHDownstreamBuffer alloc] init];
-        _downstreamBuffer.delegate = self;
     }
     return self;
 }
@@ -78,12 +65,12 @@ RHSocketDecoderOutputProtocol
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
-    [_upstreamBuffer appendSendPacket:packet];
+    [self.upstreamBuffer appendSendPacket:packet];
 }
 
 - (void)flushSendPackets
 {
-    NSArray *thePackets = [_upstreamBuffer packetsForFlush];
+    NSArray *thePackets = [self.upstreamBuffer packetsForFlush];
     
     //发送数据，将编码放入 串行队列 异步处理
     __weak typeof(self) weakSelf = self;
