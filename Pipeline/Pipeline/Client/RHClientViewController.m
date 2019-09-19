@@ -51,8 +51,12 @@
     switch (_codecType) {
         case RHTestCodecTypeDelimiter:
         {
-            _encoder = [[RHSocketDelimiterEncoder alloc] init];
-            _decoder = [[RHSocketDelimiterDecoder alloc] init];
+            RHSocketDelimiterEncoder *encoder = [[RHSocketDelimiterEncoder alloc] init];
+            encoder.delimiterData = [RHSocketUtils dataFromHexString:@"0d0a"];//0d0a，换行符
+            RHSocketDelimiterDecoder *decoder = [[RHSocketDelimiterDecoder alloc] init];
+            decoder.delimiterData = [RHSocketUtils dataFromHexString:@"0d0a"];//0d0a，换行符
+            _encoder = encoder;
+            _decoder = decoder;
         }
             break;
         case RHTestCodecTypeVariableLength:
@@ -105,8 +109,7 @@
     }];
     
     //测试发送缓存
-    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
-    req.object = @"222222 测试发送缓存";
+    RHSocketPacketRequest *req = [self requestWithCodecType:self.codecType];
     [self.channelService asyncSendPacket:req];
 }
 
@@ -120,6 +123,35 @@
     [super viewDidDisappear:animated];
     [self.channelService.channel removeDelegate:self];
     [self.channelService stopService];
+}
+
+#pragma mark - send test packet
+
+- (RHSocketPacketRequest *)requestWithCodecType:(RHTestCodecType)codecType
+{
+    RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
+    req.object = @"222222 测试发送缓存";
+    
+    switch (codecType) {
+        case RHTestCodecTypeDelimiter:
+        {
+            //上面都是一条一条发送的，编码器会自动加上分隔符。服务端返回也是一条一条的。不太容易出现3条一起返回的。
+            //这里我们模拟一个几条数据组装在一起返回的。
+            NSMutableData *someData = [[NSMutableData alloc] init];
+            [someData appendData:[@"第1块数据" dataUsingEncoding:NSUTF8StringEncoding]];
+            [someData appendData:[RHSocketUtils dataFromHexString:@"0d0a"]];//手动加入分隔符，模拟几条数据一起的数据块
+            [someData appendData:[@"第2块数据" dataUsingEncoding:NSUTF8StringEncoding]];
+            [someData appendData:[RHSocketUtils dataFromHexString:@"0d0a"]];//手动加入分隔符，模拟几条数据一起的数据块
+            [someData appendData:[@"第3块数据" dataUsingEncoding:NSUTF8StringEncoding]];
+            req.object = someData;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return req;
 }
 
 #pragma mark - RHSocketChannelDelegate

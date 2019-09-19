@@ -23,14 +23,11 @@
 /** service是否在运行中 */
 @property (assign, readonly) BOOL isRunning;
 
-/** 固定心跳包 (设置心跳包，在连接成功后，开启心态定时器) */
-//@property (nonatomic, strong) id<RHUpstreamPacket> heartbeat;
-
-//@property (nonatomic, strong, readonly) RHSocketConnectParam *connectParam;
-
+/** 开启channel服务 */
 - (void)startWithConfig:(void (^)(RHChannelConfig *config))configBlock;
+/** 停止channel服务 */
 - (void)stopService;
-
+/** 异步发生数据包 */
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;
 
 @end

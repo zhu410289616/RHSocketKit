@@ -5,11 +5,13 @@
 //  Created by zhuruhong on 2019/9/13.
 //
 
-#import <Foundation/Foundation.h>
+#import "RHChannelService.h"
 
 //NS_ASSUME_NONNULL_BEGIN
 
-@interface RHSocketClient : NSObject
+@interface RHSocketClient : RHChannelService
+
++ (instancetype)sharedInstance;
 
 @end
 

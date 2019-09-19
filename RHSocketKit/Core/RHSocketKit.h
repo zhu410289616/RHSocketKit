@@ -34,5 +34,6 @@
 #import <RHSocketKit/RHSocketUtils+Protobuf.h>
 
 #import <RHSocketKit/RHChannelService.h>
+#import <RHSocketKit/RHSocketClient.h>
 
 #endif /* RHSocketKit_h */

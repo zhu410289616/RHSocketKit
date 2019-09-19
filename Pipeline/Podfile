@@ -5,7 +5,7 @@ target 'Pipeline' do
 	pod 'RHSocketKit', :path => '../RHSocketKit.podspec'
 	pod 'CocoaAsyncSocket', '~> 7.4.3'
     
-	pod 'ProtocolBuffers', '~> 1.9.9.2'
+    #pod 'ProtocolBuffers', '~> 1.9.9.2'
     pod 'libextobjc', '~> 0.6'
     
 	pod 'Masonry', '0.6.3'
