@@ -58,8 +58,11 @@
 
 /**
  *  解码器协议
+ *  先校验decodeData:output:方法，如果未实现，则走decode:output:方法
  */
 @protocol RHSocketDecoderProtocol <NSObject>
+
+@optional
 
 /**
  *  解码器 2.3.0
@@ -71,7 +74,7 @@
  */
 - (NSInteger)decodeData:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output;
 
-@optional
+@required
 
 /**
  *  解码器

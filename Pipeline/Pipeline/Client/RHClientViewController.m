@@ -78,34 +78,21 @@
     
     __weak typeof(self) weakSelf = self;
     
-    //心跳
-    [self.channelBeats stop];
-    self.channelBeats.interval = _connectParam.heartbeatInterval;
-    self.channelBeats.beatBlock = ^(RHChannelBeats *channelBeats) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf.connectParam.heartbeatEnabled) {
-            return;
-        }
-        //发送心跳包
-        RHSocketLog(@"[Log]: channel beats");
-        
-        //测试心跳包
-        NSDate *currentTime = [NSDate date];
-        NSString *text = [NSString stringWithFormat:@"111111 我是是是是心跳包啊 %@", currentTime];
-        RHSocketPacketRequest *heartbeat = [[RHSocketPacketRequest alloc] init];
-        heartbeat.object = text;
-        [strongSelf.channelService asyncSendPacket:heartbeat];
-    };
-    self.channelBeats.overBlock = ^(RHChannelBeats *channelBeats) {
-        RHSocketLog(@"[Log]: channel beats over");
-    };
+    //测试心跳包
+    NSDate *currentTime = [NSDate date];
+    NSString *text = [NSString stringWithFormat:@"111111 我是是是是心跳包啊 %@", currentTime];
+    RHSocketPacketRequest *heartbeat = [[RHSocketPacketRequest alloc] init];
+    heartbeat.object = text;
     
     [self.channelService startWithConfig:^(RHChannelConfig *config) {
-        config.connectParam = weakSelf.connectParam;
-        config.encoder = weakSelf.encoder;
-        config.decoder = weakSelf.decoder;
-        config.channelBeats = weakSelf.channelBeats;
-        config.delegate = self;
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        config.connectParam = strongSelf.connectParam;
+        config.encoder = strongSelf.encoder;
+        config.decoder = strongSelf.decoder;
+        config.channelBeats.heartbeatBlock = ^id<RHUpstreamPacket>{
+            return heartbeat;
+        };
+        config.delegate = strongSelf;
     }];
     
     //测试发送缓存

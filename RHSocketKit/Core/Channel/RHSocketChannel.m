@@ -18,6 +18,13 @@
 
 @implementation RHSocketChannel
 
+#ifdef DEBUG
+- (void)dealloc
+{
+    RHSocketLog(@"[Log]: %@ dealloc", self.class);
+}
+#endif
+
 - (instancetype)init
 {
     return [self initWithConnectParam:nil];

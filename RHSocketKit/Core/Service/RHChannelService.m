@@ -21,6 +21,13 @@
 
 @implementation RHChannelService
 
+#ifdef DEBUG
+- (void)dealloc
+{
+    RHSocketLog(@"[Log]: %@ dealloc", self.class);
+}
+#endif
+
 #pragma mark - getter & setter
 
 - (RHSocketChannel *)channel
@@ -68,6 +75,7 @@
 
 - (void)stopService
 {
+    [self.config.channelBeats stop];
     [self.channelReconnect stop];
     [self.channel closeConnection];
     [self.channel removeDelegate:self];
