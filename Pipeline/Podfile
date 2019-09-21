@@ -2,12 +2,12 @@ platform:ios,'9.0'
 
 target 'Pipeline' do
 
-	pod 'RHSocketKit', :path => '../RHSocketKit.podspec'
-    pod 'RHSocketKit/CodecExt', :path => '../RHSocketKit.podspec'
+	#pod 'RHSocketKit/CodecExt', :git=> 'https://github.com/zhu410289616/RHSocketKit.git', :tag => '2.3.0'
+ 	pod 'RHSocketKit/CodecExt', :path => '../RHSocketKit.podspec'
 	pod 'CocoaAsyncSocket', '~> 7.4.3'
     
-    #pod 'ProtocolBuffers', '~> 1.9.9.2'
-    pod 'libextobjc', '~> 0.6'
+	#pod 'ProtocolBuffers', '~> 1.9.9.2'
+	pod 'libextobjc', '~> 0.6'
     
 	pod 'Masonry', '0.6.3'
 	pod 'QMUIKit/QMUIComponents', '~> 3.2.1'

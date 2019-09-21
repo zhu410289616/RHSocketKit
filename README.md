@@ -19,6 +19,29 @@ pod 'RHSocketKit'
 pod 'RHSocketKit/Extend'
 `
 
+## 工程Demo迁移
+
+<mark>Example工程较久未维护，计划废弃；目前代码已经迁移到Pipeline目录下的Pipeline工程中，想要学习了解的同学可以直接跑Pipeline工程；</mark>
+
+> 进入到Pipeline目录，然后只想 **pod install** 命令
+> 
+> 如果在Xcode10中出现如下错误提升：
+> 
+> Multiple commands produce '/Users/zhuruhong/Library/Developer/Xcode/DerivedData/Pipeline-hfoiorbrhlstyohibtuanawzieym/Build/Products/Debug-iphonesimulator/Pipeline.app':
+> 
+> 1) Target 'Pipeline' has create directory command with output '/Users/zhuruhong/Library/Developer/Xcode/DerivedData/Pipeline-hfoiorbrhlstyohibtuanawzieym/Build/Products/Debug-iphonesimulator/Pipeline.app'
+>
+> 2) That command depends on command in Target 'Pipeline': script phase "[CP] Copy Pods Resources"
+>
+> 请按照下面方法解决：
+> 
+> 1. In Xcode, go to File->Project/Workspace settings.
+> 
+> 2. Change the build system to Legacy Build system.
+> 
+
+
+
 ## Features [Log](https://github.com/zhu410289616/RHSocketKit/blob/master/Log.md)
 框架的设计运用了一些设计模式，通过组合和协议编程，灵活多变，扩展方便。</br>
 `目前框架的核心在core目录中，主要组件有connection，channel，packet，codec，exception，utils，其中codec的实现是业务重点。`</br>

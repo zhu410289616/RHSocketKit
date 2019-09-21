@@ -49,6 +49,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     _connectParam = [[RHSocketConnectParam alloc] init];
     _connectParam.host = @"127.0.0.1";
     _connectParam.port = 4522;
