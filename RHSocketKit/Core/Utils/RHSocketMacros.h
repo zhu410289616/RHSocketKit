@@ -24,6 +24,9 @@
 
 #define RHSocketBlockRun(block, ...) block ? block(__VA_ARGS__) : nil
 
-#define APP_VERSION      [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define RH_APP_VERSION      [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define RH_BUILD_VERSION    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
+#define RH_DISPLAY_NAME     [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
+#define RH_BUNDLE_NAME      [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
 
 #endif /* RHSocketMacros_h */

@@ -13,6 +13,8 @@
 
 @interface RHChannelConfig : NSObject
 
+/** 集成统计，只在【DEBUG】环境下生效，可以设置关闭 */
+@property (nonatomic, assign) BOOL sendAnalyticsToMe;
 /** 上行数据包缓存 */
 @property (nonatomic, strong) id<RHUpstreamBuffer> upstreamBuffer;
 /** 下行数据包缓存 */
