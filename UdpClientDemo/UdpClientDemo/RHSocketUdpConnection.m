@@ -8,7 +8,7 @@
 
 #import "RHSocketUdpConnection.h"
 #import "GCDAsyncUdpSocket.h"
-#import "RHSocketConfig.h"
+#import <RHSocketKit/RHSocketKit.h>
 
 @interface RHSocketUdpConnection () <GCDAsyncUdpSocketDelegate>
 

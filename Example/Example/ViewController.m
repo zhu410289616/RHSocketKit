@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "RHSocketChannel.h"
-#import "RHSocketChannel+Heartbeat.h"
+#import <RHSocketKit/RHSocketKit.h>
 
 #import "RHSocketStringEncoder.h"
 #import "RHSocketStringDecoder.h"
@@ -31,8 +30,6 @@
 #import "RHSocketHttpDecoder.h"
 #import "RHSocketHttpRequest.h"
 #import "RHSocketHttpResponse.h"
-
-#import "RHSocketConfig.h"
 
 //
 #import "RHSocketService.h"
@@ -68,7 +65,7 @@
 @property (nonatomic, strong) UIButton *protobufTestButton;
 @property (nonatomic, strong) UIButton *protobufCodecTestButton;
 
-@property (nonatomic, strong) RHSocketChannelDefault *channel;
+@property (nonatomic, strong) RHChannelService *channelService;
 
 @end
 
@@ -290,9 +287,9 @@
     decoder.nextDecoder = stringDecoder;//base64Decoder;
     
     //
-    if (_channel) {
-        [_channel closeConnection];
-        _channel = nil;
+    if (_channelService) {
+        [_channelService stopService];
+        _channelService = nil;
     }
     //
     RHSocketConnectParam *connectParam = [[RHSocketConnectParam alloc] init];
@@ -301,11 +298,6 @@
     connectParam.autoReconnect = YES;
     connectParam.heartbeatInterval = 10;//设置心跳间隔10秒
     
-    _channel = [[RHSocketChannelDefault alloc] initWithConnectParam:connectParam];
-    [_channel addDelegate:self];
-    _channel.encoder = jsonEncoder;//base64Encoder;//stringEncoder;
-    _channel.decoder = decoder;
-    
     /**
      设置心跳包
      (有人问，我这里的object为什么是json格式，其他格式就发送失败。那是因为我上面设置的encoder和decoder组合参数)
@@ -313,10 +305,19 @@
      */
     RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
     req.object = [@"{\"key\":\"Heartbeat\"}" dataUsingEncoding:NSUTF8StringEncoding];
-    _channel.heartbeat = req;
     
-    [_channel openConnection];
-    
+    _channelService = [[RHChannelService alloc] init];
+    @weakify(self);
+    [_channelService startWithConfig:^(RHChannelConfig *config) {
+        @strongify(self);
+        config.connectParam = connectParam;
+        config.encoder = jsonDecoder;
+        config.decoder = decoder;
+        config.delegate = self;
+        config.channelBeats.heartbeatBlock = ^id<RHUpstreamPacket>{
+            return req;
+        };
+    }];
 }
 
 - (void)channelOpened:(RHSocketChannel *)channel host:(NSString *)host port:(int)port

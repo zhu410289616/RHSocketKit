@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RHSocketKit/RHSocketKit.h>
 #import "RHSocketCallReplyProtocol.h"
-#import "RHSocketConfig.h"
 
 /**
  *  请求

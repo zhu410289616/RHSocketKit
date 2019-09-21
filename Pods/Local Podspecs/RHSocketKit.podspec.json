@@ -1,6 +1,6 @@
 {
   "name": "RHSocketKit",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "summary": "A socket kit based on CocoaAsyncSocket.",
   "homepage": "https://github.com/zhu410289616/RHSocketKit",
   "license": {
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/zhu410289616/RHSocketKit.git",
-    "tag": "2.2.3"
+    "tag": "2.2.4"
   },
   "default_subspecs": "Core",
   "subspecs": [
@@ -27,11 +27,7 @@
           "~> 7.4.3"
         ]
       },
-      "source_files": [
-        "RHSocketKit/Core/*.{h,m}",
-        "RHSocketKit/Core/{Channel,Codec,Exception,Packet,Utils,Buffer}/*.{h,m}",
-        "RHSocketKit/Core/Codec/{Delimiter,Protobuf,VariableLength}/*.{h,m}"
-      ],
+      "source_files": "RHSocketKit/Core/**/*",
       "requires_arc": true
     },
     {
@@ -51,7 +47,7 @@
 
         ]
       },
-      "source_files": "RHSocketKit/Extend/Codec/{Base64Codec,SerializationCodec,StringCodec}/*.{h,m}",
+      "source_files": "RHSocketKit/Extend/Codec/*/*.{h,m}",
       "requires_arc": true
     },
     {
