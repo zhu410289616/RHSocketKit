@@ -9,27 +9,33 @@
 #import "RHClientViewController.h"
 #import <RHSocketKit/RHSocketKit.h>
 
+#import <RHSocketKit/RHSocketStringDecoder.h>
+#import <RHSocketKit/RHSocketStringEncoder.h>
+
+//http
+#import "RHSocketHttpEncoder.h"
+#import "RHSocketHttpDecoder.h"
+#import "RHSocketHttpRequest.h"
+#import "RHSocketHttpResponse.h"
+
+//custom
+#import "RHSocketCustom0330Encoder.h"
+#import "RHSocketCustom0330Decoder.h"
+#import "RHSocketCustomRequest.h"
+#import "RHSocketCustomResponse.h"
+
 @interface RHClientViewController () <RHSocketChannelDelegate>
 
 /** 数据发送时使用的编码器 */
 @property (nonatomic, strong) id<RHSocketEncoderProtocol> encoder;
 /** 数据接收后处理的解码器 */
 @property (nonatomic, strong) id<RHSocketDecoderProtocol> decoder;
-@property (nonatomic, strong) RHChannelBeats *channelBeats;
 @property (nonatomic, strong) RHSocketConnectParam *connectParam;
 @property (nonatomic, strong) RHChannelService *channelService;
 
 @end
 
 @implementation RHClientViewController
-
-- (RHChannelBeats *)channelBeats
-{
-    if (nil == _channelBeats) {
-        _channelBeats = [[RHChannelBeats alloc] init];
-    }
-    return _channelBeats;
-}
 
 - (RHChannelService *)channelService
 {
@@ -71,6 +77,31 @@
             _decoder = [[RHProtobufVarint32LengthDecoder alloc] init];
         }
             break;
+        case RHTestCodecTypeHttp:
+        {
+            _connectParam.host = @"www.baidu.com";
+            _connectParam.port = 80;
+            _connectParam.heartbeatEnabled = NO;
+            
+            RHSocketHttpEncoder *encoder = [[RHSocketHttpEncoder alloc] init];
+            RHSocketHttpDecoder *decoder = [[RHSocketHttpDecoder alloc] init];
+            RHSocketStringDecoder *stringDecoder = [[RHSocketStringDecoder alloc] init];
+            decoder.nextDecoder = stringDecoder;
+            _encoder = encoder;
+            _decoder = decoder;
+        }
+            break;
+        case RHTestCodecTypeCustom:
+        {
+            _connectParam.heartbeatEnabled = NO;
+            
+            //变长编解码。包体＝包头（包体的长度）＋包体数据
+            RHSocketCustom0330Encoder *encoder = [[RHSocketCustom0330Encoder alloc] init];
+            RHSocketCustom0330Decoder *decoder = [[RHSocketCustom0330Decoder alloc] init];
+            _encoder = encoder;
+            _decoder = decoder;
+        }
+            break;
             
         default:
             break;
@@ -79,11 +110,8 @@
     __weak typeof(self) weakSelf = self;
     
     //测试心跳包
-    NSDate *currentTime = [NSDate date];
-    NSString *text = [NSString stringWithFormat:@"111111 我是是是是心跳包啊 %@", currentTime];
-    RHSocketPacketRequest *heartbeat = [[RHSocketPacketRequest alloc] init];
-    heartbeat.object = text;
-    
+    RHSocketPacketRequest *heartbeat = [self heartbeatWithCodecType:self.codecType];
+    //开启连接通道
     [self.channelService startWithConfig:^(RHChannelConfig *config) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         config.connectParam = strongSelf.connectParam;
@@ -110,6 +138,17 @@
     [super viewDidDisappear:animated];
     [self.channelService.channel removeDelegate:self];
     [self.channelService stopService];
+}
+
+#pragma mark - heartbeat packet
+
+- (RHSocketPacketRequest *)heartbeatWithCodecType:(RHTestCodecType)codecType
+{
+    NSDate *currentTime = [NSDate date];
+    NSString *text = [NSString stringWithFormat:@"111111 我是是是是心跳包啊 %@", currentTime];
+    RHSocketPacketRequest *heartbeat = [[RHSocketPacketRequest alloc] init];
+    heartbeat.object = text;
+    return heartbeat;
 }
 
 #pragma mark - send test packet
@@ -147,6 +186,31 @@
 {
     RHSocketLog(@"[Log]: channel opened %@:%d", host, port);
     
+    if (self.codecType == RHTestCodecTypeHttp) {
+        RHSocketHttpRequest *req = [[RHSocketHttpRequest alloc] init];
+        [self.channelService asyncSendPacket:req];
+        return;
+    } else if (self.codecType == RHTestCodecTypeCustom) {
+        //连接成功后，发送数据包
+        RHSocketCustomRequest *req = [[RHSocketCustomRequest alloc] init];
+        req.fenGeFu = 0x24;
+        req.dataType = 1234;
+        req.object = [@"自定义编码器和解码器测试数据包1" dataUsingEncoding:NSUTF8StringEncoding];
+        [self.channelService asyncSendPacket:req];
+        
+        req = [[RHSocketCustomRequest alloc] init];
+        req.fenGeFu = 0x24;
+        req.dataType = 12;
+        req.object = [@"自定义编码器和解码器测试数据包20" dataUsingEncoding:NSUTF8StringEncoding];
+        [self.channelService asyncSendPacket:req];
+        
+        req = [[RHSocketCustomRequest alloc] init];
+        req.fenGeFu = 0x24;
+        req.dataType = 0;
+        req.object = [@"自定义编码器和解码器测试数据包300" dataUsingEncoding:NSUTF8StringEncoding];
+        [self.channelService asyncSendPacket:req];
+    }
+    
     RHSocketPacketRequest *req = [[RHSocketPacketRequest alloc] init];
     req.object = @"333333 测试发送数据包";
     [self.channelService asyncSendPacket:req];
@@ -160,6 +224,10 @@
 - (void)channel:(RHSocketChannel *)channel received:(id<RHDownstreamPacket>)packet
 {
     RHSocketLog(@"[Log]: received %@", [packet dataWithPacket]);
+    
+    if ([packet isKindOfClass:[RHSocketHttpResponse class]]) {
+        RHSocketLog(@"[Log]: Http Response = %@", [packet object]);
+    }
 }
 
 @end

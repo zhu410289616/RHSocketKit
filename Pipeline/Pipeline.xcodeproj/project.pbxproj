@@ -19,6 +19,15 @@
 		8363237523268BCB0010DF86 /* RHHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363237423268BCB0010DF86 /* RHHomeViewController.m */; };
 		8363237823268BDF0010DF86 /* RHAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363237723268BDF0010DF86 /* RHAboutViewController.m */; };
 		836323892327A1120010DF86 /* RHClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836323882327A1120010DF86 /* RHClientViewController.m */; };
+		83DD64BE2335FFAD00DA03C7 /* RHSocketHttpDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64B92335FFAD00DA03C7 /* RHSocketHttpDecoder.m */; };
+		83DD64BF2335FFAD00DA03C7 /* RHSocketHttpEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64BA2335FFAD00DA03C7 /* RHSocketHttpEncoder.m */; };
+		83DD64C02335FFAD00DA03C7 /* RHSocketHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64BB2335FFAD00DA03C7 /* RHSocketHttpRequest.m */; };
+		83DD64C12335FFAD00DA03C7 /* RHSocketHttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64BC2335FFAD00DA03C7 /* RHSocketHttpResponse.m */; };
+		83DD64CC2336069300DA03C7 /* custom0330.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 83DD64C52336069300DA03C7 /* custom0330.jpg */; };
+		83DD64CD2336069300DA03C7 /* RHSocketCustom0330Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64C62336069300DA03C7 /* RHSocketCustom0330Encoder.m */; };
+		83DD64CE2336069300DA03C7 /* RHSocketCustomRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64C72336069300DA03C7 /* RHSocketCustomRequest.m */; };
+		83DD64CF2336069300DA03C7 /* RHSocketCustomResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64C82336069300DA03C7 /* RHSocketCustomResponse.m */; };
+		83DD64D02336069300DA03C7 /* RHSocketCustom0330Decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD64C92336069300DA03C7 /* RHSocketCustom0330Decoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +54,23 @@
 		8363237E232798030010DF86 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		836323872327A1120010DF86 /* RHClientViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHClientViewController.h; sourceTree = "<group>"; };
 		836323882327A1120010DF86 /* RHClientViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHClientViewController.m; sourceTree = "<group>"; };
+		83DD64B62335FFAD00DA03C7 /* RHSocketHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpRequest.h; sourceTree = "<group>"; };
+		83DD64B72335FFAD00DA03C7 /* RHSocketHttpEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpEncoder.h; sourceTree = "<group>"; };
+		83DD64B82335FFAD00DA03C7 /* RHSocketHttpResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpResponse.h; sourceTree = "<group>"; };
+		83DD64B92335FFAD00DA03C7 /* RHSocketHttpDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpDecoder.m; sourceTree = "<group>"; };
+		83DD64BA2335FFAD00DA03C7 /* RHSocketHttpEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpEncoder.m; sourceTree = "<group>"; };
+		83DD64BB2335FFAD00DA03C7 /* RHSocketHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpRequest.m; sourceTree = "<group>"; };
+		83DD64BC2335FFAD00DA03C7 /* RHSocketHttpResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketHttpResponse.m; sourceTree = "<group>"; };
+		83DD64BD2335FFAD00DA03C7 /* RHSocketHttpDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketHttpDecoder.h; sourceTree = "<group>"; };
+		83DD64C32336069300DA03C7 /* RHSocketCustomResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCustomResponse.h; sourceTree = "<group>"; };
+		83DD64C42336069300DA03C7 /* RHSocketCustom0330Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCustom0330Decoder.h; sourceTree = "<group>"; };
+		83DD64C52336069300DA03C7 /* custom0330.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = custom0330.jpg; sourceTree = "<group>"; };
+		83DD64C62336069300DA03C7 /* RHSocketCustom0330Encoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketCustom0330Encoder.m; sourceTree = "<group>"; };
+		83DD64C72336069300DA03C7 /* RHSocketCustomRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketCustomRequest.m; sourceTree = "<group>"; };
+		83DD64C82336069300DA03C7 /* RHSocketCustomResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketCustomResponse.m; sourceTree = "<group>"; };
+		83DD64C92336069300DA03C7 /* RHSocketCustom0330Decoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSocketCustom0330Decoder.m; sourceTree = "<group>"; };
+		83DD64CA2336069300DA03C7 /* RHSocketCustom0330Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCustom0330Encoder.h; sourceTree = "<group>"; };
+		83DD64CB2336069300DA03C7 /* RHSocketCustomRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSocketCustomRequest.h; sourceTree = "<group>"; };
 		CA7E9B7CE34973C7A4D8116B /* Pods-Pipeline.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pipeline.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pipeline/Pods-Pipeline.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,10 +157,43 @@
 		836323862327A0950010DF86 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				83DD64C22336069300DA03C7 /* RHSocketCustom0330 */,
+				83DD64B52335FFAD00DA03C7 /* Http */,
 				836323872327A1120010DF86 /* RHClientViewController.h */,
 				836323882327A1120010DF86 /* RHClientViewController.m */,
 			);
 			path = Client;
+			sourceTree = "<group>";
+		};
+		83DD64B52335FFAD00DA03C7 /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				83DD64B72335FFAD00DA03C7 /* RHSocketHttpEncoder.h */,
+				83DD64BA2335FFAD00DA03C7 /* RHSocketHttpEncoder.m */,
+				83DD64BD2335FFAD00DA03C7 /* RHSocketHttpDecoder.h */,
+				83DD64B92335FFAD00DA03C7 /* RHSocketHttpDecoder.m */,
+				83DD64B62335FFAD00DA03C7 /* RHSocketHttpRequest.h */,
+				83DD64BB2335FFAD00DA03C7 /* RHSocketHttpRequest.m */,
+				83DD64B82335FFAD00DA03C7 /* RHSocketHttpResponse.h */,
+				83DD64BC2335FFAD00DA03C7 /* RHSocketHttpResponse.m */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		83DD64C22336069300DA03C7 /* RHSocketCustom0330 */ = {
+			isa = PBXGroup;
+			children = (
+				83DD64C52336069300DA03C7 /* custom0330.jpg */,
+				83DD64CA2336069300DA03C7 /* RHSocketCustom0330Encoder.h */,
+				83DD64C62336069300DA03C7 /* RHSocketCustom0330Encoder.m */,
+				83DD64C42336069300DA03C7 /* RHSocketCustom0330Decoder.h */,
+				83DD64C92336069300DA03C7 /* RHSocketCustom0330Decoder.m */,
+				83DD64CB2336069300DA03C7 /* RHSocketCustomRequest.h */,
+				83DD64C72336069300DA03C7 /* RHSocketCustomRequest.m */,
+				83DD64C32336069300DA03C7 /* RHSocketCustomResponse.h */,
+				83DD64C82336069300DA03C7 /* RHSocketCustomResponse.m */,
+			);
+			path = RHSocketCustom0330;
 			sourceTree = "<group>";
 		};
 		8AD4633DA433C4E99996BFEC /* Pods */ = {
@@ -216,6 +275,7 @@
 			files = (
 				8363236023252EDD0010DF86 /* LaunchScreen.storyboard in Resources */,
 				8363235D23252EDD0010DF86 /* Assets.xcassets in Resources */,
+				83DD64CC2336069300DA03C7 /* custom0330.jpg in Resources */,
 				8363235B23252EDC0010DF86 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,14 +352,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DD64D02336069300DA03C7 /* RHSocketCustom0330Decoder.m in Sources */,
+				83DD64BE2335FFAD00DA03C7 /* RHSocketHttpDecoder.m in Sources */,
 				8363236C232546460010DF86 /* RHTcpServer.m in Sources */,
 				8363235823252EDC0010DF86 /* ViewController.m in Sources */,
+				83DD64C12335FFAD00DA03C7 /* RHSocketHttpResponse.m in Sources */,
 				83632372232689EC0010DF86 /* RHTabBarViewController.m in Sources */,
 				836323892327A1120010DF86 /* RHClientViewController.m in Sources */,
+				83DD64CF2336069300DA03C7 /* RHSocketCustomResponse.m in Sources */,
+				83DD64CD2336069300DA03C7 /* RHSocketCustom0330Encoder.m in Sources */,
+				83DD64BF2335FFAD00DA03C7 /* RHSocketHttpEncoder.m in Sources */,
+				83DD64C02335FFAD00DA03C7 /* RHSocketHttpRequest.m in Sources */,
 				8363236323252EDD0010DF86 /* main.m in Sources */,
 				8363235523252EDC0010DF86 /* AppDelegate.m in Sources */,
 				8363237823268BDF0010DF86 /* RHAboutViewController.m in Sources */,
 				8363237523268BCB0010DF86 /* RHHomeViewController.m in Sources */,
+				83DD64CE2336069300DA03C7 /* RHSocketCustomRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

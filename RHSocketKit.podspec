@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec "CodecExt" do |cs|
-    cs.dependency "RHSocketKit/Extend"
+    cs.dependency "RHSocketKit/Core"
     cs.source_files = "RHSocketKit/Extend/Codec/*/*.{h,m}"
     cs.requires_arc = true
   end

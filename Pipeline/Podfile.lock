@@ -303,6 +303,8 @@ PODS:
   - QMUIKit/QMUIWeakObjectContainer (3.2.1)
   - RHSocketKit (2.2.4):
     - RHSocketKit/Core (= 2.2.4)
+  - RHSocketKit/CodecExt (2.2.4):
+    - RHSocketKit/Core
   - RHSocketKit/Core (2.2.4):
     - CocoaAsyncSocket (~> 7.4.3)
 
@@ -312,6 +314,7 @@ DEPENDENCIES:
   - Masonry (= 0.6.3)
   - QMUIKit/QMUIComponents (~> 3.2.1)
   - RHSocketKit (from `../RHSocketKit.podspec`)
+  - RHSocketKit/CodecExt (from `../RHSocketKit.podspec`)
 
 EXTERNAL SOURCES:
   RHSocketKit:
@@ -322,8 +325,8 @@ SPEC CHECKSUMS:
   libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   QMUIKit: a3af645843b9558eb7aaf407b320eaeb45ab6144
-  RHSocketKit: d1e72f2e075f72bce914c3fb8df754664fd93440
+  RHSocketKit: d61609f212497851792c068f78da8e8b572df1d9
 
-PODFILE CHECKSUM: ecfee55e69b73bb3f24c212f989394abb750ccd2
+PODFILE CHECKSUM: 5d21f83473f9b51c9933b06d451fd28f52d97712
 
 COCOAPODS: 1.3.1
