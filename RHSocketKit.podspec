@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RHSocketKit"
-  s.version      = "2.2.4"
+  s.version      = "2.3.0"
   s.summary      = "A socket kit based on CocoaAsyncSocket."
   s.homepage     = "https://github.com/zhu410289616/RHSocketKit"
   s.license      = { :type => "Apache", :file => "LICENSE" }
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.default_subspec = "Core"
 
   s.subspec "Core" do |cs|
-    cs.dependency 'CocoaAsyncSocket', '~> 7.4.3'
+    cs.dependency 'CocoaAsyncSocket'
     cs.source_files = "RHSocketKit/Core/**/*" 
     cs.requires_arc = true
   end

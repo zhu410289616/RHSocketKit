@@ -1,6 +1,6 @@
 {
   "name": "RHSocketKit",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "summary": "A socket kit based on CocoaAsyncSocket.",
   "homepage": "https://github.com/zhu410289616/RHSocketKit",
   "license": {
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/zhu410289616/RHSocketKit.git",
-    "tag": "2.2.4"
+    "tag": "2.3.0"
   },
   "default_subspecs": "Core",
   "subspecs": [
@@ -24,7 +24,7 @@
       "name": "Core",
       "dependencies": {
         "CocoaAsyncSocket": [
-          "~> 7.4.3"
+
         ]
       },
       "source_files": "RHSocketKit/Core/**/*",
@@ -43,7 +43,7 @@
     {
       "name": "CodecExt",
       "dependencies": {
-        "RHSocketKit/Extend": [
+        "RHSocketKit/Core": [
 
         ]
       },
