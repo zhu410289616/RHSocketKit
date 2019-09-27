@@ -118,9 +118,22 @@
     [self readDataWithTimeout:-1 tag:0];
 }
 
+- (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
+{
+    NSData *theData = data;
+    if ([self.writeInterceptor respondsToSelector:@selector(interceptor:error:)]) {
+        theData = [self.writeInterceptor interceptor:theData error:nil];
+    }
+    [super writeData:theData timeout:timeout tag:tag];
+}
+
 - (void)didRead:(id<RHSocketConnectionDelegate>)con withData:(NSData *)data tag:(long)tag
 {
-    [_downstreamBuffer appendReceiveData:data];
+    NSData *theData = data;
+    if ([self.readInterceptor respondsToSelector:@selector(interceptor:error:)]) {
+        theData = [self.readInterceptor interceptor:theData error:nil];
+    }
+    [self.downstreamBuffer appendReceiveData:theData];
 }
 
 - (void)didReceived:(id<RHSocketConnectionDelegate>)con withPacket:(id<RHDownstreamPacket>)packet

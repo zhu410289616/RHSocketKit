@@ -117,6 +117,8 @@
     [self.channelService startWithConfig:^(RHChannelConfig *config) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         config.connectParam = strongSelf.connectParam;
+        config.readInterceptor = [[RHDataInterceptor alloc] init];
+        config.writeInterceptor = [[RHDataInterceptor alloc] init];
         config.encoder = strongSelf.encoder;
         config.decoder = strongSelf.decoder;
         config.channelBeats.heartbeatBlock = ^id<RHUpstreamPacket>{

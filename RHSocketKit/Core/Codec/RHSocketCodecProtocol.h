@@ -42,6 +42,11 @@
  */
 @protocol RHSocketEncoderProtocol <NSObject>
 
+@optional
+
+/** 链式编码 */
+@property (nonatomic, strong) id<RHSocketEncoderProtocol> nextEncoder;
+
 @required
 
 /**
@@ -73,6 +78,9 @@
  *  @return -1解码异常; 0数据不完整，等待数据包; >0解码正常，为已解码数据长度
  */
 - (NSInteger)decodeData:(NSData *)downstreamData output:(id<RHSocketDecoderOutputProtocol>)output;
+
+/** 链式解码 */
+@property (nonatomic, strong) id<RHSocketDecoderProtocol> nextDecoder;
 
 @required
 

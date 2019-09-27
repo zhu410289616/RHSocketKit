@@ -15,6 +15,10 @@
 
 /** 集成统计，只在【DEBUG】环境下生效，可以设置关闭 */
 @property (nonatomic, assign) BOOL sendAnalyticsToMe;
+/** 拦截写通道的最终数据 */
+@property (nonatomic, strong) id<RHSocketInterceptorProtocol> writeInterceptor;
+/** 拦截读通道的最初数据 */
+@property (nonatomic, strong) id<RHSocketInterceptorProtocol> readInterceptor;
 /** 上行数据包缓存 */
 @property (nonatomic, strong) id<RHUpstreamBuffer> upstreamBuffer;
 /** 下行数据包缓存 */

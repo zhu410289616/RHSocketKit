@@ -25,6 +25,10 @@
 #import <RHSocketKit/RHUpstreamBuffer.h>
 #import <RHSocketKit/RHDownstreamBuffer.h>
 
+//interceptor
+#import <RHSocketKit/RHSocketInterceptorProtocol.h>
+#import <RHSocketKit/RHDataInterceptor.h>
+
 //channel
 #import <RHSocketKit/RHSocketConnectParam.h>
 #import <RHSocketKit/RHSocketConnectionDelegate.h>

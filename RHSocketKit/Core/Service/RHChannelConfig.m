@@ -55,6 +55,8 @@
 - (void)setup:(RHSocketChannel *)channel
 {
     channel.connectParam = self.connectParam;
+    channel.writeInterceptor = self.writeInterceptor;
+    channel.readInterceptor = self.readInterceptor;
     channel.upstreamBuffer = self.upstreamBuffer;
     channel.upstreamBuffer.delegate = channel;
     channel.downstreamBuffer = self.downstreamBuffer;
