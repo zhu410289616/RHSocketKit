@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4F2D6EF203B0D437E671AE20 /* libPods-Pipeline.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCC9AE2B3DCD22A1321C5A9 /* libPods-Pipeline.a */; };
+		8313CDFC233FAF7D0036A3A2 /* RHReceivePacketCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8313CDFB233FAF7D0036A3A2 /* RHReceivePacketCache.m */; };
+		8313CDFF233FAF8E0036A3A2 /* RHSendPacketCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8313CDFE233FAF8E0036A3A2 /* RHSendPacketCache.m */; };
 		8363235523252EDC0010DF86 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363235423252EDC0010DF86 /* AppDelegate.m */; };
 		8363235823252EDC0010DF86 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363235723252EDC0010DF86 /* ViewController.m */; };
 		8363235B23252EDC0010DF86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8363235923252EDC0010DF86 /* Main.storyboard */; };
@@ -33,6 +35,10 @@
 /* Begin PBXFileReference section */
 		2CCC9AE2B3DCD22A1321C5A9 /* libPods-Pipeline.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pipeline.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EA2BB68ED737EA9D9587CCD /* Pods-Pipeline.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pipeline.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pipeline/Pods-Pipeline.release.xcconfig"; sourceTree = "<group>"; };
+		8313CDFA233FAF7D0036A3A2 /* RHReceivePacketCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHReceivePacketCache.h; sourceTree = "<group>"; };
+		8313CDFB233FAF7D0036A3A2 /* RHReceivePacketCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHReceivePacketCache.m; sourceTree = "<group>"; };
+		8313CDFD233FAF8E0036A3A2 /* RHSendPacketCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHSendPacketCache.h; sourceTree = "<group>"; };
+		8313CDFE233FAF8E0036A3A2 /* RHSendPacketCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHSendPacketCache.m; sourceTree = "<group>"; };
 		8363235023252EDC0010DF86 /* Pipeline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pipeline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8363235323252EDC0010DF86 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8363235423252EDC0010DF86 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -161,6 +167,10 @@
 				83DD64B52335FFAD00DA03C7 /* Http */,
 				836323872327A1120010DF86 /* RHClientViewController.h */,
 				836323882327A1120010DF86 /* RHClientViewController.m */,
+				8313CDFA233FAF7D0036A3A2 /* RHReceivePacketCache.h */,
+				8313CDFB233FAF7D0036A3A2 /* RHReceivePacketCache.m */,
+				8313CDFD233FAF8E0036A3A2 /* RHSendPacketCache.h */,
+				8313CDFE233FAF8E0036A3A2 /* RHSendPacketCache.m */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -361,12 +371,14 @@
 				83632372232689EC0010DF86 /* RHTabBarViewController.m in Sources */,
 				836323892327A1120010DF86 /* RHClientViewController.m in Sources */,
 				83DD64CF2336069300DA03C7 /* RHSocketCustomResponse.m in Sources */,
+				8313CDFF233FAF8E0036A3A2 /* RHSendPacketCache.m in Sources */,
 				83DD64CD2336069300DA03C7 /* RHSocketCustom0330Encoder.m in Sources */,
 				83DD64BF2335FFAD00DA03C7 /* RHSocketHttpEncoder.m in Sources */,
 				83DD64C02335FFAD00DA03C7 /* RHSocketHttpRequest.m in Sources */,
 				8363236323252EDD0010DF86 /* main.m in Sources */,
 				8363235523252EDC0010DF86 /* AppDelegate.m in Sources */,
 				8363237823268BDF0010DF86 /* RHAboutViewController.m in Sources */,
+				8313CDFC233FAF7D0036A3A2 /* RHReceivePacketCache.m in Sources */,
 				8363237523268BCB0010DF86 /* RHHomeViewController.m in Sources */,
 				83DD64CE2336069300DA03C7 /* RHSocketCustomRequest.m in Sources */,
 			);

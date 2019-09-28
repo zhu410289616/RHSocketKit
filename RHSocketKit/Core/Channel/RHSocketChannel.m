@@ -231,6 +231,7 @@
 
 - (void)didDecode:(id<RHDownstreamPacket>)packet
 {
+    [self.downstreamBuffer decodedPakcet:packet];
     [self didReceived:self withPacket:packet];
 }
 

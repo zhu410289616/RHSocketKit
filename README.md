@@ -5,19 +5,27 @@
 [![Platform](http://img.shields.io/cocoapods/p/RHSocketKit.svg?style=flat)](http://cocoapods.org/?q=RHSocketKit)
 [![License](https://img.shields.io/cocoapods/l/RHSocketKit.svg)](http://cocoadocs.org/docsets/RHSocketKit)
 
-socket网络通信框架</br>
+**socket网络通信框架**
+
 虽然CocoaAsyncSocket已经非常的成熟，但是项目，业务，协议等不同导致tcp模块的公用性不高，需要根据协议重新订制调整，不能直接拷贝框架使用。
-为了减少调整消耗的时间，对tcp模块中相关的内容进行拆分实现。</br>`其中专为和netty通信互通而实现了3个主要编解码器：1-DelimiterBasedFrame。2-LengthFieldBasedFrame。3-ProtobufVarint32Frame。`
+为了减少调整消耗的时间，对tcp模块中相关的内容进行拆分实现。
 
-## CocoaPods
-`
-pod 'RHSocketKit'
-`
+### 功能简介
+* TCP支持缓存拼包功能
+* 支持快速实现自定义编码解码
+* 默认支持分隔符编解码、可变长度编解码、protobuf基础通信编解码
+* 支持发送数据包内存级缓存
+* 支持心跳设置，快速自定义
+* 支持TCP自动重连
+* TCP链接支持1对多观察者
+* 通信底层增加interceptor拦截器，方便数据观察及其他自定义扩展
 
-如果需要RHSocketService等对象，可以通过下面的方式使用
-`
-pod 'RHSocketKit/Extend'
-`
+其中专为和netty通信互通而实现了3个主要编解码器：
+
+* 1 分隔符编解码：RHSocketDelimiterDecoder, RHSocketDelimiterEncoder
+* 2 可变长度编解码：RHSocketVariableLengthDecoder, RHSocketVariableLengthEncoder
+* 3 protobuf通信编解码：RHProtobufVarint32LengthDecoder, RHProtobufVarint32LengthEncoder
+
 
 ## 工程Demo迁移
 
@@ -41,13 +49,24 @@ pod 'RHSocketKit/Extend'
 > 
 
 
+## CocoaPods
+```
+pod 'RHSocketKit'
+```
+
 
 ## Features [Log](https://github.com/zhu410289616/RHSocketKit/blob/master/Log.md)
-框架的设计运用了一些设计模式，通过组合和协议编程，灵活多变，扩展方便。</br>
-`目前框架的核心在core目录中，主要组件有connection，channel，packet，codec，exception，utils，其中codec的实现是业务重点。`</br>
-另外，RHSocketService是一个单例实现，方便直接调用。RPC是一个深度封装的内容，需要理解框架才能使用。
-![image](https://raw.githubusercontent.com/zhu410289616/RHSocketKit/master/Docs/RHSocketUML.png)
+框架的设计运用了一些设计模式，通过组合和协议编程，灵活多变，扩展方便。
 
+**目前框架的核心在core目录中，主要组件有connection，channel，packet，codec，exception，utils，其中codec的实现是业务重点。**
+
+另外，RHSocketService是一个单例实现，方便直接调用。RPC是一个深度封装的内容，需要理解框架才能使用。
+
+
+![image](./Docs/RHSocketUML.png)
+
+
+---
 ### RHSocketConnection
 ```
 socket网络连接对象，只负责socket网络的连接通信，内部使用GCDAsyncSocket。
@@ -187,7 +206,7 @@ socket网络连接对象，只负责socket网络的连接通信，内部使用GC
 ## 联系方式
 qq:        410289616<br/>
 email:     <zhu410289616@163.com><br/>
-qq群1:      330585393 (该群已满)<br/>
+qq群1:      330585393<br/>
 qq群2:      371293816<br/>
 qq群3:      231199626<br/>
 

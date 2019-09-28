@@ -67,6 +67,8 @@
 @property (nonatomic,   weak) id<RHDownstreamBufferDelegate> delegate;
 /** 下行数据写入缓存buffer */
 - (void)appendReceiveData:(NSData *)receiveData;
+/** 解码后的数据包，可以再次处理数据包的持久化缓存和状态更新 */
+- (void)decodedPakcet:(id<RHDownstreamPacket>)packet;
 
 @end
 
