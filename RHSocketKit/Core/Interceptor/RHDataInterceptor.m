@@ -10,12 +10,12 @@
 
 @implementation RHDataInterceptor
 
-- (NSData *)interceptor:(NSData *)interceptData error:(NSError *)error
+- (NSData *)interceptor:(NSData *)interceptData userInfo:(NSDictionary *)userInfo
 {
     NSData *theData = interceptData;
-    RHSocketLog(@"[Log]: intercept data: %@", theData);
-    if ([self.nextInterceptor respondsToSelector:@selector(interceptor:error:)]) {
-        theData = [self.nextInterceptor interceptor:theData error:error];
+    RHSocketLog(@"[Hook]: intercept data: %@, %@", theData, userInfo);
+    if ([self.nextInterceptor respondsToSelector:@selector(interceptor:userInfo:)]) {
+        theData = [self.nextInterceptor interceptor:theData userInfo:userInfo];
     }
     return theData;
 }

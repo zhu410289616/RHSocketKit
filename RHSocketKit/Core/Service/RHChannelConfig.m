@@ -58,9 +58,7 @@
     channel.writeInterceptor = self.writeInterceptor;
     channel.readInterceptor = self.readInterceptor;
     channel.upstreamBuffer = self.upstreamBuffer;
-    channel.upstreamBuffer.delegate = channel;
     channel.downstreamBuffer = self.downstreamBuffer;
-    channel.downstreamBuffer.delegate = channel;
     channel.encoder = self.encoder;
     channel.decoder = self.decoder;
     [channel addDelegate:self.delegate];

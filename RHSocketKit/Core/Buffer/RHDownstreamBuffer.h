@@ -16,10 +16,10 @@
  */
 @interface RHDownstreamBuffer : NSObject <RHDownstreamBuffer>
 
+/** 下行数据缓存 */
+@property (nonatomic, strong) NSMutableData *dataBuffer;
 /** 缓存数据块最大值，默认为8192 */
 @property (nonatomic, assign) NSUInteger maxBufferSize;
-/** 缓存收到下行数据回调 */
-@property (nonatomic,   weak) id<RHDownstreamBufferDelegate> delegate;
 
 @end
 

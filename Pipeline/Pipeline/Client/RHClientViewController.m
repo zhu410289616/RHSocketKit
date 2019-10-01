@@ -12,6 +12,10 @@
 #import <RHSocketKit/RHSocketStringDecoder.h>
 #import <RHSocketKit/RHSocketStringEncoder.h>
 
+//buffer
+#import "RHReceivePacketCache.h"
+#import "RHSendPacketCache.h"
+
 //http
 #import "RHSocketHttpEncoder.h"
 #import "RHSocketHttpDecoder.h"
@@ -119,6 +123,8 @@
         config.connectParam = strongSelf.connectParam;
         config.readInterceptor = [[RHDataInterceptor alloc] init];
         config.writeInterceptor = [[RHDataInterceptor alloc] init];
+        config.downstreamBuffer = [[RHReceivePacketCache alloc] init];
+        config.upstreamBuffer = [[RHSendPacketCache alloc] init];
         config.encoder = strongSelf.encoder;
         config.decoder = strongSelf.decoder;
         config.channelBeats.heartbeatBlock = ^id<RHUpstreamPacket>{

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RHSocketConnectionDelegate.h"
-#import "RHSocketMacros.h"
+#import "RHSocketInterceptorProtocol.h"
 
 extern NSString * const RHSocketQueueSpecific;
 
@@ -18,6 +18,10 @@ extern NSString * const RHSocketQueueSpecific;
  *  2-封装的另一个目的是，易于后续更新调整。如果不想使用GCDAsyncSocket，只想修改内部实现即可，对外不产生影响。
  */
 @interface RHSocketConnection : NSObject <RHSocketConnectionDelegate>
+
+/** 底层数据拦截 */
+@property (nonatomic, strong) id<RHSocketInterceptorProtocol> writeInterceptor;
+@property (nonatomic, strong) id<RHSocketInterceptorProtocol> readInterceptor;
 
 @property (nonatomic, strong) RHSocketConnectParam *connectParam;
 

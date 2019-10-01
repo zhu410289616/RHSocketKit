@@ -16,10 +16,10 @@
  */
 @interface RHUpstreamBuffer : NSObject <RHUpstreamBuffer>
 
+/** 上行数据包缓存 */
+@property (nonatomic, strong) NSMutableArray *packetBuffer;
 /** 缓存数据包个数，默认为30 */
 @property (nonatomic, assign) NSUInteger maxPacketSize;
-/** 缓存收到上行数据回调 */
-@property (nonatomic,   weak) id<RHUpstreamBufferDelegate> delegate;
 
 @end
 

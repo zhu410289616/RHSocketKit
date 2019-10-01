@@ -17,7 +17,7 @@
 
 @required
 
-- (NSData *)interceptor:(NSData *)interceptData error:(NSError *)error;
+- (NSData *)interceptor:(NSData *)interceptData userInfo:(NSDictionary *)userInfo;
 
 @end
 

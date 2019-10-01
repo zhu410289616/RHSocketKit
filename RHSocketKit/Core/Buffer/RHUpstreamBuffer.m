@@ -8,12 +8,6 @@
 
 #import "RHUpstreamBuffer.h"
 
-@interface RHUpstreamBuffer ()
-
-@property (nonatomic, strong) NSMutableArray *packetBuffer;
-
-@end
-
 @implementation RHUpstreamBuffer
 
 - (instancetype)init
@@ -26,20 +20,29 @@
 }
 
 - (void)appendSendPacket:(id<RHUpstreamPacket>)packet
+                  encode:(RHUpstreamBufferEncode)encodeCallback
+                overflow:(RHUpstreamBufferOverflow)overflowCallback
 {
     if (nil == packet) {
         return;
     }
     
-    NSAssert(_delegate, @"[Error]: RHUpstreamBuffer delegate is nil");
+    if (nil == encodeCallback) {
+#ifdef DEBUG
+        NSAssert(YES, @"[Error]: upstream buffer encodeCallback is nil :(");
+#endif
+        return;
+    }
     
     @synchronized (self) {
-        [_packetBuffer addObject:packet];
+        [self.packetBuffer addObject:packet];
         
-        [_delegate packetWillEncode:_packetBuffer];
+        if (encodeCallback) {
+            encodeCallback(self.packetBuffer);
+        }
         
-        if (_packetBuffer.count > _maxPacketSize) {
-            [_delegate upstreamBufferOverflow:self];
+        if (overflowCallback && self.packetBuffer.count > self.maxPacketSize) {
+            overflowCallback(self);
         }
     }
 }
@@ -47,8 +50,8 @@
 - (NSArray *)packetsForFlush
 {
     @synchronized (self) {
-        NSArray *theFlushPackets = [_packetBuffer mutableCopy];
-        [_packetBuffer removeAllObjects];
+        NSArray *theFlushPackets = [self.packetBuffer mutableCopy];
+        [self.packetBuffer removeAllObjects];
         return theFlushPackets;
     }
 }

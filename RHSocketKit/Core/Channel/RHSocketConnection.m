@@ -7,7 +7,10 @@
 //
 
 #import "RHSocketConnection.h"
+#import "RHSocketMacros.h"
 #import "GCDAsyncSocket.h"
+#import "NSObject+RHExtends.h"
+#import "NSMutableDictionary+RHExtends.h"
 
 NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecific";
 
@@ -34,6 +37,8 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
         
         //connect param
         _connectParam = connectParam;
+        
+        [self injectInterceptor];
     }
     return self;
 }
@@ -54,21 +59,13 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
         return;
     }
     
-    if (async) {
-        dispatch_async([self socketQueue], ^{
-            @autoreleasepool {
-                block();
-            }
-        });
-        return;
-    }
-    
-    dispatch_sync([self socketQueue], ^{
-        @autoreleasepool {
-            block();
-        }
-    });
+    [self rh_dispatchOnQueue:[self socketQueue] block:block async:async];
 }
+
+#pragma mark - interceptor
+
+- (void)injectInterceptor
+{}
 
 #pragma mark - RHSocketConnection protocol
 
@@ -115,19 +112,22 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
     return result;
 }
 
+/** override */
 - (void)didDisconnect:(id<RHSocketConnectionDelegate>)con withError:(NSError *)err
 {
-    //override
+    RHSocketLog(@"[Log]: socketDidDisconnect: %@", err.description);
 }
 
+/** override */
 - (void)didConnect:(id<RHSocketConnectionDelegate>)con toHost:(NSString *)host port:(uint16_t)port
 {
-    //override
+    RHSocketLog(@"[Log]: didConnectToHost: %@, port: %d", host, port);
 }
 
+/** override */
 - (void)didRead:(id<RHSocketConnectionDelegate>)con withData:(NSData *)data tag:(long)tag
 {
-    //override
+    RHSocketLog(@"[Log]: didReadData length: %lu, tag: %ld", (unsigned long)data.length, tag);
 }
 
 #pragma mark - read & write
@@ -144,7 +144,16 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 {
     __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
-        [weakSelf.asyncSocket writeData:data withTimeout:timeout tag:tag];
+        //数据写入前拦截writeInterceptor
+        NSData *theData = data;
+        if ([self.writeInterceptor respondsToSelector:@selector(interceptor:userInfo:)]) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+            [userInfo rh_setValueEx:@(tag) forKey:@"tag"];
+            [userInfo rh_setValueEx:@(timeout) forKey:@"timeout"];
+            theData = [self.readInterceptor interceptor:theData userInfo:userInfo];
+        }
+        
+        [weakSelf.asyncSocket writeData:theData withTimeout:timeout tag:tag];
     } async:YES];
 }
 
@@ -152,16 +161,13 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    RHSocketLog(@"[Log]: socketDidDisconnect: %@", err.description);
     [self didDisconnect:self withError:err];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    RHSocketLog(@"[Log]: didConnectToHost: %@, port: %d", host, port);
-    
     if (self.connectParam.useSecureConnection) {
-        RHSocketLog(@"[Log]: _useSecureConnection: %i", self.connectParam.useSecureConnection);
+        RHSocketLog(@"[GCDAsyncSocket]: use secure connection");
         [sock startTLS:self.connectParam.tlsSettings];
         return;
     }
@@ -171,20 +177,29 @@ NSString * const RHSocketQueueSpecific = @"com.zrh.rhsocket.RHSocketQueueSpecifi
 
 - (void)socketDidSecure:(GCDAsyncSocket *)sock
 {
-    RHSocketLog(@"[Log]: socketDidSecure...");
+    RHSocketLog(@"[GCDAsyncSocket]: socketDidSecure...");
     [self didConnect:self toHost:sock.connectedHost port:sock.connectedPort];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    RHSocketLog(@"[Log]: didReadData length: %lu, tag: %ld", (unsigned long)data.length, tag);
-    [self didRead:self withData:data tag:tag];
+    //读取到数据拦截readInterceptor
+    NSData *theData = data;
+    if ([self.readInterceptor respondsToSelector:@selector(interceptor:userInfo:)]) {
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+        [userInfo rh_setValueEx:@(tag) forKey:@"tag"];
+        [userInfo rh_setValueEx:sock forKey:@"sock"];
+        theData = [self.readInterceptor interceptor:theData userInfo:userInfo];
+    }
+    [self didRead:self withData:theData tag:tag];
+    
+    //读取数据后，继续读取后面数据
     [sock readDataWithTimeout:-1 tag:tag];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    RHSocketLog(@"[Log]: didWriteDataWithTag: %ld", tag);
+    RHSocketLog(@"[GCDAsyncSocket]: didWriteDataWithTag: %ld", tag);
     [sock readDataWithTimeout:-1 tag:tag];
 }
 

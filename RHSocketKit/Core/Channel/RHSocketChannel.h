@@ -7,7 +7,6 @@
 //
 
 #import "RHSocketConnection.h"
-#import "RHSocketInterceptorProtocol.h"
 #import "RHChannelBufferProtocol.h"
 #import "RHSocketCodecProtocol.h"
 
@@ -34,14 +33,9 @@
  */
 @interface RHSocketChannel : RHSocketConnection
 <
-RHUpstreamBufferDelegate,
 RHSocketEncoderOutputProtocol,
-RHDownstreamBufferDelegate,
 RHSocketDecoderOutputProtocol
 >
-
-@property (nonatomic, strong) id<RHSocketInterceptorProtocol> writeInterceptor;
-@property (nonatomic, strong) id<RHSocketInterceptorProtocol> readInterceptor;
 
 /** 上行数据包缓存 */
 @property (nonatomic, strong) id<RHUpstreamBuffer> upstreamBuffer;
@@ -64,8 +58,12 @@ RHSocketDecoderOutputProtocol
 - (void)addDelegate:(id<RHSocketChannelDelegate>)delegate;
 - (void)removeDelegate:(id<RHSocketChannelDelegate>)delegate;
 
+#pragma mark - connection
+
 - (void)openConnection;
 - (void)closeConnection;
+
+#pragma mark - send packet
 
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet;
 /** 重连成功后，刷新发送缓存区 */

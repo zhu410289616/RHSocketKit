@@ -8,12 +8,6 @@
 
 #import "RHDownstreamBuffer.h"
 
-@interface RHDownstreamBuffer ()
-
-@property (nonatomic, strong) NSMutableData *dataBuffer;
-
-@end
-
 @implementation RHDownstreamBuffer
 
 - (instancetype)init
@@ -26,29 +20,36 @@
 }
 
 - (void)appendReceiveData:(NSData *)receiveData
+                   decode:(RHDownstreamBufferDecode)decodeCallback
+                 overflow:(RHDownstreamBufferOverflow)overflowCallback
 {
     if (receiveData.length == 0) {
         return;
     }
     
-    NSAssert(_delegate, @"[Error]: RHDownstreamBuffer delegate is nil");
+    if (nil == decodeCallback) {
+#ifdef DEBUG
+        NSAssert(YES, @"[Error]: downstream buffer decodeCallback is nil :(");
+#endif
+        return;
+    }
     
     @synchronized (self) {
-        [_dataBuffer appendData:receiveData];
+        [self.dataBuffer appendData:receiveData];
         
-        NSInteger decodedLength = [_delegate dataWillDecode:_dataBuffer];
-        if (decodedLength > 0) {
-            NSRange remainRange = NSMakeRange(decodedLength, _dataBuffer.length - decodedLength);
-            NSData *remainData = [_dataBuffer subdataWithRange:remainRange];
-            [_dataBuffer setData:remainData];
-            
-            if ([_delegate respondsToSelector:@selector(dataDidDecode:)]) {
-                [_delegate dataDidDecode:_dataBuffer.length];
-            }
+        NSInteger decodedLength = 0;
+        if (decodeCallback) {
+            decodedLength = decodeCallback(self.dataBuffer);
         }
         
-        if (_dataBuffer.length > _maxBufferSize) {
-            [_delegate downstreamBufferOverflow:self];
+        if (decodedLength > 0) {
+            NSRange remainRange = NSMakeRange(decodedLength, self.dataBuffer.length - decodedLength);
+            NSData *remainData = [self.dataBuffer subdataWithRange:remainRange];
+            [self.dataBuffer setData:remainData];
+        }
+        
+        if (overflowCallback && self.dataBuffer.length > self.maxBufferSize) {
+            overflowCallback(self);
         }
     }
 }

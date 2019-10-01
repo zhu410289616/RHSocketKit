@@ -56,6 +56,8 @@
     [self.delegateMap removeObjectForKey:key];
 }
 
+#pragma mark - connection
+
 - (void)openConnection
 {
     if ([self isConnected]) {
@@ -70,23 +72,31 @@
     [self disconnect];
 }
 
+#pragma mark - send packet
+
 - (void)asyncSendPacket:(id<RHUpstreamPacket>)packet
 {
-    [self.upstreamBuffer appendSendPacket:packet];
+    __weak typeof(self) weakSelf = self;
+    [self.upstreamBuffer appendSendPacket:packet encode:^(NSMutableArray *packets) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (![strongSelf isConnected]) {
+            return;
+        }
+        
+        NSArray *thePackets = [packets mutableCopy];
+        [packets removeAllObjects];
+        [strongSelf encodeOfUpstreamPackets:thePackets];
+    } overflow:^(id<RHUpstreamBuffer> upstreamBuffer) {
+#ifdef DEBUG
+        NSAssert(YES, @"[Error]: upstream buffer overflow :(");
+#endif
+    }];
 }
 
 - (void)flushSendPackets
 {
     NSArray *thePackets = [self.upstreamBuffer packetsForFlush];
-    
-    //发送数据，将编码放入 串行队列 异步处理
-    __weak typeof(self) weakSelf = self;
-    [self dispatchOnSocketQueue:^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        for (id<RHUpstreamPacket> packet in thePackets) {
-            [strongSelf.encoder encode:packet output:strongSelf];
-        }
-    } async:YES];
+    [self encodeOfUpstreamPackets:thePackets];
 }
 
 #pragma mark - RHSocketConnectionDelegate
@@ -118,22 +128,19 @@
     [self readDataWithTimeout:-1 tag:0];
 }
 
-- (void)writeData:(NSData *)data timeout:(NSTimeInterval)timeout tag:(long)tag
-{
-    NSData *theData = data;
-    if ([self.writeInterceptor respondsToSelector:@selector(interceptor:error:)]) {
-        theData = [self.writeInterceptor interceptor:theData error:nil];
-    }
-    [super writeData:theData timeout:timeout tag:tag];
-}
-
 - (void)didRead:(id<RHSocketConnectionDelegate>)con withData:(NSData *)data tag:(long)tag
 {
-    NSData *theData = data;
-    if ([self.readInterceptor respondsToSelector:@selector(interceptor:error:)]) {
-        theData = [self.readInterceptor interceptor:theData error:nil];
-    }
-    [self.downstreamBuffer appendReceiveData:theData];
+    __weak typeof(self) weakSelf = self;
+    [self.downstreamBuffer appendReceiveData:data decode:^NSInteger(NSData *bufferData) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        return [strongSelf decodeOfDownstreamData:bufferData];
+    } overflow:^(id<RHDownstreamBuffer> downstreamBuffer) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+#ifdef DEBUG
+        NSAssert(YES, @"[Error]: downstream buffer overflow :(");
+#endif
+        [strongSelf closeConnection];
+    }];
 }
 
 - (void)didReceived:(id<RHSocketConnectionDelegate>)con withPacket:(id<RHDownstreamPacket>)packet
@@ -148,32 +155,18 @@
     });
 }
 
-#pragma mark - RHUpstreamBufferDelegate
+#pragma mark - encode
 
-- (void)packetWillEncode:(NSMutableArray *)packets
+/** 发送数据，将编码放入 串行队列 异步处理 */
+- (void)encodeOfUpstreamPackets:(NSArray *)bufferPackets
 {
-    if (![self isConnected]) {
-        return;
-    }
-    
-    NSArray *thePackets = [packets mutableCopy];
-    [packets removeAllObjects];
-    
-    //发送数据，将编码放入 串行队列 异步处理
     __weak typeof(self) weakSelf = self;
     [self dispatchOnSocketQueue:^{
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        for (id<RHUpstreamPacket> packet in thePackets) {
+        for (id<RHUpstreamPacket> packet in bufferPackets) {
             [strongSelf.encoder encode:packet output:strongSelf];
         }
     } async:YES];
-}
-
-- (void)upstreamBufferOverflow:(id<RHUpstreamBuffer>)upstreamBuffer
-{
-#ifdef DEBUG
-    NSAssert(YES, @"[Error]: upstream buffer overflow :(");
-#endif
 }
 
 #pragma mark - RHSocketEncoderOutputProtocol
@@ -186,14 +179,9 @@
     [self writeData:data timeout:timeout tag:0];
 }
 
-#pragma mark - RHDownstreamBufferDelegate
+#pragma mark - decode
 
-/**
- * 解码前数据缓存块
- * bufferData：待解码数据块
- * return：已经解码数据块大小
- */
-- (NSInteger)dataWillDecode:(NSData *)bufferData
+- (NSInteger)decodeOfDownstreamData:(NSData *)bufferData
 {
     //2.3.0版本开始
     if ([_decoder respondsToSelector:@selector(decodeData:output:)]) {
@@ -205,33 +193,16 @@
     return [_decoder decode:ctx output:self];
 }
 
-/**
- * 数据未被正常解码消费，缓冲区溢出
- * bufferData：当前缓冲区数据
- */
-- (void)downstreamBufferOverflow:(NSData *)bufferData
-{
-#ifdef DEBUG
-    NSAssert(YES, @"[Error]: downstream buffer overflow :(");
-#endif
-    [self closeConnection];
-}
-
-/**
- * 解码后剩余数据缓存块
- * bufferData：剩余数据块
- * decodedSize：本次解码数据块大小
- */
-- (void)dataDidDecode:(NSInteger)remainDataSize
-{
-    RHSocketLog(@"[Log]: remain data size: %ld", remainDataSize);
-}
-
 #pragma mark - RHSocketDecoderOutputProtocol
 
 - (void)didDecode:(id<RHDownstreamPacket>)packet
 {
-    [self.downstreamBuffer decodedPakcet:packet];
+    //通知缓存已经解码到数据包，可以用于状态更新等操作
+    if ([self.downstreamBuffer respondsToSelector:@selector(decodedPakcet:)]) {
+        [self.downstreamBuffer decodedPakcet:packet];
+    }
+    
+    //通知channel已经接收到新数据包
     [self didReceived:self withPacket:packet];
 }
 

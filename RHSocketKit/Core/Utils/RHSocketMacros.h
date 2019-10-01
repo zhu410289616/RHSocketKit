@@ -22,7 +22,7 @@
 #endif
 
 
-#define RHSocketBlockRun(block, ...) block ? block(__VA_ARGS__) : nil
+#define RHSocketBlockRun(block, ...) ((block) ? block(__VA_ARGS__) : nil)
 
 #define RH_APP_VERSION      [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define RH_BUILD_VERSION    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
