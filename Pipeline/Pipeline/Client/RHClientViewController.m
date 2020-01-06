@@ -59,6 +59,7 @@
     _connectParam.host = @"127.0.0.1";
     _connectParam.port = 4522;
     _connectParam.heartbeatInterval = 5;
+    _connectParam.autoReconnect = YES;
     
     switch (_codecType) {
         case RHTestCodecTypeDelimiter:
@@ -114,9 +115,6 @@
     }
     
     __weak typeof(self) weakSelf = self;
-    
-    //测试心跳包
-    RHSocketPacketRequest *heartbeat = [self heartbeatWithCodecType:self.codecType];
     //开启连接通道
     [self.channelService startWithConfig:^(RHChannelConfig *config) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -127,8 +125,11 @@
         config.upstreamBuffer = [[RHSendPacketCache alloc] init];
         config.encoder = strongSelf.encoder;
         config.decoder = strongSelf.decoder;
+        __weak typeof(self) weakSelf = self;
         config.channelBeats.heartbeatBlock = ^id<RHUpstreamPacket>{
-            return heartbeat;
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            //测试心跳包
+            return [strongSelf heartbeatWithCodecType:strongSelf.codecType];
         };
         config.delegate = strongSelf;
     }];
