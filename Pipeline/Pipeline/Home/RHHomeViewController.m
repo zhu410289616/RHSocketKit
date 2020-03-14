@@ -18,12 +18,12 @@
     return self;
 }
 
-- (void)setupNavigationItems {
-    [super setupNavigationItems];
-    self.title = @"Home";
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:self action:@selector(handleAboutItemEvent)];
-    AddAccessibilityLabel(self.navigationItem.rightBarButtonItem, @"当前IP");
-}
+//- (void)setupNavigationItems {
+//    [super setupNavigationItems];
+//    self.title = @"Home";
+//    self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:self action:@selector(handleAboutItemEvent)];
+//    AddAccessibilityLabel(self.navigationItem.rightBarButtonItem, @"当前IP");
+//}
 
 - (void)handleAboutItemEvent {
     
@@ -68,20 +68,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = @"normal";
-    QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.textLabel.text = [self.dataSource objectAtIndex:indexPath.row];
-    cell.textLabel.font = UIFontMake(15);
-    cell.detailTextLabel.font = UIFontMake(13);
-    [cell updateCellAppearanceWithIndexPath:indexPath];
+//    cell.textLabel.font = UIFontMake(15);
+//    cell.detailTextLabel.font = UIFontMake(13);
+//    [cell updateCellAppearanceWithIndexPath:indexPath];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return TableViewCellNormalHeight;
+    return 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

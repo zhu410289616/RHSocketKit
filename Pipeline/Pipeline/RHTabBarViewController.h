@@ -6,11 +6,11 @@
 //  Copyright © 2019年 zhuruhong. All rights reserved.
 //
 
-#import <QMUIKit/QMUIKit.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RHTabBarViewController : QMUITabBarViewController
+@interface RHTabBarViewController : UITabBarController
 
 @end
 

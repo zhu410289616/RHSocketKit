@@ -6,11 +6,11 @@
 //  Copyright © 2019年 zhuruhong. All rights reserved.
 //
 
-#import <QMUIKit/QMUIKit.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RHHomeViewController : QMUICommonTableViewController
+@interface RHHomeViewController : UITableViewController
 
 @property(nonatomic, strong) NSArray<NSString *> *dataSource;
 

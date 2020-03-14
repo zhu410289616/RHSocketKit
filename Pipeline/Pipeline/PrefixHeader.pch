@@ -19,7 +19,6 @@
 #import <Foundation/Foundation.h>
 
 #import <Masonry/Masonry.h>
-#import <QMUIKit/QMUIKit.h>
 
 #endif
 

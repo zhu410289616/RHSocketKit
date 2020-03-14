@@ -6,7 +6,7 @@
 //  Copyright © 2019年 zhuruhong. All rights reserved.
 //
 
-#import <QMUIKit/QMUIKit.h>
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, RHTestCodecType) {
     RHTestCodecTypeDelimiter = 0,
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, RHTestCodecType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RHClientViewController : QMUICommonViewController
+@interface RHClientViewController : UIViewController
 
 @property (nonatomic, assign) RHTestCodecType codecType;
 

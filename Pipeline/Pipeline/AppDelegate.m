@@ -40,17 +40,13 @@
 
     // home
     RHHomeViewController *home = [[RHHomeViewController alloc] init];
-    QMUINavigationController *homeNav = [[QMUINavigationController alloc] initWithRootViewController:home];
-    homeNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
-    homeNav.tabBarItem.selectedImage = UIImageMake(@"icon_tabbar_lab_selected");
-    AddAccessibilityHint(homeNav.tabBarItem, @"测试 RHSocketKit 含有的功能");
+    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:home];
+    homeNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Home" image:nil tag:0];
     
     // about
     RHAboutViewController *about = [[RHAboutViewController alloc] init];
-    QMUINavigationController *aboutNav = [[QMUINavigationController alloc] initWithRootViewController:about];
-    aboutNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"About" image:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
-    aboutNav.tabBarItem.selectedImage = UIImageMake(@"icon_tabbar_component_selected");
-    AddAccessibilityHint(aboutNav.tabBarItem, @"和 RHSocketKit 相关的介绍");
+    UINavigationController *aboutNav = [[UINavigationController alloc] initWithRootViewController:about];
+    aboutNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"About" image:nil tag:0];
 
     // window root controller
     tabBarViewController.viewControllers = @[homeNav, aboutNav];
