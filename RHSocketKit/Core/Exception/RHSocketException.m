@@ -14,9 +14,11 @@ NSString *const kRHSocketException = @"kRHSocketException";
 
 + (void)raiseWithReason:(NSString *)reason
 {
+#ifdef RHSocketDebug
     NSString *name = kRHSocketException;
     NSException *exception = [NSException exceptionWithName:name reason:reason userInfo:nil];
     [exception raise];
+#endif
 }
 
 @end
