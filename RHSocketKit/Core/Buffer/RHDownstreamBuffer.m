@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         _dataBuffer = [[NSMutableData alloc] init];
+        _maxBufferSize = 8192;
     }
     return self;
 }

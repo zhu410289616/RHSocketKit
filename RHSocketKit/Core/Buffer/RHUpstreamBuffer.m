@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         _packetBuffer = [[NSMutableArray alloc] init];
+        _maxPacketSize = 30;
     }
     return self;
 }
