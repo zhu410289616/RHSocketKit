@@ -12,6 +12,9 @@
 #import <RHSocketKit/RHSocketStringDecoder.h>
 #import <RHSocketKit/RHSocketStringEncoder.h>
 
+//util
+#import <RHSocketKit/RHSocketByteBuf.h>
+
 //buffer
 #import "RHReceivePacketCache.h"
 #import "RHSendPacketCache.h"
@@ -119,8 +122,8 @@
     [self.channelService startWithConfig:^(RHChannelConfig *config) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         config.connectParam = strongSelf.connectParam;
-        config.readInterceptor = [[RHDataInterceptor alloc] init];
-        config.writeInterceptor = [[RHDataInterceptor alloc] init];
+        config.readInterceptor = [[RHDataToFileInterceptor alloc] initWithFileName:@"read"];
+        config.writeInterceptor = [[RHDataToFileInterceptor alloc] initWithFileName:@"write"];
         config.downstreamBuffer = [[RHReceivePacketCache alloc] init];
         config.upstreamBuffer = [[RHSendPacketCache alloc] init];
         config.encoder = strongSelf.encoder;
@@ -174,13 +177,17 @@
         {
             //上面都是一条一条发送的，编码器会自动加上分隔符。服务端返回也是一条一条的。不太容易出现3条一起返回的。
             //这里我们模拟一个几条数据组装在一起返回的。
-            NSMutableData *someData = [[NSMutableData alloc] init];
-            [someData appendData:[@"第1块数据" dataUsingEncoding:NSUTF8StringEncoding]];
-            [someData appendData:[RHSocketUtils dataFromHexString:@"0d0a"]];//手动加入分隔符，模拟几条数据一起的数据块
-            [someData appendData:[@"第2块数据" dataUsingEncoding:NSUTF8StringEncoding]];
-            [someData appendData:[RHSocketUtils dataFromHexString:@"0d0a"]];//手动加入分隔符，模拟几条数据一起的数据块
-            [someData appendData:[@"第3块数据" dataUsingEncoding:NSUTF8StringEncoding]];
-            req.object = someData;
+            RHSocketByteBuf *byteBuffer = [[RHSocketByteBuf alloc] init];
+            [byteBuffer writeInt16:234];
+            [byteBuffer writeInt16:234 endianSwap:YES];
+            [byteBuffer writeString:@"第1块数据"];
+            //手动加入分隔符，模拟几条数据一起的数据块
+            [byteBuffer writeData:[RHSocketUtils dataFromHexString:@"0d0a"]];
+            [byteBuffer writeString:@"第2块数据"];
+            //手动加入分隔符，模拟几条数据一起的数据块
+            [byteBuffer writeData:[RHSocketUtils dataFromHexString:@"0d0a"]];
+            [byteBuffer writeString:@"第3块数据"];
+            req.object = [byteBuffer data];
         }
             break;
             

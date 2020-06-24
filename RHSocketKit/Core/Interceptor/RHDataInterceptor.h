@@ -12,7 +12,15 @@
 
 @interface RHDataInterceptor : NSObject <RHSocketInterceptorProtocol>
 
-@property (nonatomic, strong) id<RHSocketInterceptorProtocol> nextInterceptor;
+@end
+
+@interface RHDataToFileInterceptor : NSObject <RHSocketInterceptorProtocol>
+
+@property (nonatomic, strong) NSString *filePath;
+
+- (instancetype)initWithFileName:(NSString *)fileName;
+- (instancetype)initWithFilePath:(NSString *)filePath;
+
 
 @end
 
