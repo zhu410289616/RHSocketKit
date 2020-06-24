@@ -55,14 +55,32 @@
     [_buffer appendBytes:&param length:2];
 }
 
+- (void)writeInt16:(int16_t)param endianSwap:(BOOL)swap
+{
+    param = swap ? CFSwapInt16(param) : param;
+    [_buffer appendBytes:&param length:2];
+}
+
 - (void)writeInt32:(int32_t)param
 {
+    [_buffer appendBytes:&param length:4];
+}
+
+- (void)writeInt32:(int32_t)param endianSwap:(BOOL)swap
+{
+    param = swap ? CFSwapInt32(param) : param;
     [_buffer appendBytes:&param length:4];
 }
 
 - (void)writeInt64:(int64_t)param
 {
     [_buffer appendBytes:&param length:8];
+}
+
+- (void)writeInt64:(int64_t)param endianSwap:(BOOL)swap
+{
+    param = swap ? CFSwapInt64(param) : param;
+    [_buffer appendBytes:&param length:4];
 }
 
 - (int8_t)readInt8:(NSUInteger)index
@@ -83,6 +101,12 @@
     return val;
 }
 
+- (int16_t)readInt16:(NSUInteger)index endianSwap:(BOOL)swap
+{
+    int16_t result = [self readInt16:index];
+    return swap ? CFSwapInt16(result) : result;
+}
+
 - (int32_t)readInt32:(NSUInteger)index
 {
     NSAssert(index + 4 <= _buffer.length, @"index > _buffer.length");
@@ -92,6 +116,12 @@
     return val;
 }
 
+- (int32_t)readInt32:(NSUInteger)index endianSwap:(BOOL)swap
+{
+    int32_t result = [self readInt32:index];
+    return swap ? CFSwapInt32(result) : result;
+}
+
 - (int64_t)readInt64:(NSUInteger)index
 {
     NSAssert(index + 8 <= _buffer.length, @"index > _buffer.length");
@@ -99,6 +129,12 @@
     int64_t val = 0;
     [_buffer getBytes:&val range:NSMakeRange(index, 8)];
     return val;
+}
+
+- (int64_t)readInt64:(NSUInteger)index endianSwap:(BOOL)swap
+{
+    int64_t result = [self readInt64:index];
+    return swap ? CFSwapInt64(result) : result;
 }
 
 @end

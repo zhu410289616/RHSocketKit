@@ -23,13 +23,19 @@
 
 - (void)writeInt8:(int8_t)param;
 - (void)writeInt16:(int16_t)param;
+- (void)writeInt16:(int16_t)param endianSwap:(BOOL)swap;
 - (void)writeInt32:(int32_t)param;
+- (void)writeInt32:(int32_t)param endianSwap:(BOOL)swap;
 - (void)writeInt64:(int64_t)param;
+- (void)writeInt64:(int64_t)param endianSwap:(BOOL)swap;
 
 - (int8_t)readInt8:(NSUInteger)index;
 - (int16_t)readInt16:(NSUInteger)index;
+- (int16_t)readInt16:(NSUInteger)index endianSwap:(BOOL)swap;
 - (int32_t)readInt32:(NSUInteger)index;
+- (int32_t)readInt32:(NSUInteger)index endianSwap:(BOOL)swap;
 - (int64_t)readInt64:(NSUInteger)index;
+- (int64_t)readInt64:(NSUInteger)index endianSwap:(BOOL)swap;
 
 @end
 
