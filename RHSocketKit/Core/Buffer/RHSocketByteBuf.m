@@ -80,7 +80,37 @@
 - (void)writeInt64:(int64_t)param endianSwap:(BOOL)swap
 {
     param = swap ? CFSwapInt64(param) : param;
+    [_buffer appendBytes:&param length:8];
+}
+
+- (void)writeFloat:(Float32)param
+{
     [_buffer appendBytes:&param length:4];
+}
+
+- (void)writeFloat:(Float32)param endianSwap:(BOOL)swap
+{
+    if (swap) {
+        NSSwappedFloat bigEndian = NSSwapHostFloatToBig(param);
+        [_buffer appendBytes:&bigEndian length:4];
+    } else {
+        [_buffer appendBytes:&param length:4];
+    }
+}
+
+- (void)writeDouble:(Float64)param
+{
+    [_buffer appendBytes:&param length:8];
+}
+
+- (void)writeDouble:(Float64)param endianSwap:(BOOL)swap
+{
+    if (swap) {
+        NSSwappedDouble bigEndian = NSSwapHostDoubleToBig(param);
+        [_buffer appendBytes:&bigEndian length:8];
+    } else {
+        [_buffer appendBytes:&param length:8];
+    }
 }
 
 - (int8_t)readInt8:(NSUInteger)index
@@ -135,6 +165,48 @@
 {
     int64_t result = [self readInt64:index];
     return swap ? CFSwapInt64(result) : result;
+}
+
+- (Float32)readFloat:(NSUInteger)index
+{
+    NSAssert(index + 4 <= _buffer.length, @"index > _buffer.length");
+    
+    Float32 val = 0;
+    [_buffer getBytes:&val range:NSMakeRange(index, 4)];
+    return val;
+}
+
+- (Float32)readFloat:(NSUInteger)index endianSwap:(BOOL)swap
+{
+    if (swap) {
+        NSData *val = [self readData:index length:4];
+        NSSwappedFloat bigEndian;
+        memcpy(&bigEndian, val.bytes, 4);
+        return NSSwapBigFloatToHost(bigEndian);
+    } else {
+        return [self readFloat:index];
+    }
+}
+
+- (Float64)readDouble:(NSUInteger)index
+{
+    NSAssert(index + 8 <= _buffer.length, @"index > _buffer.length");
+    
+    Float64 val = 0;
+    [_buffer getBytes:&val range:NSMakeRange(index, 8)];
+    return val;
+}
+
+- (Float64)readDouble:(NSUInteger)index endianSwap:(BOOL)swap
+{
+    if (swap) {
+        NSData *val = [self readData:index length:8];
+        NSSwappedDouble bigEndian;
+        memcpy(&bigEndian, val.bytes, 8);
+        return NSSwapBigDoubleToHost(bigEndian);
+    } else {
+        return [self readDouble:index];
+    }
 }
 
 @end

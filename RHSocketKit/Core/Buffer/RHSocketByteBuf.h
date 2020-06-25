@@ -29,6 +29,12 @@
 - (void)writeInt64:(int64_t)param;
 - (void)writeInt64:(int64_t)param endianSwap:(BOOL)swap;
 
+- (void)writeFloat:(Float32)param;
+- (void)writeFloat:(Float32)param endianSwap:(BOOL)swap;
+
+- (void)writeDouble:(Float64)param;
+- (void)writeDouble:(Float64)param endianSwap:(BOOL)swap;
+
 - (int8_t)readInt8:(NSUInteger)index;
 - (int16_t)readInt16:(NSUInteger)index;
 - (int16_t)readInt16:(NSUInteger)index endianSwap:(BOOL)swap;
@@ -36,6 +42,12 @@
 - (int32_t)readInt32:(NSUInteger)index endianSwap:(BOOL)swap;
 - (int64_t)readInt64:(NSUInteger)index;
 - (int64_t)readInt64:(NSUInteger)index endianSwap:(BOOL)swap;
+
+- (Float32)readFloat:(NSUInteger)index;
+- (Float32)readFloat:(NSUInteger)index endianSwap:(BOOL)swap;
+
+- (Float64)readDouble:(NSUInteger)index;
+- (Float64)readDouble:(NSUInteger)index endianSwap:(BOOL)swap;
 
 @end
 
