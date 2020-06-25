@@ -43,7 +43,28 @@
 
 @end
 
-@implementation RHSocketByteBuf (NSInteger)
+@implementation RHSocketByteBuf (NSData)
+
+- (void)writeData:(NSData *)param
+{
+    if (param.length == 0) {
+        return;
+    }
+    [_buffer appendData:param];
+}
+
+- (NSData *)readData:(NSUInteger)index length:(NSUInteger)length
+{
+    NSAssert(index + length <= _buffer.length, @"index > _buffer.length");
+    
+    NSRange range = NSMakeRange(index, length);
+    NSData *temp = [_buffer subdataWithRange:range];
+    return temp;
+}
+
+@end
+
+@implementation RHSocketByteBuf (NSNumber)
 
 - (void)writeInt8:(int8_t)param
 {
@@ -83,12 +104,12 @@
     [_buffer appendBytes:&param length:8];
 }
 
-- (void)writeFloat:(Float32)param
+- (void)writeFloat32:(Float32)param
 {
     [_buffer appendBytes:&param length:4];
 }
 
-- (void)writeFloat:(Float32)param endianSwap:(BOOL)swap
+- (void)writeFloat32:(Float32)param endianSwap:(BOOL)swap
 {
     if (swap) {
         NSSwappedFloat bigEndian = NSSwapHostFloatToBig(param);
@@ -98,12 +119,12 @@
     }
 }
 
-- (void)writeDouble:(Float64)param
+- (void)writeDouble64:(Float64)param
 {
     [_buffer appendBytes:&param length:8];
 }
 
-- (void)writeDouble:(Float64)param endianSwap:(BOOL)swap
+- (void)writeDouble64:(Float64)param endianSwap:(BOOL)swap
 {
     if (swap) {
         NSSwappedDouble bigEndian = NSSwapHostDoubleToBig(param);
@@ -167,7 +188,7 @@
     return swap ? CFSwapInt64(result) : result;
 }
 
-- (Float32)readFloat:(NSUInteger)index
+- (Float32)readFloat32:(NSUInteger)index
 {
     NSAssert(index + 4 <= _buffer.length, @"index > _buffer.length");
     
@@ -176,7 +197,7 @@
     return val;
 }
 
-- (Float32)readFloat:(NSUInteger)index endianSwap:(BOOL)swap
+- (Float32)readFloat32:(NSUInteger)index endianSwap:(BOOL)swap
 {
     if (swap) {
         NSData *val = [self readData:index length:4];
@@ -184,11 +205,11 @@
         memcpy(&bigEndian, val.bytes, 4);
         return NSSwapBigFloatToHost(bigEndian);
     } else {
-        return [self readFloat:index];
+        return [self readFloat32:index];
     }
 }
 
-- (Float64)readDouble:(NSUInteger)index
+- (Float64)readDouble64:(NSUInteger)index
 {
     NSAssert(index + 8 <= _buffer.length, @"index > _buffer.length");
     
@@ -197,7 +218,7 @@
     return val;
 }
 
-- (Float64)readDouble:(NSUInteger)index endianSwap:(BOOL)swap
+- (Float64)readDouble64:(NSUInteger)index endianSwap:(BOOL)swap
 {
     if (swap) {
         NSData *val = [self readData:index length:8];
@@ -205,29 +226,8 @@
         memcpy(&bigEndian, val.bytes, 8);
         return NSSwapBigDoubleToHost(bigEndian);
     } else {
-        return [self readDouble:index];
+        return [self readDouble64:index];
     }
-}
-
-@end
-
-@implementation RHSocketByteBuf (NSData)
-
-- (void)writeData:(NSData *)param
-{
-    if (param.length == 0) {
-        return;
-    }
-    [_buffer appendData:param];
-}
-
-- (NSData *)readData:(NSUInteger)index length:(NSUInteger)length
-{
-    NSAssert(index + length <= _buffer.length, @"index > _buffer.length");
-    
-    NSRange range = NSMakeRange(index, length);
-    NSData *temp = [_buffer subdataWithRange:range];
-    return temp;
 }
 
 @end

@@ -19,7 +19,15 @@
 
 @end
 
-@interface RHSocketByteBuf (NSInteger)
+@interface RHSocketByteBuf (NSData)
+
+- (void)writeData:(NSData *)param;
+
+- (NSData *)readData:(NSUInteger)index length:(NSUInteger)length;
+
+@end
+
+@interface RHSocketByteBuf (NSNumber)
 
 - (void)writeInt8:(int8_t)param;
 - (void)writeInt16:(int16_t)param;
@@ -29,11 +37,11 @@
 - (void)writeInt64:(int64_t)param;
 - (void)writeInt64:(int64_t)param endianSwap:(BOOL)swap;
 
-- (void)writeFloat:(Float32)param;
-- (void)writeFloat:(Float32)param endianSwap:(BOOL)swap;
+- (void)writeFloat32:(Float32)param;
+- (void)writeFloat32:(Float32)param endianSwap:(BOOL)swap;
 
-- (void)writeDouble:(Float64)param;
-- (void)writeDouble:(Float64)param endianSwap:(BOOL)swap;
+- (void)writeDouble64:(Float64)param;
+- (void)writeDouble64:(Float64)param endianSwap:(BOOL)swap;
 
 - (int8_t)readInt8:(NSUInteger)index;
 - (int16_t)readInt16:(NSUInteger)index;
@@ -43,19 +51,11 @@
 - (int64_t)readInt64:(NSUInteger)index;
 - (int64_t)readInt64:(NSUInteger)index endianSwap:(BOOL)swap;
 
-- (Float32)readFloat:(NSUInteger)index;
-- (Float32)readFloat:(NSUInteger)index endianSwap:(BOOL)swap;
+- (Float32)readFloat32:(NSUInteger)index;
+- (Float32)readFloat32:(NSUInteger)index endianSwap:(BOOL)swap;
 
-- (Float64)readDouble:(NSUInteger)index;
-- (Float64)readDouble:(NSUInteger)index endianSwap:(BOOL)swap;
-
-@end
-
-@interface RHSocketByteBuf (NSData)
-
-- (void)writeData:(NSData *)param;
-
-- (NSData *)readData:(NSUInteger)index length:(NSUInteger)length;
+- (Float64)readDouble64:(NSUInteger)index;
+- (Float64)readDouble64:(NSUInteger)index endianSwap:(BOOL)swap;
 
 @end
 
