@@ -104,12 +104,12 @@
     [_buffer appendBytes:&param length:8];
 }
 
-- (void)writeFloat32:(Float32)param
+- (void)writeFloat32:(float)param
 {
     [_buffer appendBytes:&param length:4];
 }
 
-- (void)writeFloat32:(Float32)param endianSwap:(BOOL)swap
+- (void)writeFloat32:(float)param endianSwap:(BOOL)swap
 {
     if (swap) {
         NSSwappedFloat bigEndian = NSSwapHostFloatToBig(param);
@@ -119,12 +119,12 @@
     }
 }
 
-- (void)writeDouble64:(Float64)param
+- (void)writeDouble64:(double)param
 {
     [_buffer appendBytes:&param length:8];
 }
 
-- (void)writeDouble64:(Float64)param endianSwap:(BOOL)swap
+- (void)writeDouble64:(double)param endianSwap:(BOOL)swap
 {
     if (swap) {
         NSSwappedDouble bigEndian = NSSwapHostDoubleToBig(param);
@@ -188,16 +188,16 @@
     return swap ? CFSwapInt64(result) : result;
 }
 
-- (Float32)readFloat32:(NSUInteger)index
+- (float)readFloat32:(NSUInteger)index
 {
     NSAssert(index + 4 <= _buffer.length, @"index > _buffer.length");
     
-    Float32 val = 0;
+    float val = 0;
     [_buffer getBytes:&val range:NSMakeRange(index, 4)];
     return val;
 }
 
-- (Float32)readFloat32:(NSUInteger)index endianSwap:(BOOL)swap
+- (float)readFloat32:(NSUInteger)index endianSwap:(BOOL)swap
 {
     if (swap) {
         NSData *val = [self readData:index length:4];
@@ -209,16 +209,16 @@
     }
 }
 
-- (Float64)readDouble64:(NSUInteger)index
+- (double)readDouble64:(NSUInteger)index
 {
     NSAssert(index + 8 <= _buffer.length, @"index > _buffer.length");
     
-    Float64 val = 0;
+    double val = 0;
     [_buffer getBytes:&val range:NSMakeRange(index, 8)];
     return val;
 }
 
-- (Float64)readDouble64:(NSUInteger)index endianSwap:(BOOL)swap
+- (double)readDouble64:(NSUInteger)index endianSwap:(BOOL)swap
 {
     if (swap) {
         NSData *val = [self readData:index length:8];

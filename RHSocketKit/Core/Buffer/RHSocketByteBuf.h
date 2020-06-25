@@ -37,11 +37,11 @@
 - (void)writeInt64:(int64_t)param;
 - (void)writeInt64:(int64_t)param endianSwap:(BOOL)swap;
 
-- (void)writeFloat32:(Float32)param;
-- (void)writeFloat32:(Float32)param endianSwap:(BOOL)swap;
+- (void)writeFloat32:(float)param;
+- (void)writeFloat32:(float)param endianSwap:(BOOL)swap;
 
-- (void)writeDouble64:(Float64)param;
-- (void)writeDouble64:(Float64)param endianSwap:(BOOL)swap;
+- (void)writeDouble64:(double)param;
+- (void)writeDouble64:(double)param endianSwap:(BOOL)swap;
 
 - (int8_t)readInt8:(NSUInteger)index;
 - (int16_t)readInt16:(NSUInteger)index;
@@ -51,11 +51,11 @@
 - (int64_t)readInt64:(NSUInteger)index;
 - (int64_t)readInt64:(NSUInteger)index endianSwap:(BOOL)swap;
 
-- (Float32)readFloat32:(NSUInteger)index;
-- (Float32)readFloat32:(NSUInteger)index endianSwap:(BOOL)swap;
+- (float)readFloat32:(NSUInteger)index;
+- (float)readFloat32:(NSUInteger)index endianSwap:(BOOL)swap;
 
-- (Float64)readDouble64:(NSUInteger)index;
-- (Float64)readDouble64:(NSUInteger)index endianSwap:(BOOL)swap;
+- (double)readDouble64:(NSUInteger)index;
+- (double)readDouble64:(NSUInteger)index endianSwap:(BOOL)swap;
 
 @end
 
