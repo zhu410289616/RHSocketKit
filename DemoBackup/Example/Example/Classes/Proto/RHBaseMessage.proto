@@ -1,9 +1,0 @@
-//option java_package = "com.zrh.socket.core.codec.proto";
-//option java_outer_classname = "BaseProtocol";
-option optimize_for = LITE_RUNTIME;
-
-message RHBaseMessage {
-    optional int32 protobuf_type = 1;
-    required string protobuf_class_name = 2;
-    required bytes protobuf_data = 3;
-}
